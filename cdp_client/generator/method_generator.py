@@ -13,7 +13,10 @@ class MethodGenerator:
         self.generated_methods.clear()
         self.type_checking_imports.clear()
 
-    def generate_methods(self,domain:dict):
+    def generate_method_services(self,domain:dict):
+        pass
+
+    def generate_method_types(self,domain:dict):
         self.current_domain=domain.get('domain')
         methods=domain.get('commands',[])
 

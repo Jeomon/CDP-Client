@@ -13,7 +13,10 @@ class EventGenerator:
         self.generated_events.clear()
         self.type_checking_imports.clear()
 
-    def generate_events(self,domain:dict):
+    def generate_event_services(self,domain:dict):
+        pass
+
+    def generate_event_types(self,domain:dict):
         self.current_domain=domain.get('domain')
         events=domain.get('events',[])
 
