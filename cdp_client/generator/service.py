@@ -26,11 +26,11 @@ class CDPGenerator:
         
         types_content=self.type_generator.generate_types(domain)
         # events_content=self.event_generator.generate_events(domain)
-        # methods_content=self.method_generator.generate_methods(domain)
+        methods_content=self.method_generator.generate_methods(domain)
 
         self.write_file(domain_dir / "types.py",types_content)
         # self.write_file(domain_dir / "events.py",events_content)
-        # self.write_file(domain_dir / "methods.py",methods_content)
+        self.write_file(domain_dir / "methods.py",methods_content)
 
     def write_file(self,path:Path,content:str):
         path.write_text(content)

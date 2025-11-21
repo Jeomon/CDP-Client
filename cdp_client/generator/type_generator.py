@@ -199,7 +199,7 @@ class TypeGenerator:
                 items=property.get('items',{})
                 return f"List[{self.resolve_type_reference(items) if '$ref' in items else self.map_primitive_type(items.get('type'))}]"
             case 'string':
-                if property.get('enum'):
+                if 'enum' in property:
                     return f"Literal[{', '.join(f'"{v}"' for v in property.get('enum'))}]"
                 else:
                     return "str"
