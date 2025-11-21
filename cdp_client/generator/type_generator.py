@@ -75,7 +75,7 @@ class TypeGenerator:
         template_str = '''
             {{ type_name }} = List[{{ items['type'] }}]
             {% if description %}
-            """{{ description | replace('\n', ' ') | replace('`', '"') }}"""
+            """{{ description | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
         '''
         
@@ -96,7 +96,7 @@ class TypeGenerator:
         template_str = '''
             {{ type_name }} = {{ type_type }}
             {% if description %}
-            """{{ description | replace('\n', ' ') | replace('`', '"') }}"""
+            """{{ description | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
         '''
 
@@ -153,7 +153,7 @@ class TypeGenerator:
 
         template_str = '''
             class {{ type_name }}(TypedDict, total={{ total }}):
-                """{{ type_description | replace('\n', ' ') | replace('`', '"') }}"""
+                """{{ type_description | replace('\n', ' ') | replace('`', '') }}"""
                 {% if not required_properties and not optional_properties %}
                 pass
                 {% else %}
@@ -161,7 +161,7 @@ class TypeGenerator:
                 {% for property in required_properties %}
                 {{ property['name'] }}: {{ property['type'] }}
                 {% if property.get('description') %}
-                """{{ property['description'] | replace('\n', ' ') | replace('`', '"') }}"""
+                """{{ property['description'] | replace('\n', ' ') | replace('`', '') }}"""
                 {% endif %}
                 {% endfor %}
                 {% endif %}
@@ -169,7 +169,7 @@ class TypeGenerator:
                 {% for property in optional_properties %}
                 {{ property['name'] }}: NotRequired[{{ property['type'] }}]
                 {% if property.get('description') %}
-                """{{ property['description'] | replace('\n', ' ') | replace('`', '"') }}"""
+                """{{ property['description'] | replace('\n', ' ') | replace('`', '') }}"""
                 {% endif %}
                 {% endfor %}
                 {% endif %}
@@ -198,8 +198,13 @@ class TypeGenerator:
             case 'array':
                 items=property.get('items',{})
                 return f"List[{self.resolve_type_reference(items) if '$ref' in items else self.map_primitive_type(items.get('type'))}]"
+            case 'string':
+                if property.get('enum'):
+                    return f"Literal[{', '.join(f'"{v}"' for v in property.get('enum'))}]"
+                else:
+                    return "str"
             case _:
-                return property_type
+                return self.map_primitive_type(property_type)
         
     def resolve_type_reference(self, type_ref:dict):
         ref = type_ref.get('$ref')
