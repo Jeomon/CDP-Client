@@ -22,6 +22,13 @@ class CDPGenerator:
         for domain in self.protocol['domains']:
             domain_dir = self.output_dir / domain['domain'].lower()
             domain_dir.mkdir(exist_ok=True,parents=True)
+
+            events_dir = self.output_dir / domain['domain'].lower()/"events"
+            events_dir.mkdir(exist_ok=True,parents=True)
+
+            methods_dir = self.output_dir / domain['domain'].lower()/"methods"
+            methods_dir.mkdir(exist_ok=True,parents=True)
+            
             self.generate_domain_types(domain)
             # self.generate_domain_service(domain)
 
@@ -42,8 +49,8 @@ class CDPGenerator:
 
         self.write_file(domain_dir / "types.py",types_content)
         self.write_file(domain_dir / "__init__.py",inits_content)
-        self.write_file(domain_dir / "events" / "types.py",events_types_content)
-        self.write_file(domain_dir / "methods" / "types.py",methods_types_content)
+        self.write_file(domain_dir / "events" / "types.py",event_types_content)
+        self.write_file(domain_dir / "methods" / "types.py",method_types_content)
 
     def generate_inits(self,domain:dict):
         template_str=dedent('''
