@@ -73,17 +73,17 @@ class TypeGenerator:
         items = type_definition.get('items', {})
 
         template_str = '''
-            {{ type_name }} = List[{{ items['type'] }}]
+            {{ type_name }} = List[{{ type_type }}]
             {% if description %}
-            """{{ description | replace('\n', ' ') | replace('`', '') }}"""
+            """{{ type_description | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
         '''
         
         template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
         code = template.render(
             type_name=type_name,
-            items=self.resolve_type_reference(items) if '$ref' in items else self.map_primitive_type(items.get('type')),
-            description=type_description,
+            type_type=self.resolve_type_reference(items) if '$ref' in items else self.map_primitive_type(items.get('type')),
+            type_description=type_description,
         )
         self.generated_types.add(type_name)
         return dedent(code)
@@ -95,8 +95,8 @@ class TypeGenerator:
 
         template_str = '''
             {{ type_name }} = {{ type_type }}
-            {% if description %}
-            """{{ description | replace('\n', ' ') | replace('`', '') }}"""
+            {% if type_description %}
+            """{{ type_description | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
         '''
 
@@ -104,7 +104,7 @@ class TypeGenerator:
         code = template.render(
             type_name=type_name,
             type_type=self.map_primitive_type(type_type),
-            description=type_description,
+            type_description=type_description,
         )
         self.generated_types.add(type_name)
         return dedent(code)
@@ -116,8 +116,8 @@ class TypeGenerator:
         
         template_str = '''
         {{ type_name }} = Literal[{{ enum_values }}]
-        {% if description %}
-        """{{ description | replace('\n', ' ') }}"""
+        {% if type_description %}
+        """{{ type_description | replace('\n', ' ') }}"""
         {% endif %}
         '''
 
@@ -125,7 +125,7 @@ class TypeGenerator:
         code = template.render(
             type_name=type_name,
             enum_values=",".join(f"'{v}'" for v in enum_values),
-            description=type_description,
+            type_description=type_description,
         )
         self.generated_types.add(type_name)
         return dedent(code)
@@ -161,7 +161,7 @@ class TypeGenerator:
                 {% for property in required_properties %}
                 {{ property['name'] }}: {{ property['type'] }}
                 {% if property.get('description') %}
-                """{{ property['description'] | replace('\n', ' ') | replace('`', '') }}"""
+                """{{ property['description'] | replace('\n', ' ') | replace('\"', '') | replace('`','') }}"""
                 {% endif %}
                 {% endfor %}
                 {% endif %}

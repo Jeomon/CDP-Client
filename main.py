@@ -1,6 +1,3 @@
-def main():
-    print("Hello from cdp-client!")
-
-
-if __name__ == "__main__":
-    main()
+from cdp_client.generator.service import CDPGenerator
+cdp_generator = CDPGenerator()
+cdp_generator.generate()
