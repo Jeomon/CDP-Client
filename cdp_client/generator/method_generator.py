@@ -83,12 +83,17 @@ class MethodGenerator:
 
         template_str = dedent('''
         class {{ method_name }}Parameters(TypedDict, total={{ total }}):
+            {% if not required_parameters and not optional_parameters %}
+            pass
+            {% else %}
+            {% if required_parameters %}
             {% for parameter in required_parameters %}
             {{ parameter['name'] }}: {{ parameter['type'] }}
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
             {% endfor %}
+            {% endif %}
             {% if optional_parameters %}
             {% for parameter in optional_parameters %}
             {{ parameter['name'] }}: NotRequired[{{ parameter['type'] }}]
@@ -96,6 +101,7 @@ class MethodGenerator:
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
             {% endfor %}
+            {% endif %}
             {% endif %}
         ''')
         
@@ -120,12 +126,16 @@ class MethodGenerator:
 
         template_str = dedent('''
         class {{ method_name }}Returns(TypedDict):
+            {% if not return_parameters %}
+            pass
+            {% else %}
             {% for return_parameter in return_parameters %}
             {{ return_parameter['name'] }}: {{ return_parameter['type'] }}
             {% if return_parameter['description'] %}
             """{{ return_parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
             {% endfor %}
+            {% endif %}
         ''')
 
         template=Template(template_str,trim_blocks=True,lstrip_blocks=True)
@@ -135,8 +145,7 @@ class MethodGenerator:
         )
         self.generated_methods.add(method_name)
         return dedent(code)
-
-
+        
     def resolve_parameter_type(self, parameter:dict):
         if "$ref" in parameter:
             return self.resolve_type_reference(parameter)
