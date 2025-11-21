@@ -20,15 +20,6 @@ class CDPGenerator:
     
     def generate(self):
         for domain in self.protocol['domains']:
-            domain_dir = self.output_dir / domain['domain'].lower()
-            domain_dir.mkdir(exist_ok=True,parents=True)
-
-            events_dir = self.output_dir / domain['domain'].lower()/"events"
-            events_dir.mkdir(exist_ok=True,parents=True)
-
-            methods_dir = self.output_dir / domain['domain'].lower()/"methods"
-            methods_dir.mkdir(exist_ok=True,parents=True)
-            
             self.generate_domain_types(domain)
             # self.generate_domain_service(domain)
 
@@ -65,4 +56,6 @@ class CDPGenerator:
         return dedent(code)
 
     def write_file(self,path:Path,content:str):
+        dir=path.parent
+        dir.mkdir(exist_ok=True,parents=True)
         path.write_text(content)
