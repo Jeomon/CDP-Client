@@ -21,7 +21,7 @@ class CDPGenerator:
     def generate(self):
         for domain in self.protocol['domains']:
             self.generate_domain_types(domain)
-            # self.generate_domain_service(domain)
+            self.generate_domain_service(domain)
 
     def generate_domain_service(self,domain:dict):
         domain_dir = self.output_dir / domain['domain'].lower()

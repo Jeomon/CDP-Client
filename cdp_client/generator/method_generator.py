@@ -14,7 +14,55 @@ class MethodGenerator:
         self.type_checking_imports.clear()
 
     def generate_method_services(self,domain:dict):
-        pass
+        self.current_domain=domain.get('domain')
+        methods=domain.get('commands',[])
+
+        method_implementations = [self.generate_method_implementation(method) for method in methods]
+
+        template_str = dedent('''
+            """CDP {{ domain_name }} Methods"""
+
+            from cdp_client.methods import CDPMethods
+            from typing import TypedDict,Optional
+            from .types import *
+
+            class {{ domain_name }}Methods:
+                {% if method_implementations | length > 0 %}
+                def __init__(self, methods:CDPMethods):
+                    self.methods = methods
+                {% for implementation in method_implementations %}
+                {{ implementation | indent(4) }}
+                {% endfor %}
+                {% else %}
+                pass
+                {% endif %}
+        ''')
+
+        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        code = template.render(
+            domain_name=self.current_domain,
+            method_implementations=method_implementations,
+        )
+        return code
+
+    def generate_method_implementation(self,method:dict):
+        method_name=method.get('name')
+        parameters=method.get('parameters',[])
+        return_parameters=method.get('returns',[])
+
+        template_str = dedent('''
+        async def {{ method_name }}(self, params: {% if parameters|length > 0 %}Optional[{{ method_name }}Parameters]{% else %}None{% endif %}=None) -> {% if return_parameters|length > 0 %}{{ method_name }}Returns{% else %}Dict[str, Any]{% endif %}:
+            return await self.methods._send(method="{{ domain_name }}.{{ method_name }}", params=params)
+        ''')
+
+        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        code = template.render(
+            domain_name=self.current_domain,
+            method_name=method_name,
+            parameters=parameters,
+            return_parameters=return_parameters,
+        )
+        return code
 
     def generate_method_types(self,domain:dict):
         self.current_domain=domain.get('domain')
@@ -31,7 +79,7 @@ class MethodGenerator:
         return_definitions_code=[self.generate_return_definition(method) for method in methods]
 
         template_str = dedent('''
-            """CDP {{ current_domain }} Methods"""
+            """CDP {{ domain_name }} Methods Types"""
 
             {% for import_ in imports %}
             {{ import_ }}
@@ -55,7 +103,7 @@ class MethodGenerator:
 
         template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
         code = template.render(
-            current_domain=self.current_domain,
+            domain_name=self.current_domain,
             parameter_definitions_code=parameter_definitions_code,
             return_definitions_code=return_definitions_code,
             imports=sorted(filter(lambda x: not x.startswith(f'from ..{self.current_domain}.types import'),self.imports)),

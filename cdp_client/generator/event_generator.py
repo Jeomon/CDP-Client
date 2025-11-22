@@ -14,7 +14,51 @@ class EventGenerator:
         self.type_checking_imports.clear()
 
     def generate_event_services(self,domain:dict):
-        pass
+        self.current_domain=domain.get('domain')
+        events=domain.get('events',[])
+
+        event_implementations=[self.generate_event_implementation(event) for event in events]
+        
+        template_str = dedent('''
+            """CDP {{ domain_name }} Events"""
+
+            from cdp_client.events import CDPEvents
+            from typing import TypedDict, Optional, Callable
+            from .types import *
+
+            class {{ domain_name }}Events:
+                {% if event_implementations | length > 0 %}
+                def __init__(self,events:CDPEvents):
+                    self.events=events
+                {% for implementation in event_implementations %}
+                {{ implementation | indent(4) }}
+                {% endfor %}
+                {% else %}
+                pass
+                {% endif %}     
+        ''')
+
+        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        code = template.render(
+            domain_name=self.current_domain,
+            event_implementations=event_implementations,
+        )
+        return code
+
+    def generate_event_implementation(self,event:dict):
+        event_name=event.get('name')
+
+        template_str=dedent('''
+            def {{ event_name }}(self, callback: Callable['{{ event_name }}Event'| Optional['str']]=None) -> None:
+                self.events.on('{{ event_name }}', callback)
+            ''')
+        
+        template=Template(template_str,trim_blocks=True,lstrip_blocks=True)
+        code=template.render(
+            event_name=event_name
+        )
+        return dedent(code)
+
 
     def generate_event_types(self,domain:dict):
         self.current_domain=domain.get('domain')
@@ -30,7 +74,7 @@ class EventGenerator:
         event_definitions_code=[self.generate_event_definition(event) for event in events]
         
         template_str = dedent('''
-            """CDP {{ current_domain }} Events"""
+            """CDP {{ domain_name }} Events"""
 
             {% for import_ in imports %}
             {{ import_ }}
@@ -51,7 +95,7 @@ class EventGenerator:
 
         template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
         code = template.render(
-            current_domain=self.current_domain,
+            domain_name=self.current_domain,
             event_definitions_code=event_definitions_code,
             imports=sorted(filter(lambda x: not x.startswith(f'from ..{self.current_domain}.types import'),self.imports)),
             type_checking_imports=sorted(self.type_checking_imports),
