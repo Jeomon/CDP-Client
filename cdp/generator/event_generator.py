@@ -69,7 +69,6 @@ class EventGenerator:
         )
         return dedent(code)
 
-
     def generate_event_types(self,domain:dict):
         self.current_domain=domain.get('domain')
         events=domain.get('events',[])
