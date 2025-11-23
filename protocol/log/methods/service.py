@@ -1,0 +1,30 @@
+
+"""CDP Log Methods"""
+
+from cdp_client.methods import CDPMethods
+from typing import TypedDict,Optional
+from log.methods.types import *
+
+class LogMethods:
+    def __init__(self, methods:CDPMethods):
+        self.methods = methods
+
+    async def clear(self, params: None=None) -> Dict[str, Any]:
+        """Clears the log."""
+        return await self.methods.send(method="Log.clear", params=params)
+
+    async def disable(self, params: None=None) -> Dict[str, Any]:
+        """Disables log domain, prevents further log entries from being reported to the client."""
+        return await self.methods.send(method="Log.disable", params=params)
+
+    async def enable(self, params: None=None) -> Dict[str, Any]:
+        """Enables log domain, sends the entries collected so far to the client by means of the `entryAdded` notification."""
+        return await self.methods.send(method="Log.enable", params=params)
+
+    async def start_violations_report(self, params: Optional[startViolationsReportParameters]=None) -> Dict[str, Any]:
+        """start violation reporting."""
+        return await self.methods.send(method="Log.startViolationsReport", params=params)
+
+    async def stop_violations_report(self, params: None=None) -> Dict[str, Any]:
+        """Stop violation reporting."""
+        return await self.methods.send(method="Log.stopViolationsReport", params=params)
