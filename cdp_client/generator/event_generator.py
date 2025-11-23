@@ -23,7 +23,7 @@ class EventGenerator:
         events=domain.get('events',[])
 
         event_implementations=[self.generate_event_implementation(event) for event in events]
-        module=(self.path / self.current_domain.lower() / "events" / "types").as_posix().replace("/",".")
+        module=(self.path / inflection.underscore(self.current_domain) / "events" / "types").as_posix().replace("/",".")
 
         template_str = dedent('''
             """CDP {{ domain_name }} Events"""
@@ -83,7 +83,7 @@ class EventGenerator:
         for event in events:
             self.generated_events.add(event.get('name'))
 
-        event_definitions_code=[self.generate_event_definition(event) for event in events]
+        event_definitions_code=[self.generate_event_definition(event) for event in events if not event.get('deprecated',False)]
 
         template_str = dedent('''
             """CDP {{ domain_name }} Events"""
@@ -190,14 +190,15 @@ class EventGenerator:
         ref=type_ref.get('$ref')
         if '.' in ref:
             parts=ref.split('.')
-            domain=parts[0].lower()
+            domain=inflection.underscore(parts[0])
             type_name=parts[1]
             module=(self.path / domain / "types").as_posix().replace("/",".")
             # Imports from cross domain
             self.type_checking_imports.add(f"from {module} import {type_name}")
             return type_name
         else:
-            module=(self.path / self.current_domain.lower() / "types").as_posix().replace("/",".")
+            domain=inflection.underscore(self.current_domain)
+            module=(self.path / domain / "types").as_posix().replace("/",".")
             # Imports from same domain
             self.type_checking_imports.add(f"from {module} import {ref}")
             return ref

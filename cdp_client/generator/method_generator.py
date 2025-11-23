@@ -22,8 +22,8 @@ class MethodGenerator:
         self.current_domain=domain.get('domain')
         methods=domain.get('commands',[])
 
-        method_implementations = [self.generate_method_implementation(method) for method in methods]
-        module=(self.path / self.current_domain.lower() / "methods" / "types").as_posix().replace("/",".")
+        method_implementations = [self.generate_method_implementation(method) for method in methods if not method.get('deprecated',False)]
+        module=(self.path / inflection.underscore(self.current_domain) / "methods" / "types").as_posix().replace("/",".")
         template_str = dedent('''
             """CDP {{ domain_name }} Methods"""
 
@@ -85,8 +85,8 @@ class MethodGenerator:
         for method in methods:
             self.generated_methods.add(method.get('name'))
 
-        parameter_definitions_code=[self.generate_parameter_definition(method) for method in methods]
-        return_definitions_code=[self.generate_return_definition(method) for method in methods]
+        parameter_definitions_code=[self.generate_parameter_definition(method) for method in methods if not method.get('deprecated',False)]
+        return_definitions_code=[self.generate_return_definition(method) for method in methods if not method.get('deprecated',False)]
 
         template_str = dedent('''
             """CDP {{ domain_name }} Methods Types"""
@@ -230,15 +230,16 @@ class MethodGenerator:
         ref=type_ref.get('$ref')
         if '.' in ref:
             parts=ref.split('.')
-            domain=parts[0].lower()
+            domain=inflection.underscore(parts[0])
             type_name=parts[1]
             # Imports from cross domain
             module=(self.path / domain / "types").as_posix().replace("/",".")
             self.type_checking_imports.add(f"from {module} import {type_name}")
             return type_name
         else:
+            domain=inflection.underscore(self.current_domain)
             # Imports from same domain
-            module=(self.path / self.current_domain.lower() / "types").as_posix().replace("/",".")
+            module=(self.path / domain / "types").as_posix().replace("/",".")
             self.type_checking_imports.add(f"from {module} import {ref}")
             return ref
 

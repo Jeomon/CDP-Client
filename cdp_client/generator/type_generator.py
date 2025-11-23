@@ -1,6 +1,7 @@
 from jinja2 import Environment
 from textwrap import dedent
 from pathlib import Path
+import inflection
 
 class TypeGenerator:
     def __init__(self,path:Path):
@@ -143,6 +144,9 @@ class TypeGenerator:
 
         for property in properties:
             is_optional = property.get('optional', False)
+            is_deprecated = property.get('deprecated', False)
+            if is_deprecated:
+                continue
             property['type'] = self.resolve_property_type(property)
             if is_optional:
                 optional_properties.append(property)
@@ -213,7 +217,7 @@ class TypeGenerator:
         ref = type_ref.get('$ref')
         if '.' in ref:
             parts=ref.split('.')
-            domain=parts[0].lower()
+            domain=inflection.underscore(parts[0])
             type_name=parts[1]
             current_domain=self.current_domain.lower()
             module=(self.path / domain / "types").as_posix().replace("/",".")
@@ -221,7 +225,8 @@ class TypeGenerator:
                 self.type_checking_imports.add(f"from {module} import {type_name}")
             return type_name
         else:
-            module=(self.path / self.current_domain / "types").as_posix().replace("/",".")
+            domain=inflection.underscore(self.current_domain)
+            module=(self.path / domain / "types").as_posix().replace("/",".")
             if ref not in self.generated_types:
                 self.imports.add(f"from {module} import {ref}")
             return ref
