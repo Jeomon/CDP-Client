@@ -1,9 +1,14 @@
+from jinja2_strcase import StrcaseExtension
+from jinja2 import Environment
 from textwrap import dedent
-from jinja2 import Template
+from pathlib import Path
+import inflection
 
 class MethodGenerator:
-    def __init__(self):
+    def __init__(self,path:Path):
+        self.path = path
         self.current_domain:str=None
+        self.env=Environment(trim_blocks=True,lstrip_blocks=True,extensions=[StrcaseExtension])
         self.imports=set()
         self.generated_methods=set()
         self.type_checking_imports=set()
@@ -18,13 +23,13 @@ class MethodGenerator:
         methods=domain.get('commands',[])
 
         method_implementations = [self.generate_method_implementation(method) for method in methods]
-
+        module=(self.path / self.current_domain.lower() / "methods" / "types").as_posix().replace("/",".")
         template_str = dedent('''
             """CDP {{ domain_name }} Methods"""
 
             from cdp_client.methods import CDPMethods
             from typing import TypedDict,Optional
-            from .types import *
+            from {{ module }} import *
 
             class {{ domain_name }}Methods:
                 {% if method_implementations | length > 0 %}
@@ -38,31 +43,36 @@ class MethodGenerator:
                 {% endif %}
         ''')
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
+            module=module,
             domain_name=self.current_domain,
             method_implementations=method_implementations,
         )
-        return code
+        return dedent(code)
 
     def generate_method_implementation(self,method:dict):
-        method_name=method.get('name')
+        method_name=method.get('name')  
+        method_description=method.get('description','')
         parameters=method.get('parameters',[])
         return_parameters=method.get('returns',[])
-
         template_str = dedent('''
-        async def {{ method_name }}(self, params: {% if parameters|length > 0 %}Optional[{{ method_name }}Parameters]{% else %}None{% endif %}=None) -> {% if return_parameters|length > 0 %}{{ method_name }}Returns{% else %}Dict[str, Any]{% endif %}:
-            return await self.methods._send(method="{{ domain_name }}.{{ method_name }}", params=params)
+        async def {{ method_name | to_snake }}(self, params: {% if parameters|length > 0 %}Optional[{{ method_name }}Parameters]{% else %}None{% endif %}=None) -> {% if return_parameters|length > 0 %}{{ method_name }}Returns{% else %}Dict[str, Any]{% endif %}:
+            {% if method_description | length > 0 %}
+            """{{ method_description | replace("\n"," ")}}"""
+            {% endif %}
+            return await self.methods.send(method="{{ domain_name }}.{{ method_name }}", params=params)
         ''')
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             domain_name=self.current_domain,
             method_name=method_name,
+            method_description=method_description,
             parameters=parameters,
             return_parameters=return_parameters,
         )
-        return code
+        return dedent(code)
 
     def generate_method_types(self,domain:dict):
         self.current_domain=domain.get('domain')
@@ -101,7 +111,7 @@ class MethodGenerator:
             {% endfor %}            
         ''')
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             domain_name=self.current_domain,
             parameter_definitions_code=parameter_definitions_code,
@@ -156,7 +166,7 @@ class MethodGenerator:
             {% endif %}
         ''')
         
-        template=Template(template_str,trim_blocks=True,lstrip_blocks=True)
+        template=self.env.from_string(template_str)
         code=template.render(
             total=total,
             method_name=method_name,
@@ -189,7 +199,7 @@ class MethodGenerator:
             {% endif %}
         ''')
 
-        template=Template(template_str,trim_blocks=True,lstrip_blocks=True)
+        template=self.env.from_string(template_str)
         code=template.render(
             method_name=method_name,
             return_parameters=return_parameters
@@ -222,13 +232,14 @@ class MethodGenerator:
             parts=ref.split('.')
             domain=parts[0].lower()
             type_name=parts[1]
-            
             # Imports from cross domain
-            self.type_checking_imports.add(f"from ..{domain}.types import {type_name}")
+            module=(self.path / domain / "types").as_posix().replace("/",".")
+            self.type_checking_imports.add(f"from {module} import {type_name}")
             return type_name
         else:
             # Imports from same domain
-            self.type_checking_imports.add(f"from .types import {ref}")
+            module=(self.path / self.current_domain.lower() / "types").as_posix().replace("/",".")
+            self.type_checking_imports.add(f"from {module} import {ref}")
             return ref
 
     def map_primitive_type(self, type_name: str):

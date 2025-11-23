@@ -1,9 +1,14 @@
+from jinja2_strcase import StrcaseExtension
+from jinja2 import Environment
 from textwrap import dedent
-from jinja2 import Template
+from pathlib import Path
+import inflection
 
 class EventGenerator:
-    def __init__(self):
+    def __init__(self,path:Path):
+        self.path = path
         self.current_domain:str=None
+        self.env=Environment(trim_blocks=True,lstrip_blocks=True,extensions=[StrcaseExtension])
         self.imports = set()
         self.generated_events = set()
         self.type_checking_imports = set()
@@ -18,13 +23,14 @@ class EventGenerator:
         events=domain.get('events',[])
 
         event_implementations=[self.generate_event_implementation(event) for event in events]
-        
+        module=(self.path / self.current_domain.lower() / "events" / "types").as_posix().replace("/",".")
+
         template_str = dedent('''
             """CDP {{ domain_name }} Events"""
 
             from cdp_client.events import CDPEvents
             from typing import TypedDict, Optional, Callable
-            from .types import *
+            from {{ module }} import *
 
             class {{ domain_name }}Events:
                 {% if event_implementations | length > 0 %}
@@ -38,8 +44,9 @@ class EventGenerator:
                 {% endif %}     
         ''')
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
+            module=module,
             domain_name=self.current_domain,
             event_implementations=event_implementations,
         )
@@ -47,15 +54,20 @@ class EventGenerator:
 
     def generate_event_implementation(self,event:dict):
         event_name=event.get('name')
+        event_description=event.get('description','')
 
         template_str=dedent('''
-            def {{ event_name }}(self, callback: Callable['{{ event_name }}Event'| Optional['str']]=None) -> None:
+            def on_{{ event_name | to_snake }}(self, callback: Callable[{{ event_name }}Event, None]=None) -> None:
+                {% if event_description | length > 0 %}
+                """{{ event_description |replace("\n"," ")}}"""
+                {% endif %}
                 self.events.on('{{ event_name }}', callback)
             ''')
         
-        template=Template(template_str,trim_blocks=True,lstrip_blocks=True)
+        template=self.env.from_string(template_str)
         code=template.render(
-            event_name=event_name
+            event_name=event_name,
+            event_description=event_description
         )
         return dedent(code)
 
@@ -72,7 +84,7 @@ class EventGenerator:
             self.generated_events.add(event.get('name'))
 
         event_definitions_code=[self.generate_event_definition(event) for event in events]
-        
+
         template_str = dedent('''
             """CDP {{ domain_name }} Events"""
 
@@ -93,7 +105,7 @@ class EventGenerator:
             {% endfor %}         
         ''')
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             domain_name=self.current_domain,
             event_definitions_code=event_definitions_code,
@@ -144,7 +156,7 @@ class EventGenerator:
             {% endif %}
             {% endif %}
         ''')
-        template=Template(template_str,trim_blocks=True,lstrip_blocks=True)
+        template=self.env.from_string(template_str)
         code=template.render(
             total=total,
             event_name=event_name,
@@ -180,13 +192,14 @@ class EventGenerator:
             parts=ref.split('.')
             domain=parts[0].lower()
             type_name=parts[1]
-            
+            module=(self.path / domain / "types").as_posix().replace("/",".")
             # Imports from cross domain
-            self.type_checking_imports.add(f"from ..{domain}.types import {type_name}")
+            self.type_checking_imports.add(f"from {module} import {type_name}")
             return type_name
         else:
+            module=(self.path / self.current_domain.lower() / "types").as_posix().replace("/",".")
             # Imports from same domain
-            self.type_checking_imports.add(f"from .types import {ref}")
+            self.type_checking_imports.add(f"from {module} import {ref}")
             return ref
 
     def map_primitive_type(self, type_name: str):

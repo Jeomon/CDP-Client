@@ -11,12 +11,12 @@ def load_protocol():
     return httpx.get(BROWSER_PROTOCOL_URL).json()
 
 class CDPGenerator:
-    def __init__(self,output_dir:Path=Path("./cdp_client/protocol")):
-        self.output_dir = output_dir
+    def __init__(self,path:Path=Path("./cdp_client/protocol")):
+        self.path = path
         self.protocol = load_protocol()
-        self.method_generator = MethodGenerator()
-        self.type_generator = TypeGenerator()
-        self.event_generator = EventGenerator()
+        self.method_generator = MethodGenerator(path=path)
+        self.type_generator = TypeGenerator(path=path)
+        self.event_generator = EventGenerator(path=path)
     
     def generate(self):
         for domain in self.protocol['domains']:
@@ -24,7 +24,7 @@ class CDPGenerator:
             self.generate_domain_service(domain)
 
     def generate_domain_service(self,domain:dict):
-        domain_dir = self.output_dir / domain['domain'].lower()
+        domain_dir = self.path / domain['domain'].lower()
         event_services_content=self.event_generator.generate_event_services(domain)
         method_services_content=self.method_generator.generate_method_services(domain)
 
@@ -32,7 +32,7 @@ class CDPGenerator:
         self.write_file(domain_dir/"methods"/"service.py",method_services_content)
 
     def generate_domain_types(self,domain:dict):
-        domain_dir = self.output_dir / domain['domain'].lower()
+        domain_dir = self.path / domain['domain'].lower()
         inits_content=self.generate_inits(domain)
         types_content=self.type_generator.generate_types(domain)
         event_types_content=self.event_generator.generate_event_types(domain)

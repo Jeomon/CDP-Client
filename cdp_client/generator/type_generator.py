@@ -1,9 +1,12 @@
+from jinja2 import Environment
 from textwrap import dedent
-from jinja2 import Template
+from pathlib import Path
 
 class TypeGenerator:
-    def __init__(self):
+    def __init__(self,path:Path):
+        self.path = path
         self.current_domain:str = None
+        self.env=Environment(trim_blocks=True,lstrip_blocks=True)
         self.imports = set()
         self.generated_types = set()
         self.type_checking_imports = set()
@@ -46,7 +49,7 @@ class TypeGenerator:
             {% endfor %}
         ''')
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             current_domain=self.current_domain,
             type_definitions_code=type_definitions_code,
@@ -79,7 +82,7 @@ class TypeGenerator:
             {% endif %}
         '''
         
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             type_name=type_name,
             type_type=self.resolve_type_reference(items) if '$ref' in items else self.map_primitive_type(items.get('type')),
@@ -100,7 +103,7 @@ class TypeGenerator:
             {% endif %}
         '''
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             type_name=type_name,
             type_type=self.map_primitive_type(type_type),
@@ -121,7 +124,7 @@ class TypeGenerator:
         {% endif %}
         '''
 
-        template = Template(template_str, trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             type_name=type_name,
             enum_values=",".join(f"'{v}'" for v in enum_values),
@@ -176,7 +179,7 @@ class TypeGenerator:
                 {% endif %}
         '''
 
-        template = Template(template_str,trim_blocks=True, lstrip_blocks=True)
+        template = self.env.from_string(template_str)
         code = template.render(
             type_name=type_name,
             total=total,
@@ -213,13 +216,14 @@ class TypeGenerator:
             domain=parts[0].lower()
             type_name=parts[1]
             current_domain=self.current_domain.lower()
-
+            module=(self.path / domain / "types").as_posix().replace("/",".")
             if (current_domain!=domain) or (type_name not in self.generated_types):
-                self.type_checking_imports.add(f"from ..{domain}.types import {type_name}")
+                self.type_checking_imports.add(f"from {module} import {type_name}")
             return type_name
         else:
+            module=(self.path / self.current_domain / "types").as_posix().replace("/",".")
             if ref not in self.generated_types:
-                self.imports.add(f"from .types import {ref}")
+                self.imports.add(f"from {module} import {ref}")
             return ref
 
     def map_primitive_type(self, type_name: str):
