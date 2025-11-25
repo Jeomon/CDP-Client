@@ -11,5 +11,5 @@ class LogEvents:
     
     def on_entry_added(self, callback: Callable[[entryAddedEvent,Optional[str]], None]=None) -> None:
         """Issued when new message was logged."""
-        self.client.on('entryAdded', callback)
+        self.client.on('Log.entryAdded', callback)
      

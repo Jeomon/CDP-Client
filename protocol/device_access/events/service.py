@@ -11,5 +11,5 @@ class DeviceAccessEvents:
     
     def on_device_request_prompted(self, callback: Callable[[deviceRequestPromptedEvent,Optional[str]], None]=None) -> None:
         """A device request opened a user prompt to select a device. Respond with the selectPrompt or cancelPrompt command."""
-        self.client.on('deviceRequestPrompted', callback)
+        self.client.on('DeviceAccess.deviceRequestPrompted', callback)
      

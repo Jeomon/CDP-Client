@@ -11,5 +11,5 @@ class InputEvents:
     
     def on_drag_intercepted(self, callback: Callable[[dragInterceptedEvent,Optional[str]], None]=None) -> None:
         """Emitted only when `Input.setInterceptDrags` is enabled. Use this data with `Input.dispatchDragEvent` to restore normal drag and drop behavior."""
-        self.client.on('dragIntercepted', callback)
+        self.client.on('Input.dragIntercepted', callback)
      

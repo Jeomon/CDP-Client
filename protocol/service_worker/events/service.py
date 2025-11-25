@@ -10,11 +10,11 @@ class ServiceWorkerEvents:
         self.client=client
     
     def on_worker_error_reported(self, callback: Callable[[workerErrorReportedEvent,Optional[str]], None]=None) -> None:
-        self.client.on('workerErrorReported', callback)
+        self.client.on('ServiceWorker.workerErrorReported', callback)
     
     def on_worker_registration_updated(self, callback: Callable[[workerRegistrationUpdatedEvent,Optional[str]], None]=None) -> None:
-        self.client.on('workerRegistrationUpdated', callback)
+        self.client.on('ServiceWorker.workerRegistrationUpdated', callback)
     
     def on_worker_version_updated(self, callback: Callable[[workerVersionUpdatedEvent,Optional[str]], None]=None) -> None:
-        self.client.on('workerVersionUpdated', callback)
+        self.client.on('ServiceWorker.workerVersionUpdated', callback)
      

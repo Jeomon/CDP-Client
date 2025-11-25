@@ -59,12 +59,13 @@ class EventGenerator:
                 {% if event_description | length > 0 %}
                 """{{ event_description |replace("\n"," ")}}"""
                 {% endif %}
-                self.client.on('{{ event_name }}', callback)
+                self.client.on('{{ domain_name }}.{{ event_name }}', callback)
             ''')
         
         template=self.env.from_string(template_str)
         code=template.render(
             event_name=event_name,
+            domain_name=self.current_domain,
             event_description=event_description
         )
         return dedent(code)

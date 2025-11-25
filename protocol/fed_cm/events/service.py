@@ -10,9 +10,9 @@ class FedCmEvents:
         self.client=client
     
     def on_dialog_shown(self, callback: Callable[[dialogShownEvent,Optional[str]], None]=None) -> None:
-        self.client.on('dialogShown', callback)
+        self.client.on('FedCm.dialogShown', callback)
     
     def on_dialog_closed(self, callback: Callable[[dialogClosedEvent,Optional[str]], None]=None) -> None:
         """Triggered when a dialog is closed, either by user action, JS abort, or a command below."""
-        self.client.on('dialogClosed', callback)
+        self.client.on('FedCm.dialogClosed', callback)
      

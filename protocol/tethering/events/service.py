@@ -11,5 +11,5 @@ class TetheringEvents:
     
     def on_accepted(self, callback: Callable[[acceptedEvent,Optional[str]], None]=None) -> None:
         """Informs that port was successfully bound and got a specified connection id."""
-        self.client.on('accepted', callback)
+        self.client.on('Tethering.accepted', callback)
      

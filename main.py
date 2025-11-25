@@ -3,7 +3,11 @@ from protocol.target.events.types import attachedToTargetEvent
 from httpx import AsyncClient
 from pathlib import Path
 import subprocess
+import logging
 import time
+
+
+logging.basicConfig(level=logging.INFO)
 
 async def main():
     executable_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
@@ -21,7 +25,7 @@ async def main():
     ws_url = response.json()['webSocketDebuggerUrl']
 
     async def on_attached_to_target(event:attachedToTargetEvent,session_id:str):
-        print(event.get('sessionId'))
+        print(event)
 
     async with CDPClient(ws_url) as client:
         client.events.target.on_attached_to_target(on_attached_to_target)

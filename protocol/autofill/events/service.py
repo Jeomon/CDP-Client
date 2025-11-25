@@ -11,5 +11,5 @@ class AutofillEvents:
     
     def on_address_form_filled(self, callback: Callable[[addressFormFilledEvent,Optional[str]], None]=None) -> None:
         """Emitted when an address form is filled."""
-        self.client.on('addressFormFilled', callback)
+        self.client.on('Autofill.addressFormFilled', callback)
      

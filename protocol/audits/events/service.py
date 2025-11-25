@@ -10,5 +10,5 @@ class AuditsEvents:
         self.client=client
     
     def on_issue_added(self, callback: Callable[[issueAddedEvent,Optional[str]], None]=None) -> None:
-        self.client.on('issueAdded', callback)
+        self.client.on('Audits.issueAdded', callback)
      

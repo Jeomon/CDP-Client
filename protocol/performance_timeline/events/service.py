@@ -11,5 +11,5 @@ class PerformanceTimelineEvents:
     
     def on_timeline_event_added(self, callback: Callable[[timelineEventAddedEvent,Optional[str]], None]=None) -> None:
         """Sent when a performance timeline event is added. See reportPerformanceTimeline method."""
-        self.client.on('timelineEventAdded', callback)
+        self.client.on('PerformanceTimeline.timelineEventAdded', callback)
      

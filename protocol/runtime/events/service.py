@@ -11,33 +11,33 @@ class RuntimeEvents:
     
     def on_binding_called(self, callback: Callable[[bindingCalledEvent,Optional[str]], None]=None) -> None:
         """Notification is issued every time when binding is called."""
-        self.client.on('bindingCalled', callback)
+        self.client.on('Runtime.bindingCalled', callback)
     
     def on_console_api_called(self, callback: Callable[[consoleAPICalledEvent,Optional[str]], None]=None) -> None:
         """Issued when console API was called."""
-        self.client.on('consoleAPICalled', callback)
+        self.client.on('Runtime.consoleAPICalled', callback)
     
     def on_exception_revoked(self, callback: Callable[[exceptionRevokedEvent,Optional[str]], None]=None) -> None:
         """Issued when unhandled exception was revoked."""
-        self.client.on('exceptionRevoked', callback)
+        self.client.on('Runtime.exceptionRevoked', callback)
     
     def on_exception_thrown(self, callback: Callable[[exceptionThrownEvent,Optional[str]], None]=None) -> None:
         """Issued when exception was thrown and unhandled."""
-        self.client.on('exceptionThrown', callback)
+        self.client.on('Runtime.exceptionThrown', callback)
     
     def on_execution_context_created(self, callback: Callable[[executionContextCreatedEvent,Optional[str]], None]=None) -> None:
         """Issued when new execution context is created."""
-        self.client.on('executionContextCreated', callback)
+        self.client.on('Runtime.executionContextCreated', callback)
     
     def on_execution_context_destroyed(self, callback: Callable[[executionContextDestroyedEvent,Optional[str]], None]=None) -> None:
         """Issued when execution context is destroyed."""
-        self.client.on('executionContextDestroyed', callback)
+        self.client.on('Runtime.executionContextDestroyed', callback)
     
     def on_execution_contexts_cleared(self, callback: Callable[[executionContextsClearedEvent,Optional[str]], None]=None) -> None:
         """Issued when all executionContexts were cleared in browser"""
-        self.client.on('executionContextsCleared', callback)
+        self.client.on('Runtime.executionContextsCleared', callback)
     
     def on_inspect_requested(self, callback: Callable[[inspectRequestedEvent,Optional[str]], None]=None) -> None:
         """Issued when object should be inspected (for example, as a result of inspect() command line API call)."""
-        self.client.on('inspectRequested', callback)
+        self.client.on('Runtime.inspectRequested', callback)
      

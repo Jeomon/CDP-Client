@@ -11,9 +11,9 @@ class AccessibilityEvents:
     
     def on_load_complete(self, callback: Callable[[loadCompleteEvent,Optional[str]], None]=None) -> None:
         """The loadComplete event mirrors the load complete event sent by the browser to assistive technology when the web page has finished loading."""
-        self.client.on('loadComplete', callback)
+        self.client.on('Accessibility.loadComplete', callback)
     
     def on_nodes_updated(self, callback: Callable[[nodesUpdatedEvent,Optional[str]], None]=None) -> None:
         """The nodesUpdated event is sent every time a previously requested node has changed the in tree."""
-        self.client.on('nodesUpdated', callback)
+        self.client.on('Accessibility.nodesUpdated', callback)
      

@@ -11,17 +11,17 @@ class WebAuthnEvents:
     
     def on_credential_added(self, callback: Callable[[credentialAddedEvent,Optional[str]], None]=None) -> None:
         """Triggered when a credential is added to an authenticator."""
-        self.client.on('credentialAdded', callback)
+        self.client.on('WebAuthn.credentialAdded', callback)
     
     def on_credential_deleted(self, callback: Callable[[credentialDeletedEvent,Optional[str]], None]=None) -> None:
         """Triggered when a credential is deleted, e.g. through PublicKeyCredential.signalUnknownCredential()."""
-        self.client.on('credentialDeleted', callback)
+        self.client.on('WebAuthn.credentialDeleted', callback)
     
     def on_credential_updated(self, callback: Callable[[credentialUpdatedEvent,Optional[str]], None]=None) -> None:
         """Triggered when a credential is updated, e.g. through PublicKeyCredential.signalCurrentUserDetails()."""
-        self.client.on('credentialUpdated', callback)
+        self.client.on('WebAuthn.credentialUpdated', callback)
     
     def on_credential_asserted(self, callback: Callable[[credentialAssertedEvent,Optional[str]], None]=None) -> None:
         """Triggered when a credential is used in a webauthn assertion."""
-        self.client.on('credentialAsserted', callback)
+        self.client.on('WebAuthn.credentialAsserted', callback)
      

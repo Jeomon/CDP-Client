@@ -75,6 +75,7 @@ class CDPClient:
                 if "id" in data:
                     # Method
                     request_id=data["id"]
+                    logging.debug(f"Received method: {data}")
                     if request_id not in self.pending_requests:
                         continue
                     future = self.pending_requests.pop(request_id)
@@ -88,7 +89,7 @@ class CDPClient:
                     method=data.get("method")
                     params = data.get("params", {})
                     session_id=data.get("sessionId")
-                    print(f"Received event: {data}")
+                    logging.debug(f"Received event: {data}")
                     if method not in self.event_handlers:
                         continue
                     try:

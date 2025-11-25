@@ -11,5 +11,5 @@ class PerformanceEvents:
     
     def on_metrics(self, callback: Callable[[metricsEvent,Optional[str]], None]=None) -> None:
         """Current values of the metrics."""
-        self.client.on('metrics', callback)
+        self.client.on('Performance.metrics', callback)
      

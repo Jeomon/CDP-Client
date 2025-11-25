@@ -11,5 +11,5 @@ class EmulationEvents:
     
     def on_virtual_time_budget_expired(self, callback: Callable[[virtualTimeBudgetExpiredEvent,Optional[str]], None]=None) -> None:
         """Notification sent after the virtual time budget for the current VirtualTimePolicy has run out."""
-        self.client.on('virtualTimeBudgetExpired', callback)
+        self.client.on('Emulation.virtualTimeBudgetExpired', callback)
      
