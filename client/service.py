@@ -1,4 +1,5 @@
-from typing import Optional, Dict, Any, Callable
+from typing import Optional, Dict, Any, Callable,Annotated
+from operator import add
 import websockets
 import asyncio
 import logging
@@ -14,19 +15,16 @@ class CDPClient:
         self.listen_task :Optional[asyncio.Task] = None
         self.methods = CDPMethods(self)
         self.events = CDPEvents(self)
-        self.id_counter = 0
+        self.id_counter: Annotated[int, add] = 0
         self.pending_requests: Dict[int, asyncio.Future] = {}
         self.event_handlers: Dict[str, list[Callable[[Any], None]]] = {}
 
-    async def start(self):
-        self.ws = await websockets.connect(
-            self.url,
-            max_size=100*1024*1024  # 100MB max message size
-        )
+    async def __aenter__(self):
+        self.ws = await websockets.connect(self.url,max_size=100*1024*1024)
         self.listen_task = asyncio.create_task(self.listen())
         return self
 
-    async def stop(self):
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
         if self.listen_task:
             try:
                 self.listen_task.cancel()
@@ -37,17 +35,16 @@ class CDPClient:
             await self.ws.close()
 
     async def send(self, method: str, params: Optional[dict] = None) -> Any:
-        self.id_counter += 1
-        request_id = self.id_counter
+        self.id_counter+=1
         future = asyncio.Future()
-        self.pending_requests[request_id] = future
+        self.pending_requests[self.id_counter] = future
         
         try:
-            message = json.dumps({"id": request_id, "method": method, "params": params or {}})
+            message = json.dumps({"id": self.id_counter, "method": method, "params": params or {}})
             await self.ws.send(message)
             return await future
         except Exception as e:
-            self.pending_requests.pop(request_id, None)
+            self.pending_requests.pop(self.id_counter, None)
             raise e
 
     def on(self, event: str, callback: Callable[[Any], None]) -> None:

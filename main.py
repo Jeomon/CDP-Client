@@ -1,14 +1,14 @@
 from client.service import CDPClient
-import subprocess
 from httpx import AsyncClient
 from pathlib import Path
+import subprocess
 import time
 
 async def main():
     executable_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
     user_data_dir = Path.cwd()/'user_data'
     port = 9222
-    subprocess.Popen([
+    process=subprocess.Popen([
         executable_path, 
         f"--remote-debugging-port={port}",
         f"--user-data-dir={user_data_dir.as_posix()}",
@@ -19,12 +19,16 @@ async def main():
     async with AsyncClient() as client:
         response = await client.get(f"http://localhost:{port}/json")
     ws_url = response.json()[0]['webSocketDebuggerUrl']
-    client = CDPClient(ws_url)
-    await client.start()
-    response=await client.methods.target.get_targets()
-    print(response)
-    await client.stop()
 
+    async with CDPClient(ws_url) as client:
+        targets=await client.methods.target.get_targets()
+        for target in targets['targetInfos']:
+            if target['type']=='page':
+                page=await client.methods.target.attach_to_target({'targetId':target['targetId']})
+                response=await client.methods.page.navigate({'url':'https://www.google.com'})
+                print(response)
+    time.sleep(5)
+    process.terminate()
 if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
