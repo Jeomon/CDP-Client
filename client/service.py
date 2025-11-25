@@ -17,7 +17,7 @@ class CDPClient:
         self.events = CDPEvents(self)
         self.id_counter: Annotated[int, add] = 0
         self.pending_requests: Dict[int, asyncio.Future] = {}
-        self.event_handlers: Dict[str, list[Callable[[Any], None]]] = {}
+        self.event_handlers: Dict[str, Callable[[Any], None]] = {}
 
     async def __aenter__(self):
         self.ws = await websockets.connect(self.url,max_size=100*1024*1024)
@@ -25,14 +25,21 @@ class CDPClient:
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
+        for future in self.pending_requests.values():
+            if not future.done():
+                future.set_exception(Exception("WebSocket connection closed"))
+        self.pending_requests.clear()
         if self.listen_task:
             try:
                 self.listen_task.cancel()
-                self.listen_task
+                await self.listen_task
             except asyncio.CancelledError:
                 pass
+            finally:
+                self.listen_task = None
         if self.ws:
             await self.ws.close()
+            self.ws = None
 
     async def send(self, method: str, params: Optional[dict] = None) -> Any:
         self.id_counter+=1
@@ -49,17 +56,22 @@ class CDPClient:
 
     def on(self, event: str, callback: Callable[[Any], None]) -> None:
         if event not in self.event_handlers:
-            self.event_handlers[event] = []
-        self.event_handlers[event].append(callback)
+            self.register(event, callback)
+
+    def register(self, event: str, callback: Callable[[Any], None]) -> None:
+        self.event_handlers[event] = callback
+
+    def unregister(self, event: str) -> None:
+        if event in self.event_handlers:
+            del self.event_handlers[event]
 
     async def listen(self):
         while True:
             try:
                 message = await self.ws.recv()
                 data = json.loads(message)
-                if "id" in data and data["id"] in self.pending_requests:
-                    # Response
-                    request_id = data["id"]
+                if "id" in data and (request_id:=data["id"]) in self.pending_requests:
+                    # Method
                     future = self.pending_requests.pop(request_id)
                     if not future.done():
                         if "error" in data:
@@ -70,11 +82,11 @@ class CDPClient:
                     # Event
                     params = data.get("params", {})
                     if method in self.event_handlers:
-                        for handler in self.event_handlers[method]:
-                            try:
-                                handler(params)
-                            except Exception as e:
-                                logging.error(f"Error in event handler for {method}: {e}")
+                        handler = self.event_handlers[method]
+                        if asyncio.iscoroutinefunction(handler):
+                            await handler(params)
+                        else:
+                            handler(params)
             except websockets.exceptions.ConnectionClosed:
                 logging.error("WebSocket connection closed")
                 break
