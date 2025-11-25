@@ -72,23 +72,34 @@ class CDPClient:
             try:
                 message = await self.ws.recv()
                 data = json.loads(message)
-                if "id" in data and (request_id:=data["id"]) in self.pending_requests:
+                if "id" in data:
                     # Method
+                    request_id=data["id"]
+                    if request_id not in self.pending_requests:
+                        continue
                     future = self.pending_requests.pop(request_id)
                     if not future.done():
                         if "error" in data:
                             future.set_exception(Exception(data.get("error")))
                         else:
                             future.set_result(data.get("result"))
-                elif method:=data.get("method"):
+                elif 'method' in data:
                     # Event
+                    method=data.get("method")
                     params = data.get("params", {})
-                    if method in self.event_handlers:
+                    session_id=data.get("sessionId")
+                    print(f"Received event: {data}")
+                    if method not in self.event_handlers:
+                        continue
+                    try:
                         handler = self.event_handlers[method]
                         if asyncio.iscoroutinefunction(handler):
-                            await handler(params)
+                            await handler(params,session_id)
                         else:
-                            handler(params)
+                            handler(params,session_id)
+                    except Exception as e:
+                        logging.error(f"Error in event handler: {e}")
+                        continue
             except websockets.exceptions.ConnectionClosed:
                 logging.error("WebSocket connection closed")
                 break

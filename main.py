@@ -1,4 +1,5 @@
 from client.service import CDPClient
+from protocol.target.events.types import attachedToTargetEvent
 from httpx import AsyncClient
 from pathlib import Path
 import subprocess
@@ -19,8 +20,8 @@ async def main():
         response = await client.get(f"http://localhost:{port}/json/version")
     ws_url = response.json()['webSocketDebuggerUrl']
 
-    async def on_attached_to_target(event,session_id):
-        print(event)
+    async def on_attached_to_target(event:attachedToTargetEvent,session_id:str):
+        print(event.get('sessionId'))
 
     async with CDPClient(ws_url) as client:
         client.events.target.on_attached_to_target(on_attached_to_target)
