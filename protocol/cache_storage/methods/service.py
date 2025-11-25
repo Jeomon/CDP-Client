@@ -9,22 +9,22 @@ class CacheStorageMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def delete_cache(self, params: Optional[deleteCacheParameters]=None) -> Dict[str, Any]:
+    async def delete_cache(self, params: Optional[deleteCacheParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Deletes a cache."""
-        return await self.methods.send(method="CacheStorage.deleteCache", params=params)
+        return await self.methods.send(method="CacheStorage.deleteCache", params=params,session_id=session_id)
 
-    async def delete_entry(self, params: Optional[deleteEntryParameters]=None) -> Dict[str, Any]:
+    async def delete_entry(self, params: Optional[deleteEntryParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Deletes a cache entry."""
-        return await self.methods.send(method="CacheStorage.deleteEntry", params=params)
+        return await self.methods.send(method="CacheStorage.deleteEntry", params=params,session_id=session_id)
 
-    async def request_cache_names(self, params: Optional[requestCacheNamesParameters]=None) -> requestCacheNamesReturns:
+    async def request_cache_names(self, params: Optional[requestCacheNamesParameters]=None,session_id: Optional[str] = None) -> requestCacheNamesReturns:
         """Requests cache names."""
-        return await self.methods.send(method="CacheStorage.requestCacheNames", params=params)
+        return await self.methods.send(method="CacheStorage.requestCacheNames", params=params,session_id=session_id)
 
-    async def request_cached_response(self, params: Optional[requestCachedResponseParameters]=None) -> requestCachedResponseReturns:
+    async def request_cached_response(self, params: Optional[requestCachedResponseParameters]=None,session_id: Optional[str] = None) -> requestCachedResponseReturns:
         """Fetches cache entry."""
-        return await self.methods.send(method="CacheStorage.requestCachedResponse", params=params)
+        return await self.methods.send(method="CacheStorage.requestCachedResponse", params=params,session_id=session_id)
 
-    async def request_entries(self, params: Optional[requestEntriesParameters]=None) -> requestEntriesReturns:
+    async def request_entries(self, params: Optional[requestEntriesParameters]=None,session_id: Optional[str] = None) -> requestEntriesReturns:
         """Requests data from cache."""
-        return await self.methods.send(method="CacheStorage.requestEntries", params=params)
+        return await self.methods.send(method="CacheStorage.requestEntries", params=params,session_id=session_id)

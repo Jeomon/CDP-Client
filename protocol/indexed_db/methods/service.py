@@ -9,38 +9,38 @@ class IndexedDBMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def clear_object_store(self, params: Optional[clearObjectStoreParameters]=None) -> Dict[str, Any]:
+    async def clear_object_store(self, params: Optional[clearObjectStoreParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Clears all entries from an object store."""
-        return await self.methods.send(method="IndexedDB.clearObjectStore", params=params)
+        return await self.methods.send(method="IndexedDB.clearObjectStore", params=params,session_id=session_id)
 
-    async def delete_database(self, params: Optional[deleteDatabaseParameters]=None) -> Dict[str, Any]:
+    async def delete_database(self, params: Optional[deleteDatabaseParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Deletes a database."""
-        return await self.methods.send(method="IndexedDB.deleteDatabase", params=params)
+        return await self.methods.send(method="IndexedDB.deleteDatabase", params=params,session_id=session_id)
 
-    async def delete_object_store_entries(self, params: Optional[deleteObjectStoreEntriesParameters]=None) -> Dict[str, Any]:
+    async def delete_object_store_entries(self, params: Optional[deleteObjectStoreEntriesParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Delete a range of entries from an object store"""
-        return await self.methods.send(method="IndexedDB.deleteObjectStoreEntries", params=params)
+        return await self.methods.send(method="IndexedDB.deleteObjectStoreEntries", params=params,session_id=session_id)
 
-    async def disable(self, params: None=None) -> Dict[str, Any]:
+    async def disable(self, params: None=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Disables events from backend."""
-        return await self.methods.send(method="IndexedDB.disable", params=params)
+        return await self.methods.send(method="IndexedDB.disable", params=params,session_id=session_id)
 
-    async def enable(self, params: None=None) -> Dict[str, Any]:
+    async def enable(self, params: None=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Enables events from backend."""
-        return await self.methods.send(method="IndexedDB.enable", params=params)
+        return await self.methods.send(method="IndexedDB.enable", params=params,session_id=session_id)
 
-    async def request_data(self, params: Optional[requestDataParameters]=None) -> requestDataReturns:
+    async def request_data(self, params: Optional[requestDataParameters]=None,session_id: Optional[str] = None) -> requestDataReturns:
         """Requests data from object store or index."""
-        return await self.methods.send(method="IndexedDB.requestData", params=params)
+        return await self.methods.send(method="IndexedDB.requestData", params=params,session_id=session_id)
 
-    async def get_metadata(self, params: Optional[getMetadataParameters]=None) -> getMetadataReturns:
+    async def get_metadata(self, params: Optional[getMetadataParameters]=None,session_id: Optional[str] = None) -> getMetadataReturns:
         """Gets metadata of an object store."""
-        return await self.methods.send(method="IndexedDB.getMetadata", params=params)
+        return await self.methods.send(method="IndexedDB.getMetadata", params=params,session_id=session_id)
 
-    async def request_database(self, params: Optional[requestDatabaseParameters]=None) -> requestDatabaseReturns:
+    async def request_database(self, params: Optional[requestDatabaseParameters]=None,session_id: Optional[str] = None) -> requestDatabaseReturns:
         """Requests database with given name in given frame."""
-        return await self.methods.send(method="IndexedDB.requestDatabase", params=params)
+        return await self.methods.send(method="IndexedDB.requestDatabase", params=params,session_id=session_id)
 
-    async def request_database_names(self, params: Optional[requestDatabaseNamesParameters]=None) -> requestDatabaseNamesReturns:
+    async def request_database_names(self, params: Optional[requestDatabaseNamesParameters]=None,session_id: Optional[str] = None) -> requestDatabaseNamesReturns:
         """Requests database names for given security origin."""
-        return await self.methods.send(method="IndexedDB.requestDatabaseNames", params=params)
+        return await self.methods.send(method="IndexedDB.requestDatabaseNames", params=params,session_id=session_id)

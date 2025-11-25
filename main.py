@@ -15,18 +15,20 @@ async def main():
         '--no-first-run',
         '--no-default-browser-check',
     ])
-    time.sleep(2)  # Wait for Chrome to start
     async with AsyncClient() as client:
-        response = await client.get(f"http://localhost:{port}/json")
-    ws_url = response.json()[0]['webSocketDebuggerUrl']
+        response = await client.get(f"http://localhost:{port}/json/version")
+    ws_url = response.json()['webSocketDebuggerUrl']
 
     async with CDPClient(ws_url) as client:
         targets=await client.methods.target.get_targets()
-        for target in targets['targetInfos']:
-            if target['type']=='page':
-                page=await client.methods.target.attach_to_target({'targetId':target['targetId']})
-                response=await client.methods.page.navigate({'url':'https://www.google.com'})
-                print(response)
+        page_targets=[target for target in targets['targetInfos'] if target['type']=='page']
+        if not page_targets:
+            raise Exception("No page targets found")
+        target_id=page_targets[0]['targetId']
+        response=await client.methods.target.attach_to_target(params={'targetId':target_id,"flatten":True})
+        session_id=response['sessionId']
+        response=await client.methods.page.navigate(params={'url':'https://www.google.com'},session_id=session_id)
+        print(response)
     time.sleep(5)
     process.terminate()
 if __name__ == "__main__":

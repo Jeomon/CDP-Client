@@ -9,8 +9,8 @@ class PreloadMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def enable(self, params: None=None) -> Dict[str, Any]:
-        return await self.methods.send(method="Preload.enable", params=params)
+    async def enable(self, params: None=None,session_id: Optional[str] = None) -> Dict[str, Any]:
+        return await self.methods.send(method="Preload.enable", params=params,session_id=session_id)
 
-    async def disable(self, params: None=None) -> Dict[str, Any]:
-        return await self.methods.send(method="Preload.disable", params=params)
+    async def disable(self, params: None=None,session_id: Optional[str] = None) -> Dict[str, Any]:
+        return await self.methods.send(method="Preload.disable", params=params,session_id=session_id)

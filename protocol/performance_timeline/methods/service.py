@@ -9,6 +9,6 @@ class PerformanceTimelineMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def enable(self, params: Optional[enableParameters]=None) -> Dict[str, Any]:
+    async def enable(self, params: Optional[enableParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Previously buffered events would be reported before method returns. See also: timelineEventAdded"""
-        return await self.methods.send(method="PerformanceTimeline.enable", params=params)
+        return await self.methods.send(method="PerformanceTimeline.enable", params=params,session_id=session_id)

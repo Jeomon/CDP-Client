@@ -41,14 +41,16 @@ class CDPClient:
             await self.ws.close()
             self.ws = None
 
-    async def send(self, method: str, params: Optional[dict] = None) -> Any:
+    async def send(self, method: str, params: Optional[dict] = None,session_id: Optional[str] = None) -> Any:
         self.id_counter+=1
         future = asyncio.Future()
         self.pending_requests[self.id_counter] = future
         
         try:
-            message = json.dumps({"id": self.id_counter, "method": method, "params": params or {}})
-            await self.ws.send(message)
+            message = {"id": self.id_counter, "method": method, "params": params or {}}
+            if session_id:
+                message['sessionId'] = session_id
+            await self.ws.send(json.dumps(message))
             return await future
         except Exception as e:
             self.pending_requests.pop(self.id_counter, None)

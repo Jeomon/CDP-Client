@@ -55,7 +55,7 @@ class EventGenerator:
         event_description=event.get('description','')
 
         template_str=dedent('''
-            def on_{{ event_name | to_snake }}(self, callback: Callable[{{ event_name }}Event, None]=None) -> None:
+            def on_{{ event_name | to_snake }}(self, callback: Callable[[{{ event_name }}Event,Optional[str]], None]=None) -> None:
                 {% if event_description | length > 0 %}
                 """{{ event_description |replace("\n"," ")}}"""
                 {% endif %}

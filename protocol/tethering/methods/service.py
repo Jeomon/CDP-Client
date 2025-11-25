@@ -9,10 +9,10 @@ class TetheringMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def bind(self, params: Optional[bindParameters]=None) -> Dict[str, Any]:
+    async def bind(self, params: Optional[bindParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Request browser port binding."""
-        return await self.methods.send(method="Tethering.bind", params=params)
+        return await self.methods.send(method="Tethering.bind", params=params,session_id=session_id)
 
-    async def unbind(self, params: Optional[unbindParameters]=None) -> Dict[str, Any]:
+    async def unbind(self, params: Optional[unbindParameters]=None,session_id: Optional[str] = None) -> Dict[str, Any]:
         """Request browser port unbinding."""
-        return await self.methods.send(method="Tethering.unbind", params=params)
+        return await self.methods.send(method="Tethering.unbind", params=params,session_id=session_id)

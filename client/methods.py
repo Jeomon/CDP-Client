@@ -9,8 +9,8 @@ class CDPMethods:
     def __init__(self, client: "CDPClient"):
         self.client = client
 
-    async def send(self, method: str, params: Optional[Dict[str, Any]] = None) -> Any:
-        return await self.client.send(method, params)
+    async def send(self, method: str, params: Optional[Dict[str, Any]] = None,session_id: Optional[str] = None) -> Any:
+        return await self.client.send(method, params,session_id)
 
     @property
     def accessibility(self):

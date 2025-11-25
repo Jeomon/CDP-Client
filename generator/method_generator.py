@@ -56,11 +56,11 @@ class MethodGenerator:
         parameters=method.get('parameters',[])
         return_parameters=method.get('returns',[])
         template_str = dedent('''
-        async def {{ method_name | to_snake }}(self, params: {% if parameters|length > 0 %}Optional[{{ method_name }}Parameters]{% else %}None{% endif %}=None) -> {% if return_parameters|length > 0 %}{{ method_name }}Returns{% else %}Dict[str, Any]{% endif %}:
+        async def {{ method_name | to_snake }}(self, params: {% if parameters|length > 0 %}Optional[{{ method_name }}Parameters]{% else %}None{% endif %}=None,session_id: Optional[str] = None) -> {% if return_parameters|length > 0 %}{{ method_name }}Returns{% else %}Dict[str, Any]{% endif %}:
             {% if method_description | length > 0 %}
             """{{ method_description | replace("\n"," ")}}"""
             {% endif %}
-            return await self.methods.send(method="{{ domain_name }}.{{ method_name }}", params=params)
+            return await self.methods.send(method="{{ domain_name }}.{{ method_name }}", params=params,session_id=session_id)
         ''')
 
         template = self.env.from_string(template_str)

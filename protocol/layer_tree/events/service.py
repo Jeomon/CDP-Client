@@ -9,9 +9,9 @@ class LayerTreeEvents:
     def __init__(self,events:CDPEvents):
         self.events=events
     
-    def on_layer_painted(self, callback: Callable[layerPaintedEvent, None]=None) -> None:
+    def on_layer_painted(self, callback: Callable[[layerPaintedEvent,Optional[str]], None]=None) -> None:
         self.events.on('layerPainted', callback)
     
-    def on_layer_tree_did_change(self, callback: Callable[layerTreeDidChangeEvent, None]=None) -> None:
+    def on_layer_tree_did_change(self, callback: Callable[[layerTreeDidChangeEvent,Optional[str]], None]=None) -> None:
         self.events.on('layerTreeDidChange', callback)
      

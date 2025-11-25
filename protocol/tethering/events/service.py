@@ -9,7 +9,7 @@ class TetheringEvents:
     def __init__(self,events:CDPEvents):
         self.events=events
     
-    def on_accepted(self, callback: Callable[acceptedEvent, None]=None) -> None:
+    def on_accepted(self, callback: Callable[[acceptedEvent,Optional[str]], None]=None) -> None:
         """Informs that port was successfully bound and got a specified connection id."""
         self.events.on('accepted', callback)
      

@@ -9,5 +9,5 @@ class FileSystemMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def get_directory(self, params: Optional[getDirectoryParameters]=None) -> getDirectoryReturns:
-        return await self.methods.send(method="FileSystem.getDirectory", params=params)
+    async def get_directory(self, params: Optional[getDirectoryParameters]=None,session_id: Optional[str] = None) -> getDirectoryReturns:
+        return await self.methods.send(method="FileSystem.getDirectory", params=params,session_id=session_id)

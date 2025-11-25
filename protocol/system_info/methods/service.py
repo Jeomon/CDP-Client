@@ -9,14 +9,14 @@ class SystemInfoMethods:
     def __init__(self, methods:CDPMethods):
         self.methods = methods
 
-    async def get_info(self, params: None=None) -> getInfoReturns:
+    async def get_info(self, params: None=None,session_id: Optional[str] = None) -> getInfoReturns:
         """Returns information about the system."""
-        return await self.methods.send(method="SystemInfo.getInfo", params=params)
+        return await self.methods.send(method="SystemInfo.getInfo", params=params,session_id=session_id)
 
-    async def get_feature_state(self, params: Optional[getFeatureStateParameters]=None) -> getFeatureStateReturns:
+    async def get_feature_state(self, params: Optional[getFeatureStateParameters]=None,session_id: Optional[str] = None) -> getFeatureStateReturns:
         """Returns information about the feature state."""
-        return await self.methods.send(method="SystemInfo.getFeatureState", params=params)
+        return await self.methods.send(method="SystemInfo.getFeatureState", params=params,session_id=session_id)
 
-    async def get_process_info(self, params: None=None) -> getProcessInfoReturns:
+    async def get_process_info(self, params: None=None,session_id: Optional[str] = None) -> getProcessInfoReturns:
         """Returns information about all running processes."""
-        return await self.methods.send(method="SystemInfo.getProcessInfo", params=params)
+        return await self.methods.send(method="SystemInfo.getProcessInfo", params=params,session_id=session_id)
