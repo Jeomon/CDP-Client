@@ -8,6 +8,4 @@ wheels/
 
 # Virtual environments
 .venv
-protocol/*
-client/*
-!client/service.py
+user_data
