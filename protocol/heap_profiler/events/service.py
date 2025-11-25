@@ -1,28 +1,28 @@
 
 """CDP HeapProfiler Events"""
 
-from client.events import CDPEvents
+from client.service import CDPClient
 from typing import TypedDict, Optional, Callable
 from protocol.heap_profiler.events.types import *
 
 class HeapProfilerEvents:
-    def __init__(self,events:CDPEvents):
-        self.events=events
+    def __init__(self,client:CDPClient):
+        self.client=client
     
     def on_add_heap_snapshot_chunk(self, callback: Callable[[addHeapSnapshotChunkEvent,Optional[str]], None]=None) -> None:
-        self.events.on('addHeapSnapshotChunk', callback)
+        self.client.on('addHeapSnapshotChunk', callback)
     
     def on_heap_stats_update(self, callback: Callable[[heapStatsUpdateEvent,Optional[str]], None]=None) -> None:
         """If heap objects tracking has been started then backend may send update for one or more fragments"""
-        self.events.on('heapStatsUpdate', callback)
+        self.client.on('heapStatsUpdate', callback)
     
     def on_last_seen_object_id(self, callback: Callable[[lastSeenObjectIdEvent,Optional[str]], None]=None) -> None:
         """If heap objects tracking has been started then backend regularly sends a current value for last seen object id and corresponding timestamp. If the were changes in the heap since last event then one or more heapStatsUpdate events will be sent before a new lastSeenObjectId event."""
-        self.events.on('lastSeenObjectId', callback)
+        self.client.on('lastSeenObjectId', callback)
     
     def on_report_heap_snapshot_progress(self, callback: Callable[[reportHeapSnapshotProgressEvent,Optional[str]], None]=None) -> None:
-        self.events.on('reportHeapSnapshotProgress', callback)
+        self.client.on('reportHeapSnapshotProgress', callback)
     
     def on_reset_profiles(self, callback: Callable[[resetProfilesEvent,Optional[str]], None]=None) -> None:
-        self.events.on('resetProfiles', callback)
+        self.client.on('resetProfiles', callback)
      

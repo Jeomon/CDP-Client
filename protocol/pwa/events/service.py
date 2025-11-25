@@ -1,7 +1,7 @@
 
 """CDP PWA Events"""
 
-from client.events import CDPEvents
+from client.service import CDPClient
 from typing import TypedDict, Optional, Callable
 from protocol.pwa.events.types import *
 

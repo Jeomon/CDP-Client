@@ -27,14 +27,14 @@ class EventGenerator:
         template_str = dedent('''
             """CDP {{ domain_name }} Events"""
 
-            from client.events import CDPEvents
+            from client.service import CDPClient
             from typing import TypedDict, Optional, Callable
             from protocol.{{ domain_name | to_snake }}.events.types import *
 
             class {{ domain_name }}Events:
                 {% if event_implementations | length > 0 %}
-                def __init__(self,events:CDPEvents):
-                    self.events=events
+                def __init__(self,client:CDPClient):
+                    self.client=client
                 {% for implementation in event_implementations %}
                 {{ implementation | indent(4) }}
                 {% endfor %}
@@ -59,7 +59,7 @@ class EventGenerator:
                 {% if event_description | length > 0 %}
                 """{{ event_description |replace("\n"," ")}}"""
                 {% endif %}
-                self.events.on('{{ event_name }}', callback)
+                self.client.on('{{ event_name }}', callback)
             ''')
         
         template=self.env.from_string(template_str)

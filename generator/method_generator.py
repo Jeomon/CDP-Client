@@ -27,14 +27,14 @@ class MethodGenerator:
         template_str = dedent('''
             """CDP {{ domain_name }} Methods"""
 
-            from client.methods import CDPMethods
+            from client.service import CDPClient
             from typing import TypedDict,Optional
             from protocol.{{ domain_name | to_snake }}.methods.types import *
 
             class {{ domain_name }}Methods:
                 {% if method_implementations | length > 0 %}
-                def __init__(self, methods:CDPMethods):
-                    self.methods = methods
+                def __init__(self, client:CDPClient):
+                    self.client = client
                 {% for implementation in method_implementations %}
                 {{ implementation | indent(4) }}
                 {% endfor %}
@@ -60,7 +60,7 @@ class MethodGenerator:
             {% if method_description | length > 0 %}
             """{{ method_description | replace("\n"," ")}}"""
             {% endif %}
-            return await self.methods.send(method="{{ domain_name }}.{{ method_name }}", params=params,session_id=session_id)
+            return await self.client.send(method="{{ domain_name }}.{{ method_name }}", params=params,session_id=session_id)
         ''')
 
         template = self.env.from_string(template_str)

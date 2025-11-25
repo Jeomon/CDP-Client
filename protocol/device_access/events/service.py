@@ -1,15 +1,15 @@
 
 """CDP DeviceAccess Events"""
 
-from client.events import CDPEvents
+from client.service import CDPClient
 from typing import TypedDict, Optional, Callable
 from protocol.device_access.events.types import *
 
 class DeviceAccessEvents:
-    def __init__(self,events:CDPEvents):
-        self.events=events
+    def __init__(self,client:CDPClient):
+        self.client=client
     
     def on_device_request_prompted(self, callback: Callable[[deviceRequestPromptedEvent,Optional[str]], None]=None) -> None:
         """A device request opened a user prompt to select a device. Respond with the selectPrompt or cancelPrompt command."""
-        self.events.on('deviceRequestPrompted', callback)
+        self.client.on('deviceRequestPrompted', callback)
      

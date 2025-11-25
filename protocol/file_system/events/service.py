@@ -1,7 +1,7 @@
 
 """CDP FileSystem Events"""
 
-from client.events import CDPEvents
+from client.service import CDPClient
 from typing import TypedDict, Optional, Callable
 from protocol.file_system.events.types import *
 

@@ -18,14 +18,11 @@ class ClientGenerator:
                 def __init__(self, client: "CDPClient"):
                     self.client = client
 
-                async def send(self, method: str, params: Optional[Dict[str, Any]] = None,session_id: Optional[str] = None) -> Any:
-                    return await self.client.send(method, params,session_id)
-
                 {% for domain in domains %}
                 @property
                 def {{ domain['domain'] | to_snake }}(self):
                     from protocol.{{ domain['domain'] | to_snake }}.methods.service import {{ domain['domain'] }}Methods
-                    return {{ domain['domain'] }}Methods(methods=self)
+                    return {{ domain['domain'] }}Methods(client=self.client)
 
                 {% endfor %}
         ''')
@@ -45,14 +42,11 @@ class ClientGenerator:
                 def __init__(self, client: "CDPClient"):
                     self.client = client
 
-                def on(self, event: str, callback: Callable[[Any], None]) -> None:
-                    self.client.on(event, callback)
-
                 {% for domain in domains %}
                 @property
                 def {{ domain['domain'] | to_snake }}(self):
                     from protocol.{{ domain['domain'] | to_snake }}.events.service import {{ domain['domain'] }}Events
-                    return {{ domain['domain'] }}Events(events=self)
+                    return {{ domain['domain'] }}Events(client=self.client)
                     
                 {% endfor %}
         ''')

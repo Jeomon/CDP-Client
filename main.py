@@ -19,7 +19,11 @@ async def main():
         response = await client.get(f"http://localhost:{port}/json/version")
     ws_url = response.json()['webSocketDebuggerUrl']
 
+    async def on_attached_to_target(event,session_id):
+        print(event)
+
     async with CDPClient(ws_url) as client:
+        client.events.target.on_attached_to_target(on_attached_to_target)
         targets=await client.methods.target.get_targets()
         page_targets=[target for target in targets['targetInfos'] if target['type']=='page']
         if not page_targets:
@@ -28,7 +32,6 @@ async def main():
         response=await client.methods.target.attach_to_target(params={'targetId':target_id,"flatten":True})
         session_id=response['sessionId']
         response=await client.methods.page.navigate(params={'url':'https://www.google.com'},session_id=session_id)
-        print(response)
     time.sleep(5)
     process.terminate()
 if __name__ == "__main__":
