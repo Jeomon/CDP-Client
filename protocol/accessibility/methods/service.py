@@ -1,9 +1,9 @@
 
 """CDP Accessibility Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from accessibility.methods.types import *
+from protocol.accessibility.methods.types import *
 
 class AccessibilityMethods:
     def __init__(self, methods:CDPMethods):

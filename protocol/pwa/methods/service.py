@@ -1,9 +1,9 @@
 
 """CDP PWA Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from pwa.methods.types import *
+from protocol.pwa.methods.types import *
 
 class PWAMethods:
     def __init__(self, methods:CDPMethods):

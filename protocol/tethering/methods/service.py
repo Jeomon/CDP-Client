@@ -1,9 +1,9 @@
 
 """CDP Tethering Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from tethering.methods.types import *
+from protocol.tethering.methods.types import *
 
 class TetheringMethods:
     def __init__(self, methods:CDPMethods):

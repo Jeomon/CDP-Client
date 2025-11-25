@@ -1,9 +1,9 @@
 
 """CDP Memory Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from memory.methods.types import *
+from protocol.memory.methods.types import *
 
 class MemoryMethods:
     def __init__(self, methods:CDPMethods):

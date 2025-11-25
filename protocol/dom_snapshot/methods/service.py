@@ -1,9 +1,9 @@
 
 """CDP DOMSnapshot Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from dom_snapshot.methods.types import *
+from protocol.dom_snapshot.methods.types import *
 
 class DOMSnapshotMethods:
     def __init__(self, methods:CDPMethods):

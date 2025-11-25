@@ -5,9 +5,9 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from audits.types import InspectorIssue
+    from protocol.audits.types import InspectorIssue
 
 
 class issueAddedEvent(TypedDict, total=True):
-    issue: InspectorIssue
+    issue: 'InspectorIssue'
 

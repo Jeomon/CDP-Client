@@ -1,9 +1,9 @@
 
 """CDP SystemInfo Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from system_info.methods.types import *
+from protocol.system_info.methods.types import *
 
 class SystemInfoMethods:
     def __init__(self, methods:CDPMethods):

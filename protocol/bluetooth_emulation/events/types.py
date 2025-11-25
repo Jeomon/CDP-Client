@@ -5,26 +5,26 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from bluetooth_emulation.types import CharacteristicOperationType
-    from bluetooth_emulation.types import CharacteristicWriteType
-    from bluetooth_emulation.types import DescriptorOperationType
-    from bluetooth_emulation.types import GATTOperationType
+    from protocol.bluetooth_emulation.types import CharacteristicOperationType
+    from protocol.bluetooth_emulation.types import CharacteristicWriteType
+    from protocol.bluetooth_emulation.types import DescriptorOperationType
+    from protocol.bluetooth_emulation.types import GATTOperationType
 
 
 class gattOperationReceivedEvent(TypedDict, total=True):
-    address: str
-    type: GATTOperationType
+    address: 'str'
+    type: 'GATTOperationType'
 
 
 class characteristicOperationReceivedEvent(TypedDict, total=True):
-    characteristicId: str
-    type: CharacteristicOperationType
-    data: NotRequired[str]
-    writeType: NotRequired[CharacteristicWriteType]
+    characteristicId: 'str'
+    type: 'CharacteristicOperationType'
+    data: NotRequired['str']
+    writeType: NotRequired['CharacteristicWriteType']
 
 
 class descriptorOperationReceivedEvent(TypedDict, total=True):
-    descriptorId: str
-    type: DescriptorOperationType
-    data: NotRequired[str]
+    descriptorId: 'str'
+    type: 'DescriptorOperationType'
+    data: NotRequired['str']
 

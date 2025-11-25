@@ -1,9 +1,9 @@
 
 """CDP Extensions Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from extensions.methods.types import *
+from protocol.extensions.methods.types import *
 
 class ExtensionsMethods:
     def __init__(self, methods:CDPMethods):

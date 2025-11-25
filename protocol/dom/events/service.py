@@ -1,9 +1,9 @@
 
 """CDP DOM Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from dom.events.types import *
+from protocol.dom.events.types import *
 
 class DOMEvents:
     def __init__(self,events:CDPEvents):

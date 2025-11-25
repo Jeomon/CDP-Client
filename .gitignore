@@ -8,5 +8,6 @@ wheels/
 
 # Virtual environments
 .venv
-protocol
-client
+protocol/*
+client/*
+!client/service.py

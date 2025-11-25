@@ -1,9 +1,9 @@
 
 """CDP Preload Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from preload.methods.types import *
+from protocol.preload.methods.types import *
 
 class PreloadMethods:
     def __init__(self, methods:CDPMethods):

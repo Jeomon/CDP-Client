@@ -1,9 +1,9 @@
 
 """CDP BackgroundService Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from background_service.methods.types import *
+from protocol.background_service.methods.types import *
 
 class BackgroundServiceMethods:
     def __init__(self, methods:CDPMethods):

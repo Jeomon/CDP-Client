@@ -1,9 +1,9 @@
 
 """CDP BluetoothEmulation Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from bluetooth_emulation.methods.types import *
+from protocol.bluetooth_emulation.methods.types import *
 
 class BluetoothEmulationMethods:
     def __init__(self, methods:CDPMethods):

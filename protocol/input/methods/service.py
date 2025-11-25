@@ -1,9 +1,9 @@
 
 """CDP Input Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from input.methods.types import *
+from protocol.input.methods.types import *
 
 class InputMethods:
     def __init__(self, methods:CDPMethods):

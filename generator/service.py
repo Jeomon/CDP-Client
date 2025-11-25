@@ -14,11 +14,12 @@ import httpx
 
 class CDPGenerator:    
     def __init__(self):
-        self.path = Path("./protocol")
+        self.protocol_path = Path("./protocol")
+        self.client_path = Path("./client")
         self.env=Environment(trim_blocks=True,lstrip_blocks=True,extensions=[StrcaseExtension])
-        self.type_generator = TypeGenerator(path=self.path)
-        self.event_generator = EventGenerator(path=self.path)
-        self.method_generator = MethodGenerator(path=self.path)
+        self.type_generator = TypeGenerator(path=self.protocol_path)
+        self.event_generator = EventGenerator(path=self.protocol_path)
+        self.method_generator = MethodGenerator(path=self.protocol_path)
         self.client_generator = ClientGenerator()
 
     @property
@@ -44,16 +45,17 @@ class CDPGenerator:
                 self.generate_domain_services(domain)
     
     def generate_client(self):
-        client_dir=Path("./client")
+        client_dir=self.client_path
         domains=list(filter(lambda x: not x.get('deprecated',False),self.domains))
         methods_content=self.client_generator.generate_methods(domains)
-        # events_content=self.client_generator.generate_events(domains)
+        events_content=self.client_generator.generate_events(domains)
 
+        self.write_file(client_dir / "__init__.py","")
         self.write_file(client_dir / "methods.py",methods_content)
-        # self.write_file(client_dir / "events" / "__init__.py",events_content)
+        self.write_file(client_dir / "events.py",events_content)
 
     def generate_domain_services(self,domain:dict):
-        domain_dir = self.path / inflection.underscore(domain['domain'])
+        domain_dir = self.protocol_path / inflection.underscore(domain['domain'])
 
         event_services_content=self.event_generator.generate_event_services(domain)
         method_services_content=self.method_generator.generate_method_services(domain)
@@ -62,7 +64,7 @@ class CDPGenerator:
         self.write_file(domain_dir/"methods"/"service.py",method_services_content)
 
     def generate_domain_types(self,domain:dict):
-        domain_dir = self.path / inflection.underscore(domain['domain'])
+        domain_dir = self.protocol_path / inflection.underscore(domain['domain'])
 
         types_content=self.type_generator.generate_types(domain)
         event_types_content=self.event_generator.generate_event_types(domain)

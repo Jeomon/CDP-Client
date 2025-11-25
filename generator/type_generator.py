@@ -54,7 +54,7 @@ class TypeGenerator:
         code = template.render(
             current_domain=self.current_domain,
             type_definitions_code=type_definitions_code,
-            imports=sorted(filter(lambda x: not x.startswith(f'from {inflection.underscore(self.current_domain)}.types import'),self.imports)),
+            imports=sorted(filter(lambda x: not x.startswith(f'from protocol.{inflection.underscore(self.current_domain)}.types import'),self.imports)),
             type_checking_imports=sorted(self.type_checking_imports),
         )
         return dedent(code)
@@ -166,7 +166,7 @@ class TypeGenerator:
                 {% else %}
                 {% if required_properties %}
                 {% for property in required_properties %}
-                {{ property['name'] }}: {{ property['type'] }}
+                {{ property['name'] }}: '{{ property['type'] }}'
                 {% if property.get('description') %}
                 """{{ property['description'] | replace('\n', ' ') | replace('\"', '') | replace('`','') }}"""
                 {% endif %}
@@ -174,7 +174,7 @@ class TypeGenerator:
                 {% endif %}
                 {% if optional_properties %}
                 {% for property in optional_properties %}
-                {{ property['name'] }}: NotRequired[{{ property['type'] }}]
+                {{ property['name'] }}: NotRequired['{{ property['type'] }}']
                 {% if property.get('description') %}
                 """{{ property['description'] | replace('\n', ' ') | replace('`', '') }}"""
                 {% endif %}

@@ -5,25 +5,25 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from animation.types import Animation
+    from protocol.animation.types import Animation
 
 
 class animationCanceledEvent(TypedDict, total=True):
-    id: str
+    id: 'str'
     """Id of the animation that was cancelled."""
 
 
 class animationCreatedEvent(TypedDict, total=True):
-    id: str
+    id: 'str'
     """Id of the animation that was created."""
 
 
 class animationStartedEvent(TypedDict, total=True):
-    animation: Animation
+    animation: 'Animation'
     """Animation that was started."""
 
 
 class animationUpdatedEvent(TypedDict, total=True):
-    animation: Animation
+    animation: 'Animation'
     """Animation that was updated."""
 

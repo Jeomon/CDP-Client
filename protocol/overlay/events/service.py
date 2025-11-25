@@ -1,9 +1,9 @@
 
 """CDP Overlay Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from overlay.events.types import *
+from protocol.overlay.events.types import *
 
 class OverlayEvents:
     def __init__(self,events:CDPEvents):

@@ -5,91 +5,91 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from accessibility.types import AXNode
-    from accessibility.types import AXNodeId
-    from dom.types import BackendNodeId
-    from dom.types import NodeId
-    from page.types import FrameId
-    from runtime.types import RemoteObjectId
+    from protocol.accessibility.types import AXNode
+    from protocol.accessibility.types import AXNodeId
+    from protocol.dom.types import BackendNodeId
+    from protocol.dom.types import NodeId
+    from protocol.page.types import FrameId
+    from protocol.runtime.types import RemoteObjectId
 
 
 
 
 class getPartialAXTreeParameters(TypedDict, total=False):
-    nodeId: NotRequired[NodeId]
+    nodeId: NotRequired['NodeId']
     """Identifier of the node to get the partial accessibility tree for."""
-    backendNodeId: NotRequired[BackendNodeId]
+    backendNodeId: NotRequired['BackendNodeId']
     """Identifier of the backend node to get the partial accessibility tree for."""
-    objectId: NotRequired[RemoteObjectId]
+    objectId: NotRequired['RemoteObjectId']
     """JavaScript object id of the node wrapper to get the partial accessibility tree for."""
-    fetchRelatives: NotRequired[bool]
+    fetchRelatives: NotRequired['bool']
     """Whether to fetch this node's ancestors, siblings and children. Defaults to true."""
 
 
 class getFullAXTreeParameters(TypedDict, total=False):
-    depth: NotRequired[int]
+    depth: NotRequired['int']
     """The maximum depth at which descendants of the root node should be retrieved. If omitted, the full tree is returned."""
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """The frame for whose document the AX tree should be retrieved. If omitted, the root frame is used."""
 
 
 class getRootAXNodeParameters(TypedDict, total=False):
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """The frame in whose document the node resides. If omitted, the root frame is used."""
 
 
 class getAXNodeAndAncestorsParameters(TypedDict, total=False):
-    nodeId: NotRequired[NodeId]
+    nodeId: NotRequired['NodeId']
     """Identifier of the node to get."""
-    backendNodeId: NotRequired[BackendNodeId]
+    backendNodeId: NotRequired['BackendNodeId']
     """Identifier of the backend node to get."""
-    objectId: NotRequired[RemoteObjectId]
+    objectId: NotRequired['RemoteObjectId']
     """JavaScript object id of the node wrapper to get."""
 
 
 class getChildAXNodesParameters(TypedDict, total=True):
-    id: AXNodeId
-    frameId: NotRequired[FrameId]
+    id: 'AXNodeId'
+    frameId: NotRequired['FrameId']
     """The frame in whose document the node resides. If omitted, the root frame is used."""
 
 
 class queryAXTreeParameters(TypedDict, total=False):
-    nodeId: NotRequired[NodeId]
+    nodeId: NotRequired['NodeId']
     """Identifier of the node for the root to query."""
-    backendNodeId: NotRequired[BackendNodeId]
+    backendNodeId: NotRequired['BackendNodeId']
     """Identifier of the backend node for the root to query."""
-    objectId: NotRequired[RemoteObjectId]
+    objectId: NotRequired['RemoteObjectId']
     """JavaScript object id of the node wrapper for the root to query."""
-    accessibleName: NotRequired[str]
+    accessibleName: NotRequired['str']
     """Find nodes with this computed name."""
-    role: NotRequired[str]
+    role: NotRequired['str']
     """Find nodes with this computed role."""
 
 
 
 
 class getPartialAXTreeReturns(TypedDict):
-    nodes: List[AXNode]
+    nodes: 'List[AXNode]'
     """The Accessibility.AXNode for this DOM node, if it exists, plus its ancestors, siblings and children, if requested."""
 
 
 class getFullAXTreeReturns(TypedDict):
-    nodes: List[AXNode]
+    nodes: 'List[AXNode]'
 
 
 class getRootAXNodeReturns(TypedDict):
-    node: AXNode
+    node: 'AXNode'
 
 
 class getAXNodeAndAncestorsReturns(TypedDict):
-    nodes: List[AXNode]
+    nodes: 'List[AXNode]'
 
 
 class getChildAXNodesReturns(TypedDict):
-    nodes: List[AXNode]
+    nodes: 'List[AXNode]'
 
 
 class queryAXTreeReturns(TypedDict):
-    nodes: List[AXNode]
+    nodes: 'List[AXNode]'
     """A list of Accessibility.AXNode matching the specified attributes, including nodes that are ignored for accessibility."""
 

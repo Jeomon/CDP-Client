@@ -1,9 +1,9 @@
 
 """CDP LayerTree Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from layer_tree.events.types import *
+from protocol.layer_tree.events.types import *
 
 class LayerTreeEvents:
     def __init__(self,events:CDPEvents):

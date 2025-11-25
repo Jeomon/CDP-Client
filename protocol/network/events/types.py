@@ -5,393 +5,393 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from network.types import AssociatedCookie
-    from network.types import BlockedReason
-    from network.types import BlockedSetCookieWithReason
-    from network.types import ClientSecurityState
-    from network.types import ConnectTiming
-    from network.types import CookiePartitionKey
-    from network.types import CorsErrorStatus
-    from network.types import DirectTCPSocketOptions
-    from network.types import DirectUDPMessage
-    from network.types import DirectUDPSocketOptions
-    from network.types import ExemptedSetCookieWithReason
-    from network.types import Headers
-    from network.types import IPAddressSpace
-    from network.types import Initiator
-    from network.types import LoaderId
-    from network.types import MonotonicTime
-    from network.types import ReportingApiEndpoint
-    from network.types import ReportingApiReport
-    from network.types import Request
-    from network.types import RequestId
-    from network.types import ResourcePriority
-    from network.types import ResourceType
-    from network.types import Response
-    from network.types import SignedExchangeInfo
-    from network.types import TimeSinceEpoch
-    from network.types import TrustTokenOperationType
-    from network.types import WebSocketFrame
-    from network.types import WebSocketRequest
-    from network.types import WebSocketResponse
-    from page.types import FrameId
+    from protocol.network.types import AssociatedCookie
+    from protocol.network.types import BlockedReason
+    from protocol.network.types import BlockedSetCookieWithReason
+    from protocol.network.types import ClientSecurityState
+    from protocol.network.types import ConnectTiming
+    from protocol.network.types import CookiePartitionKey
+    from protocol.network.types import CorsErrorStatus
+    from protocol.network.types import DirectTCPSocketOptions
+    from protocol.network.types import DirectUDPMessage
+    from protocol.network.types import DirectUDPSocketOptions
+    from protocol.network.types import ExemptedSetCookieWithReason
+    from protocol.network.types import Headers
+    from protocol.network.types import IPAddressSpace
+    from protocol.network.types import Initiator
+    from protocol.network.types import LoaderId
+    from protocol.network.types import MonotonicTime
+    from protocol.network.types import ReportingApiEndpoint
+    from protocol.network.types import ReportingApiReport
+    from protocol.network.types import Request
+    from protocol.network.types import RequestId
+    from protocol.network.types import ResourcePriority
+    from protocol.network.types import ResourceType
+    from protocol.network.types import Response
+    from protocol.network.types import SignedExchangeInfo
+    from protocol.network.types import TimeSinceEpoch
+    from protocol.network.types import TrustTokenOperationType
+    from protocol.network.types import WebSocketFrame
+    from protocol.network.types import WebSocketRequest
+    from protocol.network.types import WebSocketResponse
+    from protocol.page.types import FrameId
 
 
 class dataReceivedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    dataLength: int
+    dataLength: 'int'
     """Data chunk length."""
-    encodedDataLength: int
+    encodedDataLength: 'int'
     """Actual bytes received (might be less than dataLength for compressed encodings)."""
-    data: NotRequired[str]
+    data: NotRequired['str']
     """Data that was received. (Encoded as a base64 string when passed over JSON)"""
 
 
 class eventSourceMessageReceivedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    eventName: str
+    eventName: 'str'
     """Message type."""
-    eventId: str
+    eventId: 'str'
     """Message identifier."""
-    data: str
+    data: 'str'
     """Message content."""
 
 
 class loadingFailedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    type: ResourceType
+    type: 'ResourceType'
     """Resource type."""
-    errorText: str
+    errorText: 'str'
     """Error message. List of network errors: https://cs.chromium.org/chromium/src/net/base/net_error_list.h"""
-    canceled: NotRequired[bool]
+    canceled: NotRequired['bool']
     """True if loading was canceled."""
-    blockedReason: NotRequired[BlockedReason]
+    blockedReason: NotRequired['BlockedReason']
     """The reason why loading was blocked, if any."""
-    corsErrorStatus: NotRequired[CorsErrorStatus]
+    corsErrorStatus: NotRequired['CorsErrorStatus']
     """The reason why loading was blocked by CORS, if any."""
 
 
 class loadingFinishedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    encodedDataLength: float
+    encodedDataLength: 'float'
     """Total number of bytes received for this request."""
 
 
 class requestServedFromCacheEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
 
 
 class requestWillBeSentEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    loaderId: LoaderId
+    loaderId: 'LoaderId'
     """Loader identifier. Empty string if the request is fetched from worker."""
-    documentURL: str
+    documentURL: 'str'
     """URL of the document this request is loaded for."""
-    request: Request
+    request: 'Request'
     """Request data."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    wallTime: TimeSinceEpoch
+    wallTime: 'TimeSinceEpoch'
     """Timestamp."""
-    initiator: Initiator
+    initiator: 'Initiator'
     """Request initiator."""
-    redirectHasExtraInfo: bool
+    redirectHasExtraInfo: 'bool'
     """In the case that redirectResponse is populated, this flag indicates whether requestWillBeSentExtraInfo and responseReceivedExtraInfo events will be or were emitted for the request which was just redirected."""
-    redirectResponse: NotRequired[Response]
+    redirectResponse: NotRequired['Response']
     """Redirect response data."""
-    type: NotRequired[ResourceType]
+    type: NotRequired['ResourceType']
     """Type of this resource."""
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """Frame identifier."""
-    hasUserGesture: NotRequired[bool]
+    hasUserGesture: NotRequired['bool']
     """Whether the request is initiated by a user gesture. Defaults to false."""
 
 
 class resourceChangedPriorityEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    newPriority: ResourcePriority
+    newPriority: 'ResourcePriority'
     """New priority"""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
 
 
 class signedExchangeReceivedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    info: SignedExchangeInfo
+    info: 'SignedExchangeInfo'
     """Information about the signed exchange response."""
 
 
 class responseReceivedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    loaderId: LoaderId
+    loaderId: 'LoaderId'
     """Loader identifier. Empty string if the request is fetched from worker."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    type: ResourceType
+    type: 'ResourceType'
     """Resource type."""
-    response: Response
+    response: 'Response'
     """Response data."""
-    hasExtraInfo: bool
+    hasExtraInfo: 'bool'
     """Indicates whether requestWillBeSentExtraInfo and responseReceivedExtraInfo events will be or were emitted for this request."""
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """Frame identifier."""
 
 
 class webSocketClosedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
 
 
 class webSocketCreatedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    url: str
+    url: 'str'
     """WebSocket request URL."""
-    initiator: NotRequired[Initiator]
+    initiator: NotRequired['Initiator']
     """Request initiator."""
 
 
 class webSocketFrameErrorEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    errorMessage: str
+    errorMessage: 'str'
     """WebSocket error message."""
 
 
 class webSocketFrameReceivedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    response: WebSocketFrame
+    response: 'WebSocketFrame'
     """WebSocket response data."""
 
 
 class webSocketFrameSentEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    response: WebSocketFrame
+    response: 'WebSocketFrame'
     """WebSocket response data."""
 
 
 class webSocketHandshakeResponseReceivedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    response: WebSocketResponse
+    response: 'WebSocketResponse'
     """WebSocket response data."""
 
 
 class webSocketWillSendHandshakeRequestEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    wallTime: TimeSinceEpoch
+    wallTime: 'TimeSinceEpoch'
     """UTC Timestamp."""
-    request: WebSocketRequest
+    request: 'WebSocketRequest'
     """WebSocket request data."""
 
 
 class webTransportCreatedEvent(TypedDict, total=True):
-    transportId: RequestId
+    transportId: 'RequestId'
     """WebTransport identifier."""
-    url: str
+    url: 'str'
     """WebTransport request URL."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
-    initiator: NotRequired[Initiator]
+    initiator: NotRequired['Initiator']
     """Request initiator."""
 
 
 class webTransportConnectionEstablishedEvent(TypedDict, total=True):
-    transportId: RequestId
+    transportId: 'RequestId'
     """WebTransport identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
 
 
 class webTransportClosedEvent(TypedDict, total=True):
-    transportId: RequestId
+    transportId: 'RequestId'
     """WebTransport identifier."""
-    timestamp: MonotonicTime
+    timestamp: 'MonotonicTime'
     """Timestamp."""
 
 
 class directTCPSocketCreatedEvent(TypedDict, total=True):
-    identifier: RequestId
-    remoteAddr: str
-    remotePort: int
+    identifier: 'RequestId'
+    remoteAddr: 'str'
+    remotePort: 'int'
     """Unsigned int 16."""
-    options: DirectTCPSocketOptions
-    timestamp: MonotonicTime
-    initiator: NotRequired[Initiator]
+    options: 'DirectTCPSocketOptions'
+    timestamp: 'MonotonicTime'
+    initiator: NotRequired['Initiator']
 
 
 class directTCPSocketOpenedEvent(TypedDict, total=True):
-    identifier: RequestId
-    remoteAddr: str
-    remotePort: int
+    identifier: 'RequestId'
+    remoteAddr: 'str'
+    remotePort: 'int'
     """Expected to be unsigned integer."""
-    timestamp: MonotonicTime
-    localAddr: NotRequired[str]
-    localPort: NotRequired[int]
+    timestamp: 'MonotonicTime'
+    localAddr: NotRequired['str']
+    localPort: NotRequired['int']
     """Expected to be unsigned integer."""
 
 
 class directTCPSocketAbortedEvent(TypedDict, total=True):
-    identifier: RequestId
-    errorMessage: str
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    errorMessage: 'str'
+    timestamp: 'MonotonicTime'
 
 
 class directTCPSocketClosedEvent(TypedDict, total=True):
-    identifier: RequestId
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    timestamp: 'MonotonicTime'
 
 
 class directTCPSocketChunkSentEvent(TypedDict, total=True):
-    identifier: RequestId
-    data: str
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    data: 'str'
+    timestamp: 'MonotonicTime'
 
 
 class directTCPSocketChunkReceivedEvent(TypedDict, total=True):
-    identifier: RequestId
-    data: str
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    data: 'str'
+    timestamp: 'MonotonicTime'
 
 
 class directUDPSocketJoinedMulticastGroupEvent(TypedDict, total=True):
-    identifier: RequestId
-    IPAddress: str
+    identifier: 'RequestId'
+    IPAddress: 'str'
 
 
 class directUDPSocketLeftMulticastGroupEvent(TypedDict, total=True):
-    identifier: RequestId
-    IPAddress: str
+    identifier: 'RequestId'
+    IPAddress: 'str'
 
 
 class directUDPSocketCreatedEvent(TypedDict, total=True):
-    identifier: RequestId
-    options: DirectUDPSocketOptions
-    timestamp: MonotonicTime
-    initiator: NotRequired[Initiator]
+    identifier: 'RequestId'
+    options: 'DirectUDPSocketOptions'
+    timestamp: 'MonotonicTime'
+    initiator: NotRequired['Initiator']
 
 
 class directUDPSocketOpenedEvent(TypedDict, total=True):
-    identifier: RequestId
-    localAddr: str
-    localPort: int
+    identifier: 'RequestId'
+    localAddr: 'str'
+    localPort: 'int'
     """Expected to be unsigned integer."""
-    timestamp: MonotonicTime
-    remoteAddr: NotRequired[str]
-    remotePort: NotRequired[int]
+    timestamp: 'MonotonicTime'
+    remoteAddr: NotRequired['str']
+    remotePort: NotRequired['int']
     """Expected to be unsigned integer."""
 
 
 class directUDPSocketAbortedEvent(TypedDict, total=True):
-    identifier: RequestId
-    errorMessage: str
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    errorMessage: 'str'
+    timestamp: 'MonotonicTime'
 
 
 class directUDPSocketClosedEvent(TypedDict, total=True):
-    identifier: RequestId
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    timestamp: 'MonotonicTime'
 
 
 class directUDPSocketChunkSentEvent(TypedDict, total=True):
-    identifier: RequestId
-    message: DirectUDPMessage
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    message: 'DirectUDPMessage'
+    timestamp: 'MonotonicTime'
 
 
 class directUDPSocketChunkReceivedEvent(TypedDict, total=True):
-    identifier: RequestId
-    message: DirectUDPMessage
-    timestamp: MonotonicTime
+    identifier: 'RequestId'
+    message: 'DirectUDPMessage'
+    timestamp: 'MonotonicTime'
 
 
 class requestWillBeSentExtraInfoEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier. Used to match this information to an existing requestWillBeSent event."""
-    associatedCookies: List[AssociatedCookie]
+    associatedCookies: 'List[AssociatedCookie]'
     """A list of cookies potentially associated to the requested URL. This includes both cookies sent with the request and the ones not sent; the latter are distinguished by having blockedReasons field set."""
-    headers: Headers
+    headers: 'Headers'
     """Raw request headers as they will be sent over the wire."""
-    connectTiming: ConnectTiming
+    connectTiming: 'ConnectTiming'
     """Connection timing information for the request."""
-    clientSecurityState: NotRequired[ClientSecurityState]
+    clientSecurityState: NotRequired['ClientSecurityState']
     """The client security state set for the request."""
-    siteHasCookieInOtherPartition: NotRequired[bool]
+    siteHasCookieInOtherPartition: NotRequired['bool']
     """Whether the site has partitioned cookies stored in a partition different than the current one."""
-    appliedNetworkConditionsId: NotRequired[str]
+    appliedNetworkConditionsId: NotRequired['str']
     """The network conditions id if this request was affected by network conditions configured via emulateNetworkConditionsByRule."""
 
 
 class responseReceivedExtraInfoEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier. Used to match this information to another responseReceived event."""
-    blockedCookies: List[BlockedSetCookieWithReason]
+    blockedCookies: 'List[BlockedSetCookieWithReason]'
     """A list of cookies which were not stored from the response along with the corresponding reasons for blocking. The cookies here may not be valid due to syntax errors, which are represented by the invalid cookie line string instead of a proper cookie."""
-    headers: Headers
+    headers: 'Headers'
     """Raw response headers as they were received over the wire. Duplicate headers in the response are represented as a single key with their values concatentated using \n as the separator. See also headersText that contains verbatim text for HTTP/1.*."""
-    resourceIPAddressSpace: IPAddressSpace
+    resourceIPAddressSpace: 'IPAddressSpace'
     """The IP address space of the resource. The address space can only be determined once the transport established the connection, so we can't send it in requestWillBeSentExtraInfo."""
-    statusCode: int
+    statusCode: 'int'
     """The status code of the response. This is useful in cases the request failed and no responseReceived event is triggered, which is the case for, e.g., CORS errors. This is also the correct status code for cached requests, where the status in responseReceived is a 200 and this will be 304."""
-    headersText: NotRequired[str]
+    headersText: NotRequired['str']
     """Raw response header text as it was received over the wire. The raw text may not always be available, such as in the case of HTTP/2 or QUIC."""
-    cookiePartitionKey: NotRequired[CookiePartitionKey]
+    cookiePartitionKey: NotRequired['CookiePartitionKey']
     """The cookie partition key that will be used to store partitioned cookies set in this response. Only sent when partitioned cookies are enabled."""
-    cookiePartitionKeyOpaque: NotRequired[bool]
+    cookiePartitionKeyOpaque: NotRequired['bool']
     """True if partitioned cookies are enabled, but the partition key is not serializable to string."""
-    exemptedCookies: NotRequired[List[ExemptedSetCookieWithReason]]
+    exemptedCookies: NotRequired['List[ExemptedSetCookieWithReason]']
     """A list of cookies which should have been blocked by 3PCD but are exempted and stored from the response with the corresponding reason."""
 
 
 class responseReceivedEarlyHintsEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Request identifier. Used to match this information to another responseReceived event."""
-    headers: Headers
+    headers: 'Headers'
     """Raw response headers as they were received over the wire. Duplicate headers in the response are represented as a single key with their values concatentated using \n as the separator. See also headersText that contains verbatim text for HTTP/1.*."""
 
 
 class trustTokenOperationDoneEvent(TypedDict, total=True):
-    status: Literal["Ok", "InvalidArgument", "MissingIssuerKeys", "FailedPrecondition", "ResourceExhausted", "AlreadyExists", "ResourceLimited", "Unauthorized", "BadResponse", "InternalError", "UnknownError", "FulfilledLocally", "SiteIssuerLimit"]
+    status: 'Literal["Ok", "InvalidArgument", "MissingIssuerKeys", "FailedPrecondition", "ResourceExhausted", "AlreadyExists", "ResourceLimited", "Unauthorized", "BadResponse", "InternalError", "UnknownError", "FulfilledLocally", "SiteIssuerLimit"]'
     """Detailed success or error status of the operation. 'AlreadyExists' also signifies a successful operation, as the result of the operation already exists und thus, the operation was abort preemptively (e.g. a cache hit)."""
-    type: TrustTokenOperationType
-    requestId: RequestId
-    topLevelOrigin: NotRequired[str]
+    type: 'TrustTokenOperationType'
+    requestId: 'RequestId'
+    topLevelOrigin: NotRequired['str']
     """Top level origin. The context in which the operation was attempted."""
-    issuerOrigin: NotRequired[str]
+    issuerOrigin: NotRequired['str']
     """Origin of the issuer in case of a "Issuance" or "Redemption" operation."""
-    issuedTokenCount: NotRequired[int]
+    issuedTokenCount: NotRequired['int']
     """The number of obtained Trust Tokens on a successful "Issuance" operation."""
 
 
@@ -400,15 +400,15 @@ class policyUpdatedEvent(TypedDict, total=True):
 
 
 class reportingApiReportAddedEvent(TypedDict, total=True):
-    report: ReportingApiReport
+    report: 'ReportingApiReport'
 
 
 class reportingApiReportUpdatedEvent(TypedDict, total=True):
-    report: ReportingApiReport
+    report: 'ReportingApiReport'
 
 
 class reportingApiEndpointsChangedForOriginEvent(TypedDict, total=True):
-    origin: str
+    origin: 'str'
     """Origin of the document(s) which configured the endpoints."""
-    endpoints: List[ReportingApiEndpoint]
+    endpoints: 'List[ReportingApiEndpoint]'
 

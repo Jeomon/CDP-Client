@@ -5,12 +5,12 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from performance.types import Metric
+    from protocol.performance.types import Metric
 
 
 class metricsEvent(TypedDict, total=True):
-    metrics: List[Metric]
+    metrics: 'List[Metric]'
     """Current values of the metrics."""
-    title: str
+    title: 'str'
     """Timestamp title."""
 

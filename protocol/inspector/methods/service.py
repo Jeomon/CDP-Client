@@ -1,9 +1,9 @@
 
 """CDP Inspector Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from inspector.methods.types import *
+from protocol.inspector.methods.types import *
 
 class InspectorMethods:
     def __init__(self, methods:CDPMethods):

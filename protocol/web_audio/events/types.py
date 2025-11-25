@@ -5,79 +5,79 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from web_audio.types import AudioListener
-    from web_audio.types import AudioNode
-    from web_audio.types import AudioParam
-    from web_audio.types import BaseAudioContext
-    from web_audio.types import GraphObjectId
+    from protocol.web_audio.types import AudioListener
+    from protocol.web_audio.types import AudioNode
+    from protocol.web_audio.types import AudioParam
+    from protocol.web_audio.types import BaseAudioContext
+    from protocol.web_audio.types import GraphObjectId
 
 
 class contextCreatedEvent(TypedDict, total=True):
-    context: BaseAudioContext
+    context: 'BaseAudioContext'
 
 
 class contextWillBeDestroyedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
+    contextId: 'GraphObjectId'
 
 
 class contextChangedEvent(TypedDict, total=True):
-    context: BaseAudioContext
+    context: 'BaseAudioContext'
 
 
 class audioListenerCreatedEvent(TypedDict, total=True):
-    listener: AudioListener
+    listener: 'AudioListener'
 
 
 class audioListenerWillBeDestroyedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    listenerId: GraphObjectId
+    contextId: 'GraphObjectId'
+    listenerId: 'GraphObjectId'
 
 
 class audioNodeCreatedEvent(TypedDict, total=True):
-    node: AudioNode
+    node: 'AudioNode'
 
 
 class audioNodeWillBeDestroyedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    nodeId: GraphObjectId
+    contextId: 'GraphObjectId'
+    nodeId: 'GraphObjectId'
 
 
 class audioParamCreatedEvent(TypedDict, total=True):
-    param: AudioParam
+    param: 'AudioParam'
 
 
 class audioParamWillBeDestroyedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    nodeId: GraphObjectId
-    paramId: GraphObjectId
+    contextId: 'GraphObjectId'
+    nodeId: 'GraphObjectId'
+    paramId: 'GraphObjectId'
 
 
 class nodesConnectedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    sourceId: GraphObjectId
-    destinationId: GraphObjectId
-    sourceOutputIndex: NotRequired[float]
-    destinationInputIndex: NotRequired[float]
+    contextId: 'GraphObjectId'
+    sourceId: 'GraphObjectId'
+    destinationId: 'GraphObjectId'
+    sourceOutputIndex: NotRequired['float']
+    destinationInputIndex: NotRequired['float']
 
 
 class nodesDisconnectedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    sourceId: GraphObjectId
-    destinationId: GraphObjectId
-    sourceOutputIndex: NotRequired[float]
-    destinationInputIndex: NotRequired[float]
+    contextId: 'GraphObjectId'
+    sourceId: 'GraphObjectId'
+    destinationId: 'GraphObjectId'
+    sourceOutputIndex: NotRequired['float']
+    destinationInputIndex: NotRequired['float']
 
 
 class nodeParamConnectedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    sourceId: GraphObjectId
-    destinationId: GraphObjectId
-    sourceOutputIndex: NotRequired[float]
+    contextId: 'GraphObjectId'
+    sourceId: 'GraphObjectId'
+    destinationId: 'GraphObjectId'
+    sourceOutputIndex: NotRequired['float']
 
 
 class nodeParamDisconnectedEvent(TypedDict, total=True):
-    contextId: GraphObjectId
-    sourceId: GraphObjectId
-    destinationId: GraphObjectId
-    sourceOutputIndex: NotRequired[float]
+    contextId: 'GraphObjectId'
+    sourceId: 'GraphObjectId'
+    destinationId: 'GraphObjectId'
+    sourceOutputIndex: NotRequired['float']
 

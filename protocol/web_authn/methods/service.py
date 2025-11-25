@@ -1,9 +1,9 @@
 
 """CDP WebAuthn Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from web_authn.methods.types import *
+from protocol.web_authn.methods.types import *
 
 class WebAuthnMethods:
     def __init__(self, methods:CDPMethods):

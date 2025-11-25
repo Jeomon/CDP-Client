@@ -5,10 +5,10 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from log.types import LogEntry
+    from protocol.log.types import LogEntry
 
 
 class entryAddedEvent(TypedDict, total=True):
-    entry: LogEntry
+    entry: 'LogEntry'
     """The entry."""
 

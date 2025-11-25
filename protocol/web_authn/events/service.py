@@ -1,9 +1,9 @@
 
 """CDP WebAuthn Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from web_authn.events.types import *
+from protocol.web_authn.events.types import *
 
 class WebAuthnEvents:
     def __init__(self,events:CDPEvents):

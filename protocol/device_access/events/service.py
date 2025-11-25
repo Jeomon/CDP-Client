@@ -1,9 +1,9 @@
 
 """CDP DeviceAccess Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from device_access.events.types import *
+from protocol.device_access.events.types import *
 
 class DeviceAccessEvents:
     def __init__(self,events:CDPEvents):

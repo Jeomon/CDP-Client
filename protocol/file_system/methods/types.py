@@ -5,15 +5,15 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from file_system.types import BucketFileSystemLocator
-    from file_system.types import Directory
+    from protocol.file_system.types import BucketFileSystemLocator
+    from protocol.file_system.types import Directory
 
 
 class getDirectoryParameters(TypedDict, total=True):
-    bucketFileSystemLocator: BucketFileSystemLocator
+    bucketFileSystemLocator: 'BucketFileSystemLocator'
 
 
 class getDirectoryReturns(TypedDict):
-    directory: Directory
+    directory: 'Directory'
     """Returns the directory object at the path."""
 

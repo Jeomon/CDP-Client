@@ -1,9 +1,9 @@
 
 """CDP Runtime Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from runtime.events.types import *
+from protocol.runtime.events.types import *
 
 class RuntimeEvents:
     def __init__(self,events:CDPEvents):

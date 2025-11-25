@@ -5,31 +5,31 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from io.types import StreamHandle
-    from tracing.types import StreamCompression
-    from tracing.types import StreamFormat
+    from protocol.io.types import StreamHandle
+    from protocol.tracing.types import StreamCompression
+    from protocol.tracing.types import StreamFormat
 
 
 class bufferUsageEvent(TypedDict, total=False):
-    percentFull: NotRequired[float]
+    percentFull: NotRequired['float']
     """A number in range [0..1] that indicates the used size of event buffer as a fraction of its total size."""
-    eventCount: NotRequired[float]
+    eventCount: NotRequired['float']
     """An approximate number of events in the trace log."""
-    value: NotRequired[float]
+    value: NotRequired['float']
     """A number in range [0..1] that indicates the used size of event buffer as a fraction of its total size."""
 
 
 class dataCollectedEvent(TypedDict, total=True):
-    value: List[Dict[str, Any]]
+    value: 'List[Dict[str, Any]]'
 
 
 class tracingCompleteEvent(TypedDict, total=True):
-    dataLossOccurred: bool
+    dataLossOccurred: 'bool'
     """Indicates whether some trace data is known to have been lost, e.g. because the trace ring buffer wrapped around."""
-    stream: NotRequired[StreamHandle]
+    stream: NotRequired['StreamHandle']
     """A handle of the stream that holds resulting trace data."""
-    traceFormat: NotRequired[StreamFormat]
+    traceFormat: NotRequired['StreamFormat']
     """Trace data format of returned stream."""
-    streamCompression: NotRequired[StreamCompression]
+    streamCompression: NotRequired['StreamCompression']
     """Compression format of returned stream."""
 

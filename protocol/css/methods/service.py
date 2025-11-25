@@ -1,9 +1,9 @@
 
 """CDP CSS Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from css.methods.types import *
+from protocol.css.methods.types import *
 
 class CSSMethods:
     def __init__(self, methods:CDPMethods):

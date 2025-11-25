@@ -5,25 +5,25 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from autofill.types import Address
-    from autofill.types import CreditCard
-    from dom.types import BackendNodeId
-    from page.types import FrameId
+    from protocol.autofill.types import Address
+    from protocol.autofill.types import CreditCard
+    from protocol.dom.types import BackendNodeId
+    from protocol.page.types import FrameId
 
 
 class triggerParameters(TypedDict, total=True):
-    fieldId: BackendNodeId
+    fieldId: 'BackendNodeId'
     """Identifies a field that serves as an anchor for autofill."""
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """Identifies the frame that field belongs to."""
-    card: NotRequired[CreditCard]
+    card: NotRequired['CreditCard']
     """Credit card information to fill out the form. Credit card data is not saved.  Mutually exclusive with address."""
-    address: NotRequired[Address]
+    address: NotRequired['Address']
     """Address to fill out the form. Address data is not saved. Mutually exclusive with card."""
 
 
 class setAddressesParameters(TypedDict, total=True):
-    addresses: List[Address]
+    addresses: 'List[Address]'
 
 
 

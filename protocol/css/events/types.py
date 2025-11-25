@@ -5,14 +5,14 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from css.types import CSSStyleSheetHeader
-    from css.types import FontFace
-    from css.types import StyleSheetId
-    from dom.types import NodeId
+    from protocol.css.types import CSSStyleSheetHeader
+    from protocol.css.types import FontFace
+    from protocol.css.types import StyleSheetId
+    from protocol.dom.types import NodeId
 
 
 class fontsUpdatedEvent(TypedDict, total=False):
-    font: NotRequired[FontFace]
+    font: NotRequired['FontFace']
     """The web font that has loaded."""
 
 
@@ -21,20 +21,20 @@ class mediaQueryResultChangedEvent(TypedDict, total=True):
 
 
 class styleSheetAddedEvent(TypedDict, total=True):
-    header: CSSStyleSheetHeader
+    header: 'CSSStyleSheetHeader'
     """Added stylesheet metainfo."""
 
 
 class styleSheetChangedEvent(TypedDict, total=True):
-    styleSheetId: StyleSheetId
+    styleSheetId: 'StyleSheetId'
 
 
 class styleSheetRemovedEvent(TypedDict, total=True):
-    styleSheetId: StyleSheetId
+    styleSheetId: 'StyleSheetId'
     """Identifier of the removed stylesheet."""
 
 
 class computedStyleUpdatedEvent(TypedDict, total=True):
-    nodeId: NodeId
+    nodeId: 'NodeId'
     """The node id that has updated computed styles."""
 

@@ -15,26 +15,26 @@ ServiceName = Literal['backgroundFetch','backgroundSync','pushMessaging','notifi
 
 class EventMetadata(TypedDict, total=True):
     """A key-value pair for additional event information to pass along."""
-    key: str
-    value: str
+    key: 'str'
+    value: 'str'
 
 
 class BackgroundServiceEvent(TypedDict, total=True):
     """"""
-    timestamp: TimeSinceEpoch
+    timestamp: 'TimeSinceEpoch'
     """Timestamp of the event (in seconds)."""
-    origin: str
+    origin: 'str'
     """The origin this event belongs to."""
-    serviceWorkerRegistrationId: RegistrationID
+    serviceWorkerRegistrationId: 'RegistrationID'
     """The Service Worker ID that initiated the event."""
-    service: ServiceName
+    service: 'ServiceName'
     """The Background Service this event belongs to."""
-    eventName: str
+    eventName: 'str'
     """A description of the event."""
-    instanceId: str
+    instanceId: 'str'
     """An identifier that groups related events together."""
-    eventMetadata: List[EventMetadata]
+    eventMetadata: 'List[EventMetadata]'
     """A list of event-specific information."""
-    storageKey: str
+    storageKey: 'str'
     """Storage key this event belongs to."""
 

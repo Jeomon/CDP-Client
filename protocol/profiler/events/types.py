@@ -5,33 +5,33 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from debugger.types import Location
-    from profiler.types import Profile
-    from profiler.types import ScriptCoverage
+    from protocol.debugger.types import Location
+    from protocol.profiler.types import Profile
+    from protocol.profiler.types import ScriptCoverage
 
 
 class consoleProfileFinishedEvent(TypedDict, total=True):
-    id: str
-    location: Location
+    id: 'str'
+    location: 'Location'
     """Location of console.profileEnd()."""
-    profile: Profile
-    title: NotRequired[str]
+    profile: 'Profile'
+    title: NotRequired['str']
     """Profile title passed as an argument to console.profile()."""
 
 
 class consoleProfileStartedEvent(TypedDict, total=True):
-    id: str
-    location: Location
+    id: 'str'
+    location: 'Location'
     """Location of console.profile()."""
-    title: NotRequired[str]
+    title: NotRequired['str']
     """Profile title passed as an argument to console.profile()."""
 
 
 class preciseCoverageDeltaUpdateEvent(TypedDict, total=True):
-    timestamp: float
+    timestamp: 'float'
     """Monotonically increasing time (in seconds) when the coverage update was taken in the backend."""
-    occasion: str
+    occasion: 'str'
     """Identifier for distinguishing coverage events."""
-    result: List[ScriptCoverage]
+    result: 'List[ScriptCoverage]'
     """Coverage data for the current isolate."""
 

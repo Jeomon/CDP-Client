@@ -5,9 +5,9 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from input.types import DragData
+    from protocol.input.types import DragData
 
 
 class dragInterceptedEvent(TypedDict, total=True):
-    data: DragData
+    data: 'DragData'
 

@@ -1,9 +1,9 @@
 
 """CDP ServiceWorker Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from service_worker.methods.types import *
+from protocol.service_worker.methods.types import *
 
 class ServiceWorkerMethods:
     def __init__(self, methods:CDPMethods):

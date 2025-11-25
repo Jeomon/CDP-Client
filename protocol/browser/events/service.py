@@ -1,9 +1,9 @@
 
 """CDP Browser Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from browser.events.types import *
+from protocol.browser.events.types import *
 
 class BrowserEvents:
     def __init__(self,events:CDPEvents):

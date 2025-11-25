@@ -1,9 +1,9 @@
 
 """CDP WebAudio Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from web_audio.events.types import *
+from protocol.web_audio.events.types import *
 
 class WebAudioEvents:
     def __init__(self,events:CDPEvents):

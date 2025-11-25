@@ -1,9 +1,9 @@
 
 """CDP Page Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from page.methods.types import *
+from protocol.page.methods.types import *
 
 class PageMethods:
     def __init__(self, methods:CDPMethods):

@@ -1,9 +1,9 @@
 
 """CDP Security Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from security.methods.types import *
+from protocol.security.methods.types import *
 
 class SecurityMethods:
     def __init__(self, methods:CDPMethods):

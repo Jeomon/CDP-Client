@@ -5,58 +5,58 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from network.types import LoaderId
-    from network.types import RequestId
-    from page.types import FrameId
-    from preload.types import PrefetchStatus
-    from preload.types import PreloadPipelineId
-    from preload.types import PreloadingAttemptKey
-    from preload.types import PreloadingAttemptSource
-    from preload.types import PreloadingStatus
-    from preload.types import PrerenderFinalStatus
-    from preload.types import PrerenderMismatchedHeaders
-    from preload.types import RuleSet
-    from preload.types import RuleSetId
+    from protocol.network.types import LoaderId
+    from protocol.network.types import RequestId
+    from protocol.page.types import FrameId
+    from protocol.preload.types import PrefetchStatus
+    from protocol.preload.types import PreloadPipelineId
+    from protocol.preload.types import PreloadingAttemptKey
+    from protocol.preload.types import PreloadingAttemptSource
+    from protocol.preload.types import PreloadingStatus
+    from protocol.preload.types import PrerenderFinalStatus
+    from protocol.preload.types import PrerenderMismatchedHeaders
+    from protocol.preload.types import RuleSet
+    from protocol.preload.types import RuleSetId
 
 
 class ruleSetUpdatedEvent(TypedDict, total=True):
-    ruleSet: RuleSet
+    ruleSet: 'RuleSet'
 
 
 class ruleSetRemovedEvent(TypedDict, total=True):
-    id: RuleSetId
+    id: 'RuleSetId'
 
 
 class preloadEnabledStateUpdatedEvent(TypedDict, total=True):
-    disabledByPreference: bool
-    disabledByDataSaver: bool
-    disabledByBatterySaver: bool
-    disabledByHoldbackPrefetchSpeculationRules: bool
-    disabledByHoldbackPrerenderSpeculationRules: bool
+    disabledByPreference: 'bool'
+    disabledByDataSaver: 'bool'
+    disabledByBatterySaver: 'bool'
+    disabledByHoldbackPrefetchSpeculationRules: 'bool'
+    disabledByHoldbackPrerenderSpeculationRules: 'bool'
 
 
 class prefetchStatusUpdatedEvent(TypedDict, total=True):
-    key: PreloadingAttemptKey
-    pipelineId: PreloadPipelineId
-    initiatingFrameId: FrameId
+    key: 'PreloadingAttemptKey'
+    pipelineId: 'PreloadPipelineId'
+    initiatingFrameId: 'FrameId'
     """The frame id of the frame initiating prefetch."""
-    prefetchUrl: str
-    status: PreloadingStatus
-    prefetchStatus: PrefetchStatus
-    requestId: RequestId
+    prefetchUrl: 'str'
+    status: 'PreloadingStatus'
+    prefetchStatus: 'PrefetchStatus'
+    requestId: 'RequestId'
 
 
 class prerenderStatusUpdatedEvent(TypedDict, total=True):
-    key: PreloadingAttemptKey
-    pipelineId: PreloadPipelineId
-    status: PreloadingStatus
-    prerenderStatus: NotRequired[PrerenderFinalStatus]
-    disallowedMojoInterface: NotRequired[str]
+    key: 'PreloadingAttemptKey'
+    pipelineId: 'PreloadPipelineId'
+    status: 'PreloadingStatus'
+    prerenderStatus: NotRequired['PrerenderFinalStatus']
+    disallowedMojoInterface: NotRequired['str']
     """This is used to give users more information about the name of Mojo interface that is incompatible with prerender and has caused the cancellation of the attempt."""
-    mismatchedHeaders: NotRequired[List[PrerenderMismatchedHeaders]]
+    mismatchedHeaders: NotRequired['List[PrerenderMismatchedHeaders]']
 
 
 class preloadingAttemptSourcesUpdatedEvent(TypedDict, total=True):
-    loaderId: LoaderId
-    preloadingAttemptSources: List[PreloadingAttemptSource]
+    loaderId: 'LoaderId'
+    preloadingAttemptSources: 'List[PreloadingAttemptSource]'
 

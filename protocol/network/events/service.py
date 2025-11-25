@@ -1,9 +1,9 @@
 
 """CDP Network Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from network.events.types import *
+from protocol.network.events.types import *
 
 class NetworkEvents:
     def __init__(self,events:CDPEvents):

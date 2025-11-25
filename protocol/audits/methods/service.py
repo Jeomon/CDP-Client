@@ -1,9 +1,9 @@
 
 """CDP Audits Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from audits.methods.types import *
+from protocol.audits.methods.types import *
 
 class AuditsMethods:
     def __init__(self, methods:CDPMethods):

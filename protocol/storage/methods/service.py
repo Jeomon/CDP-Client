@@ -1,9 +1,9 @@
 
 """CDP Storage Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from storage.methods.types import *
+from protocol.storage.methods.types import *
 
 class StorageMethods:
     def __init__(self, methods:CDPMethods):

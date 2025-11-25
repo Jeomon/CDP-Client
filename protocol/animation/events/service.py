@@ -1,9 +1,9 @@
 
 """CDP Animation Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from animation.events.types import *
+from protocol.animation.events.types import *
 
 class AnimationEvents:
     def __init__(self,events:CDPEvents):

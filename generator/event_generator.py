@@ -27,9 +27,9 @@ class EventGenerator:
         template_str = dedent('''
             """CDP {{ domain_name }} Events"""
 
-            from cdp_client.events import CDPEvents
+            from client.events import CDPEvents
             from typing import TypedDict, Optional, Callable
-            from {{ domain_name | to_snake }}.events.types import *
+            from protocol.{{ domain_name | to_snake }}.events.types import *
 
             class {{ domain_name }}Events:
                 {% if event_implementations | length > 0 %}
@@ -106,7 +106,7 @@ class EventGenerator:
         code = template.render(
             domain_name=self.current_domain,
             event_definitions_code=event_definitions_code,
-            imports=sorted(filter(lambda x: not x.startswith(f'from {self.current_domain}.types import'),self.imports)),
+            imports=sorted(filter(lambda x: not x.startswith(f'from protocol.{self.current_domain}.types import'),self.imports)),
             type_checking_imports=sorted(self.type_checking_imports),
         )
         return dedent(code)
@@ -137,7 +137,7 @@ class EventGenerator:
             {% else %}
             {% if required_parameters %}
             {% for parameter in required_parameters %}
-            {{ parameter['name'] }}: {{ parameter['type'] }}
+            {{ parameter['name'] }}: '{{ parameter['type'] }}'
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -145,7 +145,7 @@ class EventGenerator:
             {% endif %}
             {% if optional_parameters %}
             {% for parameter in optional_parameters %}
-            {{ parameter['name'] }}: NotRequired[{{ parameter['type'] }}]
+            {{ parameter['name'] }}: NotRequired['{{ parameter['type'] }}']
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -189,11 +189,11 @@ class EventGenerator:
             parts=ref.split('.')
             type_name=parts[1]
             domain=inflection.underscore(parts[0])
-            self.type_checking_imports.add(f"from {domain}.types import {type_name}")
+            self.type_checking_imports.add(f"from protocol.{domain}.types import {type_name}")
             return type_name
         else:
             domain=inflection.underscore(self.current_domain)
-            self.type_checking_imports.add(f"from {domain}.types import {ref}")
+            self.type_checking_imports.add(f"from protocol.{domain}.types import {ref}")
             return ref
 
     def map_primitive_type(self, type_name: str):

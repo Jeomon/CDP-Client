@@ -1,9 +1,9 @@
 
 """CDP Cast Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from cast.methods.types import *
+from protocol.cast.methods.types import *
 
 class CastMethods:
     def __init__(self, methods:CDPMethods):

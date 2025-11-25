@@ -1,9 +1,9 @@
 
 """CDP Tethering Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from tethering.events.types import *
+from protocol.tethering.events.types import *
 
 class TetheringEvents:
     def __init__(self,events:CDPEvents):

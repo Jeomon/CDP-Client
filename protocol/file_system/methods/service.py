@@ -1,9 +1,9 @@
 
 """CDP FileSystem Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from file_system.methods.types import *
+from protocol.file_system.methods.types import *
 
 class FileSystemMethods:
     def __init__(self, methods:CDPMethods):

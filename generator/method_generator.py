@@ -27,9 +27,9 @@ class MethodGenerator:
         template_str = dedent('''
             """CDP {{ domain_name }} Methods"""
 
-            from cdp_client.methods import CDPMethods
+            from client.methods import CDPMethods
             from typing import TypedDict,Optional
-            from {{ domain_name | to_snake }}.methods.types import *
+            from protocol.{{ domain_name | to_snake }}.methods.types import *
 
             class {{ domain_name }}Methods:
                 {% if method_implementations | length > 0 %}
@@ -115,7 +115,7 @@ class MethodGenerator:
             domain_name=self.current_domain,
             parameter_definitions_code=parameter_definitions_code,
             return_definitions_code=return_definitions_code,
-            imports=sorted(filter(lambda x: not x.startswith(f'from ..{self.current_domain}.types import'),self.imports)),
+            imports=sorted(filter(lambda x: not x.startswith(f'from protocol.{self.current_domain}.types import'),self.imports)),
             type_checking_imports=sorted(self.type_checking_imports),
         )
         return dedent(code)
@@ -148,7 +148,7 @@ class MethodGenerator:
             {% else %}
             {% if required_parameters %}
             {% for parameter in required_parameters %}
-            {{ parameter['name'] }}: {{ parameter['type'] }}
+            {{ parameter['name'] }}: '{{ parameter['type'] }}'
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -156,7 +156,7 @@ class MethodGenerator:
             {% endif %}
             {% if optional_parameters %}
             {% for parameter in optional_parameters %}
-            {{ parameter['name'] }}: NotRequired[{{ parameter['type'] }}]
+            {{ parameter['name'] }}: NotRequired['{{ parameter['type'] }}']
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -190,7 +190,7 @@ class MethodGenerator:
             pass
             {% else %}
             {% for return_parameter in return_parameters %}
-            {{ return_parameter['name'] }}: {{ return_parameter['type'] }}
+            {{ return_parameter['name'] }}: '{{ return_parameter['type'] }}'
             {% if return_parameter['description'] %}
             """{{ return_parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -231,11 +231,11 @@ class MethodGenerator:
             parts=ref.split('.')
             type_name=parts[1]
             domain=inflection.underscore(parts[0])
-            self.type_checking_imports.add(f"from {domain}.types import {type_name}")
+            self.type_checking_imports.add(f"from protocol.{domain}.types import {type_name}")
             return type_name
         else:
             domain=inflection.underscore(self.current_domain)
-            self.type_checking_imports.add(f"from {domain}.types import {ref}")
+            self.type_checking_imports.add(f"from protocol.{domain}.types import {ref}")
             return ref
 
     def map_primitive_type(self, type_name: str):

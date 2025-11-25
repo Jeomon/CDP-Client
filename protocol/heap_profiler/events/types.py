@@ -5,23 +5,23 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class addHeapSnapshotChunkEvent(TypedDict, total=True):
-    chunk: str
+    chunk: 'str'
 
 
 class heapStatsUpdateEvent(TypedDict, total=True):
-    statsUpdate: List[int]
+    statsUpdate: 'List[int]'
     """An array of triplets. Each triplet describes a fragment. The first integer is the fragment index, the second integer is a total count of objects for the fragment, the third integer is a total size of the objects for the fragment."""
 
 
 class lastSeenObjectIdEvent(TypedDict, total=True):
-    lastSeenObjectId: int
-    timestamp: float
+    lastSeenObjectId: 'int'
+    timestamp: 'float'
 
 
 class reportHeapSnapshotProgressEvent(TypedDict, total=True):
-    done: int
-    total: int
-    finished: NotRequired[bool]
+    done: 'int'
+    total: 'int'
+    finished: NotRequired['bool']
 
 
 class resetProfilesEvent(TypedDict, total=True):

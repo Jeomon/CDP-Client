@@ -1,9 +1,9 @@
 
 """CDP Debugger Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from debugger.methods.types import *
+from protocol.debugger.methods.types import *
 
 class DebuggerMethods:
     def __init__(self, methods:CDPMethods):

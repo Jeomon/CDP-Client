@@ -6,11 +6,11 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class setDeviceOrientationOverrideParameters(TypedDict, total=True):
-    alpha: float
+    alpha: 'float'
     """Mock alpha"""
-    beta: float
+    beta: 'float'
     """Mock beta"""
-    gamma: float
+    gamma: 'float'
     """Mock gamma"""
 
 

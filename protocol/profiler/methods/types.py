@@ -5,25 +5,25 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from profiler.types import Profile
-    from profiler.types import ScriptCoverage
+    from protocol.profiler.types import Profile
+    from protocol.profiler.types import ScriptCoverage
 
 
 
 
 
 class setSamplingIntervalParameters(TypedDict, total=True):
-    interval: int
+    interval: 'int'
     """New sampling interval in microseconds."""
 
 
 
 class startPreciseCoverageParameters(TypedDict, total=False):
-    callCount: NotRequired[bool]
+    callCount: NotRequired['bool']
     """Collect accurate call counts beyond simple 'covered' or 'not covered'."""
-    detailed: NotRequired[bool]
+    detailed: NotRequired['bool']
     """Collect block-based coverage."""
-    allowTriggeredUpdates: NotRequired[bool]
+    allowTriggeredUpdates: NotRequired['bool']
     """Allow the backend to send updates on its own initiative"""
 
 
@@ -33,26 +33,26 @@ class startPreciseCoverageParameters(TypedDict, total=False):
 
 
 class getBestEffortCoverageReturns(TypedDict):
-    result: List[ScriptCoverage]
+    result: 'List[ScriptCoverage]'
     """Coverage data for the current isolate."""
 
 
 
 
 class startPreciseCoverageReturns(TypedDict):
-    timestamp: float
+    timestamp: 'float'
     """Monotonically increasing time (in seconds) when the coverage update was taken in the backend."""
 
 
 class stopReturns(TypedDict):
-    profile: Profile
+    profile: 'Profile'
     """Recorded profile."""
 
 
 
 class takePreciseCoverageReturns(TypedDict):
-    result: List[ScriptCoverage]
+    result: 'List[ScriptCoverage]'
     """Coverage data for the current isolate."""
-    timestamp: float
+    timestamp: 'float'
     """Monotonically increasing time (in seconds) when the coverage update was taken in the backend."""
 

@@ -1,9 +1,9 @@
 
 """CDP DeviceOrientation Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from device_orientation.methods.types import *
+from protocol.device_orientation.methods.types import *
 
 class DeviceOrientationMethods:
     def __init__(self, methods:CDPMethods):

@@ -1,9 +1,9 @@
 
 """CDP HeapProfiler Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from heap_profiler.methods.types import *
+from protocol.heap_profiler.methods.types import *
 
 class HeapProfilerMethods:
     def __init__(self, methods:CDPMethods):

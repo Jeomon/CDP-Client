@@ -1,9 +1,9 @@
 
 """CDP Inspector Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from inspector.events.types import *
+from protocol.inspector.events.types import *
 
 class InspectorEvents:
     def __init__(self,events:CDPEvents):

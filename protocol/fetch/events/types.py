@@ -5,48 +5,48 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from fetch.types import AuthChallenge
-    from fetch.types import HeaderEntry
-    from fetch.types import RequestId
-    from network.types import ErrorReason
-    from network.types import Request
-    from network.types import RequestId
-    from network.types import ResourceType
-    from page.types import FrameId
+    from protocol.fetch.types import AuthChallenge
+    from protocol.fetch.types import HeaderEntry
+    from protocol.fetch.types import RequestId
+    from protocol.network.types import ErrorReason
+    from protocol.network.types import Request
+    from protocol.network.types import RequestId
+    from protocol.network.types import ResourceType
+    from protocol.page.types import FrameId
 
 
 class requestPausedEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Each request the page makes will have a unique id."""
-    request: Request
+    request: 'Request'
     """The details of the request."""
-    frameId: FrameId
+    frameId: 'FrameId'
     """The id of the frame that initiated the request."""
-    resourceType: ResourceType
+    resourceType: 'ResourceType'
     """How the requested resource will be used."""
-    responseErrorReason: NotRequired[ErrorReason]
+    responseErrorReason: NotRequired['ErrorReason']
     """Response error if intercepted at response stage."""
-    responseStatusCode: NotRequired[int]
+    responseStatusCode: NotRequired['int']
     """Response code if intercepted at response stage."""
-    responseStatusText: NotRequired[str]
+    responseStatusText: NotRequired['str']
     """Response status text if intercepted at response stage."""
-    responseHeaders: NotRequired[List[HeaderEntry]]
+    responseHeaders: NotRequired['List[HeaderEntry]']
     """Response headers if intercepted at the response stage."""
-    networkId: NotRequired[RequestId]
+    networkId: NotRequired['RequestId']
     """If the intercepted request had a corresponding Network.requestWillBeSent event fired for it, then this networkId will be the same as the requestId present in the requestWillBeSent event."""
-    redirectedRequestId: NotRequired[RequestId]
+    redirectedRequestId: NotRequired['RequestId']
     """If the request is due to a redirect response from the server, the id of the request that has caused the redirect."""
 
 
 class authRequiredEvent(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Each request the page makes will have a unique id."""
-    request: Request
+    request: 'Request'
     """The details of the request."""
-    frameId: FrameId
+    frameId: 'FrameId'
     """The id of the frame that initiated the request."""
-    resourceType: ResourceType
+    resourceType: 'ResourceType'
     """How the requested resource will be used."""
-    authChallenge: AuthChallenge
+    authChallenge: 'AuthChallenge'
     """Details of the Authorization Challenge encountered. If this is set, client should respond with continueRequest that contains AuthChallengeResponse."""
 

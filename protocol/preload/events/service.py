@@ -1,9 +1,9 @@
 
 """CDP Preload Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from preload.events.types import *
+from protocol.preload.events.types import *
 
 class PreloadEvents:
     def __init__(self,events:CDPEvents):

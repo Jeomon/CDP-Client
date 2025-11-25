@@ -5,19 +5,19 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from service_worker.types import ServiceWorkerErrorMessage
-    from service_worker.types import ServiceWorkerRegistration
-    from service_worker.types import ServiceWorkerVersion
+    from protocol.service_worker.types import ServiceWorkerErrorMessage
+    from protocol.service_worker.types import ServiceWorkerRegistration
+    from protocol.service_worker.types import ServiceWorkerVersion
 
 
 class workerErrorReportedEvent(TypedDict, total=True):
-    errorMessage: ServiceWorkerErrorMessage
+    errorMessage: 'ServiceWorkerErrorMessage'
 
 
 class workerRegistrationUpdatedEvent(TypedDict, total=True):
-    registrations: List[ServiceWorkerRegistration]
+    registrations: 'List[ServiceWorkerRegistration]'
 
 
 class workerVersionUpdatedEvent(TypedDict, total=True):
-    versions: List[ServiceWorkerVersion]
+    versions: 'List[ServiceWorkerVersion]'
 

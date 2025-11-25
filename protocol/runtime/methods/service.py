@@ -1,9 +1,9 @@
 
 """CDP Runtime Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from runtime.methods.types import *
+from protocol.runtime.methods.types import *
 
 class RuntimeMethods:
     def __init__(self, methods:CDPMethods):

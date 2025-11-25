@@ -1,9 +1,9 @@
 
 """CDP EventBreakpoints Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from event_breakpoints.methods.types import *
+from protocol.event_breakpoints.methods.types import *
 
 class EventBreakpointsMethods:
     def __init__(self, methods:CDPMethods):

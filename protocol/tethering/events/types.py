@@ -5,8 +5,8 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class acceptedEvent(TypedDict, total=True):
-    port: int
+    port: 'int'
     """Port number that was successfully bound."""
-    connectionId: str
+    connectionId: 'str'
     """Connection id to be used."""
 

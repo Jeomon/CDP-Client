@@ -25,23 +25,23 @@ AdFrameExplanation = Literal['ParentIsAd','CreatedByAdScript','MatchedBlockingRu
 
 class AdFrameStatus(TypedDict, total=True):
     """Indicates whether a frame has been identified as an ad and why."""
-    adFrameType: AdFrameType
-    explanations: NotRequired[List[AdFrameExplanation]]
+    adFrameType: 'AdFrameType'
+    explanations: NotRequired['List[AdFrameExplanation]']
 
 
 class AdScriptId(TypedDict, total=True):
     """Identifies the script which caused a script or frame to be labelled as an ad."""
-    scriptId: ScriptId
+    scriptId: 'ScriptId'
     """Script Id of the script which caused a script or frame to be labelled as an ad."""
-    debuggerId: UniqueDebuggerId
+    debuggerId: 'UniqueDebuggerId'
     """Id of scriptId's debugger."""
 
 
 class AdScriptAncestry(TypedDict, total=True):
     """Encapsulates the script ancestry and the root script filterlist rule that caused the frame to be labelled as an ad. Only created when ancestryChain is not empty."""
-    ancestryChain: List[AdScriptId]
+    ancestryChain: 'List[AdScriptId]'
     """A chain of AdScriptIds representing the ancestry of an ad script that led to the creation of a frame. The chain is ordered from the script itself (lower level) up to its root ancestor that was flagged by filterlist."""
-    rootScriptFilterlistRule: NotRequired[str]
+    rootScriptFilterlistRule: NotRequired['str']
     """The filterlist rule that caused the root (last) script in ancestryChain to be ad-tagged. Only populated if the rule is available."""
 
 
@@ -66,15 +66,15 @@ PermissionsPolicyBlockReason = Literal['Header','IframeAttribute','InFencedFrame
 
 class PermissionsPolicyBlockLocator(TypedDict, total=True):
     """"""
-    frameId: FrameId
-    blockReason: PermissionsPolicyBlockReason
+    frameId: 'FrameId'
+    blockReason: 'PermissionsPolicyBlockReason'
 
 
 class PermissionsPolicyFeatureState(TypedDict, total=True):
     """"""
-    feature: PermissionsPolicyFeature
-    allowed: bool
-    locator: NotRequired[PermissionsPolicyBlockLocator]
+    feature: 'PermissionsPolicyFeature'
+    allowed: 'bool'
+    locator: NotRequired['PermissionsPolicyBlockLocator']
 
 
 OriginTrialTokenStatus = Literal['Success','NotSupported','Insecure','Expired','WrongOrigin','InvalidSignature','Malformed','WrongVersion','FeatureDisabled','TokenDisabled','FeatureDisabledForUser','UnknownTrial']
@@ -90,102 +90,102 @@ OriginTrialUsageRestriction = Literal['None','Subset']
 
 class OriginTrialToken(TypedDict, total=True):
     """"""
-    origin: str
-    matchSubDomains: bool
-    trialName: str
-    expiryTime: TimeSinceEpoch
-    isThirdParty: bool
-    usageRestriction: OriginTrialUsageRestriction
+    origin: 'str'
+    matchSubDomains: 'bool'
+    trialName: 'str'
+    expiryTime: 'TimeSinceEpoch'
+    isThirdParty: 'bool'
+    usageRestriction: 'OriginTrialUsageRestriction'
 
 
 class OriginTrialTokenWithStatus(TypedDict, total=True):
     """"""
-    rawTokenText: str
-    status: OriginTrialTokenStatus
-    parsedToken: NotRequired[OriginTrialToken]
+    rawTokenText: 'str'
+    status: 'OriginTrialTokenStatus'
+    parsedToken: NotRequired['OriginTrialToken']
     """parsedToken is present only when the token is extractable and parsable."""
 
 
 class OriginTrial(TypedDict, total=True):
     """"""
-    trialName: str
-    status: OriginTrialStatus
-    tokensWithStatus: List[OriginTrialTokenWithStatus]
+    trialName: 'str'
+    status: 'OriginTrialStatus'
+    tokensWithStatus: 'List[OriginTrialTokenWithStatus]'
 
 
 class SecurityOriginDetails(TypedDict, total=True):
     """Additional information about the frame document's security origin."""
-    isLocalhost: bool
+    isLocalhost: 'bool'
     """Indicates whether the frame document's security origin is one of the local hostnames (e.g. localhost) or IP addresses (IPv4 127.0.0.0/8 or IPv6 ::1)."""
 
 
 class Frame(TypedDict, total=True):
     """Information about the Frame on the page."""
-    id: FrameId
+    id: 'FrameId'
     """Frame unique identifier."""
-    loaderId: LoaderId
+    loaderId: 'LoaderId'
     """Identifier of the loader associated with this frame."""
-    url: str
+    url: 'str'
     """Frame document's URL without fragment."""
-    domainAndRegistry: str
+    domainAndRegistry: 'str'
     """Frame document's registered domain, taking the public suffixes list into account. Extracted from the Frame's url. Example URLs: http://www.google.com/file.html -> google.com               http://a.b.co.uk/file.html      -> b.co.uk"""
-    securityOrigin: str
+    securityOrigin: 'str'
     """Frame document's security origin."""
-    mimeType: str
+    mimeType: 'str'
     """Frame document's mimeType as determined by the browser."""
-    secureContextType: SecureContextType
+    secureContextType: 'SecureContextType'
     """Indicates whether the main document is a secure context and explains why that is the case."""
-    crossOriginIsolatedContextType: CrossOriginIsolatedContextType
+    crossOriginIsolatedContextType: 'CrossOriginIsolatedContextType'
     """Indicates whether this is a cross origin isolated context."""
-    gatedAPIFeatures: List[GatedAPIFeatures]
+    gatedAPIFeatures: 'List[GatedAPIFeatures]'
     """Indicated which gated APIs / features are available."""
-    parentId: NotRequired[FrameId]
+    parentId: NotRequired['FrameId']
     """Parent frame identifier."""
-    name: NotRequired[str]
+    name: NotRequired['str']
     """Frame's name as specified in the tag."""
-    urlFragment: NotRequired[str]
+    urlFragment: NotRequired['str']
     """Frame document's URL fragment including the '#'."""
-    securityOriginDetails: NotRequired[SecurityOriginDetails]
+    securityOriginDetails: NotRequired['SecurityOriginDetails']
     """Additional details about the frame document's security origin."""
-    unreachableUrl: NotRequired[str]
+    unreachableUrl: NotRequired['str']
     """If the frame failed to load, this contains the URL that could not be loaded. Note that unlike url above, this URL may contain a fragment."""
-    adFrameStatus: NotRequired[AdFrameStatus]
+    adFrameStatus: NotRequired['AdFrameStatus']
     """Indicates whether this frame was tagged as an ad and why."""
 
 
 class FrameResource(TypedDict, total=True):
     """Information about the Resource on the page."""
-    url: str
+    url: 'str'
     """Resource URL."""
-    type: ResourceType
+    type: 'ResourceType'
     """Type of this resource."""
-    mimeType: str
+    mimeType: 'str'
     """Resource mimeType as determined by the browser."""
-    lastModified: NotRequired[TimeSinceEpoch]
+    lastModified: NotRequired['TimeSinceEpoch']
     """last-modified timestamp as reported by server."""
-    contentSize: NotRequired[float]
+    contentSize: NotRequired['float']
     """Resource content size."""
-    failed: NotRequired[bool]
+    failed: NotRequired['bool']
     """True if the resource failed to load."""
-    canceled: NotRequired[bool]
+    canceled: NotRequired['bool']
     """True if the resource was canceled during loading."""
 
 
 class FrameResourceTree(TypedDict, total=True):
     """Information about the Frame hierarchy along with their cached resources."""
-    frame: Frame
+    frame: 'Frame'
     """Frame information for this tree item."""
-    resources: List[FrameResource]
+    resources: 'List[FrameResource]'
     """Information about frame resources."""
-    childFrames: NotRequired[List[FrameResourceTree]]
+    childFrames: NotRequired['List[FrameResourceTree]']
     """Child frames."""
 
 
 class FrameTree(TypedDict, total=True):
     """Information about the Frame hierarchy."""
-    frame: Frame
+    frame: 'Frame'
     """Frame information for this tree item."""
-    childFrames: NotRequired[List[FrameTree]]
+    childFrames: NotRequired['List[FrameTree]']
     """Child frames."""
 
 
@@ -199,33 +199,33 @@ TransitionType = Literal['link','typed','address_bar','auto_bookmark','auto_subf
 
 class NavigationEntry(TypedDict, total=True):
     """Navigation history entry."""
-    id: int
+    id: 'int'
     """Unique id of the navigation history entry."""
-    url: str
+    url: 'str'
     """URL of the navigation history entry."""
-    userTypedURL: str
+    userTypedURL: 'str'
     """URL that the user typed in the url bar."""
-    title: str
+    title: 'str'
     """Title of the navigation history entry."""
-    transitionType: TransitionType
+    transitionType: 'TransitionType'
     """Transition type."""
 
 
 class ScreencastFrameMetadata(TypedDict, total=True):
     """Screencast frame metadata."""
-    offsetTop: float
+    offsetTop: 'float'
     """Top offset in DIP."""
-    pageScaleFactor: float
+    pageScaleFactor: 'float'
     """Page scale factor."""
-    deviceWidth: float
+    deviceWidth: 'float'
     """Device screen width in DIP."""
-    deviceHeight: float
+    deviceHeight: 'float'
     """Device screen height in DIP."""
-    scrollOffsetX: float
+    scrollOffsetX: 'float'
     """Position of horizontal scroll in CSS pixels."""
-    scrollOffsetY: float
+    scrollOffsetY: 'float'
     """Position of vertical scroll in CSS pixels."""
-    timestamp: NotRequired[TimeSinceEpoch]
+    timestamp: NotRequired['TimeSinceEpoch']
     """Frame swap timestamp."""
 
 
@@ -235,99 +235,99 @@ DialogType = Literal['alert','confirm','prompt','beforeunload']
 
 class AppManifestError(TypedDict, total=True):
     """Error while paring app manifest."""
-    message: str
+    message: 'str'
     """Error message."""
-    critical: int
+    critical: 'int'
     """If critical, this is a non-recoverable parse error."""
-    line: int
+    line: 'int'
     """Error line."""
-    column: int
+    column: 'int'
     """Error column."""
 
 
 class AppManifestParsedProperties(TypedDict, total=True):
     """Parsed app manifest properties."""
-    scope: str
+    scope: 'str'
     """Computed scope value"""
 
 
 class LayoutViewport(TypedDict, total=True):
     """Layout viewport position and dimensions."""
-    pageX: int
+    pageX: 'int'
     """Horizontal offset relative to the document (CSS pixels)."""
-    pageY: int
+    pageY: 'int'
     """Vertical offset relative to the document (CSS pixels)."""
-    clientWidth: int
+    clientWidth: 'int'
     """Width (CSS pixels), excludes scrollbar if present."""
-    clientHeight: int
+    clientHeight: 'int'
     """Height (CSS pixels), excludes scrollbar if present."""
 
 
 class VisualViewport(TypedDict, total=True):
     """Visual viewport position, dimensions, and scale."""
-    offsetX: float
+    offsetX: 'float'
     """Horizontal offset relative to the layout viewport (CSS pixels)."""
-    offsetY: float
+    offsetY: 'float'
     """Vertical offset relative to the layout viewport (CSS pixels)."""
-    pageX: float
+    pageX: 'float'
     """Horizontal offset relative to the document (CSS pixels)."""
-    pageY: float
+    pageY: 'float'
     """Vertical offset relative to the document (CSS pixels)."""
-    clientWidth: float
+    clientWidth: 'float'
     """Width (CSS pixels), excludes scrollbar if present."""
-    clientHeight: float
+    clientHeight: 'float'
     """Height (CSS pixels), excludes scrollbar if present."""
-    scale: float
+    scale: 'float'
     """Scale relative to the ideal viewport (size at width=device-width)."""
-    zoom: NotRequired[float]
+    zoom: NotRequired['float']
     """Page zoom factor (CSS to device independent pixels ratio)."""
 
 
 class Viewport(TypedDict, total=True):
     """Viewport for capturing screenshot."""
-    x: float
+    x: 'float'
     """X offset in device independent pixels (dip)."""
-    y: float
+    y: 'float'
     """Y offset in device independent pixels (dip)."""
-    width: float
+    width: 'float'
     """Rectangle width in device independent pixels (dip)."""
-    height: float
+    height: 'float'
     """Rectangle height in device independent pixels (dip)."""
-    scale: float
+    scale: 'float'
     """Page scale factor."""
 
 
 class FontFamilies(TypedDict, total=False):
     """Generic font families collection."""
-    standard: NotRequired[str]
+    standard: NotRequired['str']
     """The standard font-family."""
-    fixed: NotRequired[str]
+    fixed: NotRequired['str']
     """The fixed font-family."""
-    serif: NotRequired[str]
+    serif: NotRequired['str']
     """The serif font-family."""
-    sansSerif: NotRequired[str]
+    sansSerif: NotRequired['str']
     """The sansSerif font-family."""
-    cursive: NotRequired[str]
+    cursive: NotRequired['str']
     """The cursive font-family."""
-    fantasy: NotRequired[str]
+    fantasy: NotRequired['str']
     """The fantasy font-family."""
-    math: NotRequired[str]
+    math: NotRequired['str']
     """The math font-family."""
 
 
 class ScriptFontFamilies(TypedDict, total=True):
     """Font families collection for a script."""
-    script: str
+    script: 'str'
     """Name of the script which these font families are defined for."""
-    fontFamilies: FontFamilies
+    fontFamilies: 'FontFamilies'
     """Generic font families collection for the script."""
 
 
 class FontSizes(TypedDict, total=False):
     """Default font sizes."""
-    standard: NotRequired[int]
+    standard: NotRequired['int']
     """Default standard font size."""
-    fixed: NotRequired[int]
+    fixed: NotRequired['int']
     """Default fixed font size."""
 
 
@@ -339,17 +339,17 @@ ClientNavigationDisposition = Literal['currentTab','newTab','newWindow','downloa
 
 class InstallabilityErrorArgument(TypedDict, total=True):
     """"""
-    name: str
+    name: 'str'
     """Argument name (e.g. name:'minimum-icon-size-in-pixels')."""
-    value: str
+    value: 'str'
     """Argument value (e.g. value:'64')."""
 
 
 class InstallabilityError(TypedDict, total=True):
     """The installability error"""
-    errorId: str
+    errorId: 'str'
     """The error id (e.g. 'manifest-missing-suitable-icon')."""
-    errorArguments: List[InstallabilityErrorArgument]
+    errorArguments: 'List[InstallabilityErrorArgument]'
     """The list of error arguments (e.g. {name:'minimum-icon-size-in-pixels', value:'64'})."""
 
 
@@ -359,118 +359,118 @@ ReferrerPolicy = Literal['noReferrer','noReferrerWhenDowngrade','origin','origin
 
 class CompilationCacheParams(TypedDict, total=True):
     """Per-script compilation cache parameters for Page.produceCompilationCache"""
-    url: str
+    url: 'str'
     """The URL of the script to produce a compilation cache entry for."""
-    eager: NotRequired[bool]
+    eager: NotRequired['bool']
     """A hint to the backend whether eager compilation is recommended. (the actual compilation mode used is upon backend discretion)."""
 
 
 class FileFilter(TypedDict, total=False):
     """"""
-    name: NotRequired[str]
-    accepts: NotRequired[List[str]]
+    name: NotRequired['str']
+    accepts: NotRequired['List[str]']
 
 
 class FileHandler(TypedDict, total=True):
     """"""
-    action: str
-    name: str
-    launchType: str
+    action: 'str'
+    name: 'str'
+    launchType: 'str'
     """Won't repeat the enums, using string for easy comparison. Same as the other enums below."""
-    icons: NotRequired[List[ImageResource]]
-    accepts: NotRequired[List[FileFilter]]
+    icons: NotRequired['List[ImageResource]']
+    accepts: NotRequired['List[FileFilter]']
     """Mimic a map, name is the key, accepts is the value."""
 
 
 class ImageResource(TypedDict, total=True):
     """The image definition used in both icon and screenshot."""
-    url: str
+    url: 'str'
     """The src field in the definition, but changing to url in favor of consistency."""
-    sizes: NotRequired[str]
-    type: NotRequired[str]
+    sizes: NotRequired['str']
+    type: NotRequired['str']
 
 
 class LaunchHandler(TypedDict, total=True):
     """"""
-    clientMode: str
+    clientMode: 'str'
 
 
 class ProtocolHandler(TypedDict, total=True):
     """"""
-    protocol: str
-    url: str
+    protocol: 'str'
+    url: 'str'
 
 
 class RelatedApplication(TypedDict, total=True):
     """"""
-    url: str
-    id: NotRequired[str]
+    url: 'str'
+    id: NotRequired['str']
 
 
 class ScopeExtension(TypedDict, total=True):
     """"""
-    origin: str
+    origin: 'str'
     """Instead of using tuple, this field always returns the serialized string for easy understanding and comparison."""
-    hasOriginWildcard: bool
+    hasOriginWildcard: 'bool'
 
 
 class Screenshot(TypedDict, total=True):
     """"""
-    image: ImageResource
-    formFactor: str
-    label: NotRequired[str]
+    image: 'ImageResource'
+    formFactor: 'str'
+    label: NotRequired['str']
 
 
 class ShareTarget(TypedDict, total=True):
     """"""
-    action: str
-    method: str
-    enctype: str
-    title: NotRequired[str]
+    action: 'str'
+    method: 'str'
+    enctype: 'str'
+    title: NotRequired['str']
     """Embed the ShareTargetParams"""
-    text: NotRequired[str]
-    url: NotRequired[str]
-    files: NotRequired[List[FileFilter]]
+    text: NotRequired['str']
+    url: NotRequired['str']
+    files: NotRequired['List[FileFilter]']
 
 
 class Shortcut(TypedDict, total=True):
     """"""
-    name: str
-    url: str
+    name: 'str'
+    url: 'str'
 
 
 class WebAppManifest(TypedDict, total=False):
     """"""
-    backgroundColor: NotRequired[str]
-    description: NotRequired[str]
+    backgroundColor: NotRequired['str']
+    description: NotRequired['str']
     """The extra description provided by the manifest."""
-    dir: NotRequired[str]
-    display: NotRequired[str]
-    displayOverrides: NotRequired[List[str]]
+    dir: NotRequired['str']
+    display: NotRequired['str']
+    displayOverrides: NotRequired['List[str]']
     """The overrided display mode controlled by the user."""
-    fileHandlers: NotRequired[List[FileHandler]]
+    fileHandlers: NotRequired['List[FileHandler]']
     """The handlers to open files."""
-    icons: NotRequired[List[ImageResource]]
-    id: NotRequired[str]
-    lang: NotRequired[str]
-    launchHandler: NotRequired[LaunchHandler]
+    icons: NotRequired['List[ImageResource]']
+    id: NotRequired['str']
+    lang: NotRequired['str']
+    launchHandler: NotRequired['LaunchHandler']
     """TODO(crbug.com/1231886): This field is non-standard and part of a Chrome experiment. See: https://github.com/WICG/web-app-launch/blob/main/launch_handler.md"""
-    name: NotRequired[str]
-    orientation: NotRequired[str]
-    preferRelatedApplications: NotRequired[bool]
-    protocolHandlers: NotRequired[List[ProtocolHandler]]
+    name: NotRequired['str']
+    orientation: NotRequired['str']
+    preferRelatedApplications: NotRequired['bool']
+    protocolHandlers: NotRequired['List[ProtocolHandler]']
     """The handlers to open protocols."""
-    relatedApplications: NotRequired[List[RelatedApplication]]
-    scope: NotRequired[str]
-    scopeExtensions: NotRequired[List[ScopeExtension]]
+    relatedApplications: NotRequired['List[RelatedApplication]']
+    scope: NotRequired['str']
+    scopeExtensions: NotRequired['List[ScopeExtension]']
     """Non-standard, see https://github.com/WICG/manifest-incubations/blob/gh-pages/scope_extensions-explainer.md"""
-    screenshots: NotRequired[List[Screenshot]]
+    screenshots: NotRequired['List[Screenshot]']
     """The screenshots used by chromium."""
-    shareTarget: NotRequired[ShareTarget]
-    shortName: NotRequired[str]
-    shortcuts: NotRequired[List[Shortcut]]
-    startUrl: NotRequired[str]
-    themeColor: NotRequired[str]
+    shareTarget: NotRequired['ShareTarget']
+    shortName: NotRequired['str']
+    shortcuts: NotRequired['List[Shortcut]']
+    startUrl: NotRequired['str']
+    themeColor: NotRequired['str']
 
 
 NavigationType = Literal['Navigation','BackForwardCacheRestore']
@@ -487,33 +487,33 @@ BackForwardCacheNotRestoredReasonType = Literal['SupportPending','PageSupportNee
 
 class BackForwardCacheBlockingDetails(TypedDict, total=True):
     """"""
-    lineNumber: int
+    lineNumber: 'int'
     """Line number in the script (0-based)."""
-    columnNumber: int
+    columnNumber: 'int'
     """Column number in the script (0-based)."""
-    url: NotRequired[str]
+    url: NotRequired['str']
     """Url of the file where blockage happened. Optional because of tests."""
-    function: NotRequired[str]
+    function: NotRequired['str']
     """Function name where blockage happened. Optional because of anonymous functions and tests."""
 
 
 class BackForwardCacheNotRestoredExplanation(TypedDict, total=True):
     """"""
-    type: BackForwardCacheNotRestoredReasonType
+    type: 'BackForwardCacheNotRestoredReasonType'
     """Type of the reason"""
-    reason: BackForwardCacheNotRestoredReason
+    reason: 'BackForwardCacheNotRestoredReason'
     """Not restored reason"""
-    context: NotRequired[str]
+    context: NotRequired['str']
     """Context associated with the reason. The meaning of this context is dependent on the reason: - EmbedderExtensionSentMessageToCachedFrame: the extension ID."""
-    details: NotRequired[List[BackForwardCacheBlockingDetails]]
+    details: NotRequired['List[BackForwardCacheBlockingDetails]']
 
 
 class BackForwardCacheNotRestoredExplanationTree(TypedDict, total=True):
     """"""
-    url: str
+    url: 'str'
     """URL of each frame"""
-    explanations: List[BackForwardCacheNotRestoredExplanation]
+    explanations: 'List[BackForwardCacheNotRestoredExplanation]'
     """Not restored reasons of each frame"""
-    children: List[BackForwardCacheNotRestoredExplanationTree]
+    children: 'List[BackForwardCacheNotRestoredExplanationTree]'
     """Array of children frame"""
 

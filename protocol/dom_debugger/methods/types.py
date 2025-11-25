@@ -5,67 +5,67 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from dom.types import NodeId
-    from dom_debugger.types import CSPViolationType
-    from dom_debugger.types import DOMBreakpointType
-    from dom_debugger.types import EventListener
-    from runtime.types import RemoteObjectId
+    from protocol.dom.types import NodeId
+    from protocol.dom_debugger.types import CSPViolationType
+    from protocol.dom_debugger.types import DOMBreakpointType
+    from protocol.dom_debugger.types import EventListener
+    from protocol.runtime.types import RemoteObjectId
 
 
 class getEventListenersParameters(TypedDict, total=True):
-    objectId: RemoteObjectId
+    objectId: 'RemoteObjectId'
     """Identifier of the object to return listeners for."""
-    depth: NotRequired[int]
+    depth: NotRequired['int']
     """The maximum depth at which Node children should be retrieved, defaults to 1. Use -1 for the entire subtree or provide an integer larger than 0."""
-    pierce: NotRequired[bool]
+    pierce: NotRequired['bool']
     """Whether or not iframes and shadow roots should be traversed when returning the subtree (default is false). Reports listeners for all contexts if pierce is enabled."""
 
 
 class removeDOMBreakpointParameters(TypedDict, total=True):
-    nodeId: NodeId
+    nodeId: 'NodeId'
     """Identifier of the node to remove breakpoint from."""
-    type: DOMBreakpointType
+    type: 'DOMBreakpointType'
     """Type of the breakpoint to remove."""
 
 
 class removeEventListenerBreakpointParameters(TypedDict, total=True):
-    eventName: str
+    eventName: 'str'
     """Event name."""
-    targetName: NotRequired[str]
+    targetName: NotRequired['str']
     """EventTarget interface name."""
 
 
 class removeXHRBreakpointParameters(TypedDict, total=True):
-    url: str
+    url: 'str'
     """Resource URL substring."""
 
 
 class setBreakOnCSPViolationParameters(TypedDict, total=True):
-    violationTypes: List[CSPViolationType]
+    violationTypes: 'List[CSPViolationType]'
     """CSP Violations to stop upon."""
 
 
 class setDOMBreakpointParameters(TypedDict, total=True):
-    nodeId: NodeId
+    nodeId: 'NodeId'
     """Identifier of the node to set breakpoint on."""
-    type: DOMBreakpointType
+    type: 'DOMBreakpointType'
     """Type of the operation to stop upon."""
 
 
 class setEventListenerBreakpointParameters(TypedDict, total=True):
-    eventName: str
+    eventName: 'str'
     """DOM Event name to stop on (any DOM event will do)."""
-    targetName: NotRequired[str]
+    targetName: NotRequired['str']
     """EventTarget interface name to stop on. If equal to "*" or not provided, will stop on any EventTarget."""
 
 
 class setXHRBreakpointParameters(TypedDict, total=True):
-    url: str
+    url: 'str'
     """Resource URL substring. All XHRs having this substring in the URL will get stopped upon."""
 
 
 class getEventListenersReturns(TypedDict):
-    listeners: List[EventListener]
+    listeners: 'List[EventListener]'
     """Array of relevant listeners."""
 
 

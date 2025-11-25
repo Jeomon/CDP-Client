@@ -1,9 +1,9 @@
 
 """CDP HeadlessExperimental Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from headless_experimental.methods.types import *
+from protocol.headless_experimental.methods.types import *
 
 class HeadlessExperimentalMethods:
     def __init__(self, methods:CDPMethods):

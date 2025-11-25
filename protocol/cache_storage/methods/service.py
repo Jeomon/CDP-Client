@@ -1,9 +1,9 @@
 
 """CDP CacheStorage Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from cache_storage.methods.types import *
+from protocol.cache_storage.methods.types import *
 
 class CacheStorageMethods:
     def __init__(self, methods:CDPMethods):

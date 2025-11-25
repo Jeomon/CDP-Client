@@ -1,9 +1,9 @@
 
 """CDP IndexedDB Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from indexed_db.methods.types import *
+from protocol.indexed_db.methods.types import *
 
 class IndexedDBMethods:
     def __init__(self, methods:CDPMethods):

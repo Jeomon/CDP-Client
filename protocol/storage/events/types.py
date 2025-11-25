@@ -5,166 +5,166 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from network.types import RequestId
-    from network.types import TimeSinceEpoch
-    from page.types import FrameId
-    from storage.types import AttributionReportingAggregatableResult
-    from storage.types import AttributionReportingEventLevelResult
-    from storage.types import AttributionReportingReportResult
-    from storage.types import AttributionReportingSourceRegistration
-    from storage.types import AttributionReportingSourceRegistrationResult
-    from storage.types import AttributionReportingTriggerRegistration
-    from storage.types import InterestGroupAccessType
-    from storage.types import InterestGroupAuctionEventType
-    from storage.types import InterestGroupAuctionFetchType
-    from storage.types import InterestGroupAuctionId
-    from storage.types import SharedStorageAccessMethod
-    from storage.types import SharedStorageAccessParams
-    from storage.types import SharedStorageAccessScope
-    from storage.types import StorageBucketInfo
-    from target.types import TargetID
+    from protocol.network.types import RequestId
+    from protocol.network.types import TimeSinceEpoch
+    from protocol.page.types import FrameId
+    from protocol.storage.types import AttributionReportingAggregatableResult
+    from protocol.storage.types import AttributionReportingEventLevelResult
+    from protocol.storage.types import AttributionReportingReportResult
+    from protocol.storage.types import AttributionReportingSourceRegistration
+    from protocol.storage.types import AttributionReportingSourceRegistrationResult
+    from protocol.storage.types import AttributionReportingTriggerRegistration
+    from protocol.storage.types import InterestGroupAccessType
+    from protocol.storage.types import InterestGroupAuctionEventType
+    from protocol.storage.types import InterestGroupAuctionFetchType
+    from protocol.storage.types import InterestGroupAuctionId
+    from protocol.storage.types import SharedStorageAccessMethod
+    from protocol.storage.types import SharedStorageAccessParams
+    from protocol.storage.types import SharedStorageAccessScope
+    from protocol.storage.types import StorageBucketInfo
+    from protocol.target.types import TargetID
 
 
 class cacheStorageContentUpdatedEvent(TypedDict, total=True):
-    origin: str
+    origin: 'str'
     """Origin to update."""
-    storageKey: str
+    storageKey: 'str'
     """Storage key to update."""
-    bucketId: str
+    bucketId: 'str'
     """Storage bucket to update."""
-    cacheName: str
+    cacheName: 'str'
     """Name of cache in origin."""
 
 
 class cacheStorageListUpdatedEvent(TypedDict, total=True):
-    origin: str
+    origin: 'str'
     """Origin to update."""
-    storageKey: str
+    storageKey: 'str'
     """Storage key to update."""
-    bucketId: str
+    bucketId: 'str'
     """Storage bucket to update."""
 
 
 class indexedDBContentUpdatedEvent(TypedDict, total=True):
-    origin: str
+    origin: 'str'
     """Origin to update."""
-    storageKey: str
+    storageKey: 'str'
     """Storage key to update."""
-    bucketId: str
+    bucketId: 'str'
     """Storage bucket to update."""
-    databaseName: str
+    databaseName: 'str'
     """Database to update."""
-    objectStoreName: str
+    objectStoreName: 'str'
     """ObjectStore to update."""
 
 
 class indexedDBListUpdatedEvent(TypedDict, total=True):
-    origin: str
+    origin: 'str'
     """Origin to update."""
-    storageKey: str
+    storageKey: 'str'
     """Storage key to update."""
-    bucketId: str
+    bucketId: 'str'
     """Storage bucket to update."""
 
 
 class interestGroupAccessedEvent(TypedDict, total=True):
-    accessTime: TimeSinceEpoch
-    type: InterestGroupAccessType
-    ownerOrigin: str
-    name: str
-    componentSellerOrigin: NotRequired[str]
+    accessTime: 'TimeSinceEpoch'
+    type: 'InterestGroupAccessType'
+    ownerOrigin: 'str'
+    name: 'str'
+    componentSellerOrigin: NotRequired['str']
     """For topLevelBid/topLevelAdditionalBid, and when appropriate, win and additionalBidWin"""
-    bid: NotRequired[float]
+    bid: NotRequired['float']
     """For bid or somethingBid event, if done locally and not on a server."""
-    bidCurrency: NotRequired[str]
-    uniqueAuctionId: NotRequired[InterestGroupAuctionId]
+    bidCurrency: NotRequired['str']
+    uniqueAuctionId: NotRequired['InterestGroupAuctionId']
     """For non-global events --- links to interestGroupAuctionEvent"""
 
 
 class interestGroupAuctionEventOccurredEvent(TypedDict, total=True):
-    eventTime: TimeSinceEpoch
-    type: InterestGroupAuctionEventType
-    uniqueAuctionId: InterestGroupAuctionId
-    parentAuctionId: NotRequired[InterestGroupAuctionId]
+    eventTime: 'TimeSinceEpoch'
+    type: 'InterestGroupAuctionEventType'
+    uniqueAuctionId: 'InterestGroupAuctionId'
+    parentAuctionId: NotRequired['InterestGroupAuctionId']
     """Set for child auctions."""
-    auctionConfig: NotRequired[Dict[str, Any]]
+    auctionConfig: NotRequired['Dict[str, Any]']
     """Set for started and configResolved"""
 
 
 class interestGroupAuctionNetworkRequestCreatedEvent(TypedDict, total=True):
-    type: InterestGroupAuctionFetchType
-    requestId: RequestId
-    auctions: List[InterestGroupAuctionId]
+    type: 'InterestGroupAuctionFetchType'
+    requestId: 'RequestId'
+    auctions: 'List[InterestGroupAuctionId]'
     """This is the set of the auctions using the worklet that issued this request.  In the case of trusted signals, it's possible that only some of them actually care about the keys being queried."""
 
 
 class sharedStorageAccessedEvent(TypedDict, total=True):
-    accessTime: TimeSinceEpoch
+    accessTime: 'TimeSinceEpoch'
     """Time of the access."""
-    scope: SharedStorageAccessScope
+    scope: 'SharedStorageAccessScope'
     """Enum value indicating the access scope."""
-    method: SharedStorageAccessMethod
+    method: 'SharedStorageAccessMethod'
     """Enum value indicating the Shared Storage API method invoked."""
-    mainFrameId: FrameId
+    mainFrameId: 'FrameId'
     """DevTools Frame Token for the primary frame tree's root."""
-    ownerOrigin: str
+    ownerOrigin: 'str'
     """Serialization of the origin owning the Shared Storage data."""
-    ownerSite: str
+    ownerSite: 'str'
     """Serialization of the site owning the Shared Storage data."""
-    params: SharedStorageAccessParams
+    params: 'SharedStorageAccessParams'
     """The sub-parameters wrapped by params are all optional and their presence/absence depends on type."""
 
 
 class sharedStorageWorkletOperationExecutionFinishedEvent(TypedDict, total=True):
-    finishedTime: TimeSinceEpoch
+    finishedTime: 'TimeSinceEpoch'
     """Time that the operation finished."""
-    executionTime: int
+    executionTime: 'int'
     """Time, in microseconds, from start of shared storage JS API call until end of operation execution in the worklet."""
-    method: SharedStorageAccessMethod
+    method: 'SharedStorageAccessMethod'
     """Enum value indicating the Shared Storage API method invoked."""
-    operationId: str
+    operationId: 'str'
     """ID of the operation call."""
-    workletTargetId: TargetID
+    workletTargetId: 'TargetID'
     """Hex representation of the DevTools token used as the TargetID for the associated shared storage worklet."""
-    mainFrameId: FrameId
+    mainFrameId: 'FrameId'
     """DevTools Frame Token for the primary frame tree's root."""
-    ownerOrigin: str
+    ownerOrigin: 'str'
     """Serialization of the origin owning the Shared Storage data."""
 
 
 class storageBucketCreatedOrUpdatedEvent(TypedDict, total=True):
-    bucketInfo: StorageBucketInfo
+    bucketInfo: 'StorageBucketInfo'
 
 
 class storageBucketDeletedEvent(TypedDict, total=True):
-    bucketId: str
+    bucketId: 'str'
 
 
 class attributionReportingSourceRegisteredEvent(TypedDict, total=True):
-    registration: AttributionReportingSourceRegistration
-    result: AttributionReportingSourceRegistrationResult
+    registration: 'AttributionReportingSourceRegistration'
+    result: 'AttributionReportingSourceRegistrationResult'
 
 
 class attributionReportingTriggerRegisteredEvent(TypedDict, total=True):
-    registration: AttributionReportingTriggerRegistration
-    eventLevel: AttributionReportingEventLevelResult
-    aggregatable: AttributionReportingAggregatableResult
+    registration: 'AttributionReportingTriggerRegistration'
+    eventLevel: 'AttributionReportingEventLevelResult'
+    aggregatable: 'AttributionReportingAggregatableResult'
 
 
 class attributionReportingReportSentEvent(TypedDict, total=True):
-    url: str
-    body: Dict[str, Any]
-    result: AttributionReportingReportResult
-    netError: NotRequired[int]
+    url: 'str'
+    body: 'Dict[str, Any]'
+    result: 'AttributionReportingReportResult'
+    netError: NotRequired['int']
     """If result is sent, populated with net/HTTP status."""
-    netErrorName: NotRequired[str]
-    httpStatusCode: NotRequired[int]
+    netErrorName: NotRequired['str']
+    httpStatusCode: NotRequired['int']
 
 
 class attributionReportingVerboseDebugReportSentEvent(TypedDict, total=True):
-    url: str
-    body: NotRequired[List[Dict[str, Any]]]
-    netError: NotRequired[int]
-    netErrorName: NotRequired[str]
-    httpStatusCode: NotRequired[int]
+    url: 'str'
+    body: NotRequired['List[Dict[str, Any]]']
+    netError: NotRequired['int']
+    netErrorName: NotRequired['str']
+    httpStatusCode: NotRequired['int']
 

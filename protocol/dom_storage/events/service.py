@@ -1,9 +1,9 @@
 
 """CDP DOMStorage Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from dom_storage.events.types import *
+from protocol.dom_storage.events.types import *
 
 class DOMStorageEvents:
     def __init__(self,events:CDPEvents):

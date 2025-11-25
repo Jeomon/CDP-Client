@@ -5,22 +5,22 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from dom.types import BackendNodeId
-    from dom.types import NodeId
-    from page.types import Viewport
+    from protocol.dom.types import BackendNodeId
+    from protocol.dom.types import NodeId
+    from protocol.page.types import Viewport
 
 
 class inspectNodeRequestedEvent(TypedDict, total=True):
-    backendNodeId: BackendNodeId
+    backendNodeId: 'BackendNodeId'
     """Id of the node to inspect."""
 
 
 class nodeHighlightRequestedEvent(TypedDict, total=True):
-    nodeId: NodeId
+    nodeId: 'NodeId'
 
 
 class screenshotRequestedEvent(TypedDict, total=True):
-    viewport: Viewport
+    viewport: 'Viewport'
     """Viewport to capture, in device independent pixels (dip)."""
 
 

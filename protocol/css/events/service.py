@@ -1,9 +1,9 @@
 
 """CDP CSS Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from css.events.types import *
+from protocol.css.events.types import *
 
 class CSSEvents:
     def __init__(self,events:CDPEvents):

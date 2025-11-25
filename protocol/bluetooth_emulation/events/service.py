@@ -1,9 +1,9 @@
 
 """CDP BluetoothEmulation Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from bluetooth_emulation.events.types import *
+from protocol.bluetooth_emulation.events.types import *
 
 class BluetoothEmulationEvents:
     def __init__(self,events:CDPEvents):

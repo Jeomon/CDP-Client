@@ -1,9 +1,9 @@
 
 """CDP Emulation Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from emulation.events.types import *
+from protocol.emulation.events.types import *
 
 class EmulationEvents:
     def __init__(self,events:CDPEvents):

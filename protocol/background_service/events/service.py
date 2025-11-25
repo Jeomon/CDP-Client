@@ -1,9 +1,9 @@
 
 """CDP BackgroundService Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from background_service.events.types import *
+from protocol.background_service.events.types import *
 
 class BackgroundServiceEvents:
     def __init__(self,events:CDPEvents):

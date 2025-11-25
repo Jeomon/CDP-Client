@@ -1,9 +1,9 @@
 
 """CDP HeapProfiler Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from heap_profiler.events.types import *
+from protocol.heap_profiler.events.types import *
 
 class HeapProfilerEvents:
     def __init__(self,events:CDPEvents):

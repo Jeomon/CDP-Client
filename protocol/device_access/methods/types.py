@@ -5,19 +5,19 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from device_access.types import DeviceId
-    from device_access.types import RequestId
+    from protocol.device_access.types import DeviceId
+    from protocol.device_access.types import RequestId
 
 
 
 
 class selectPromptParameters(TypedDict, total=True):
-    id: RequestId
-    deviceId: DeviceId
+    id: 'RequestId'
+    deviceId: 'DeviceId'
 
 
 class cancelPromptParameters(TypedDict, total=True):
-    id: RequestId
+    id: 'RequestId'
 
 
 

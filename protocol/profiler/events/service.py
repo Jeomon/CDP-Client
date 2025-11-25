@@ -1,9 +1,9 @@
 
 """CDP Profiler Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from profiler.events.types import *
+from protocol.profiler.events.types import *
 
 class ProfilerEvents:
     def __init__(self,events:CDPEvents):

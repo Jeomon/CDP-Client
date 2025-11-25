@@ -5,7 +5,7 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class detachedEvent(TypedDict, total=True):
-    reason: str
+    reason: 'str'
     """The reason why connection has been terminated."""
 
 

@@ -1,9 +1,9 @@
 
 """CDP DeviceAccess Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from device_access.methods.types import *
+from protocol.device_access.methods.types import *
 
 class DeviceAccessMethods:
     def __init__(self, methods:CDPMethods):

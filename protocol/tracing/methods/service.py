@@ -1,9 +1,9 @@
 
 """CDP Tracing Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from tracing.methods.types import *
+from protocol.tracing.methods.types import *
 
 class TracingMethods:
     def __init__(self, methods:CDPMethods):

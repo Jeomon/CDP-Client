@@ -1,9 +1,9 @@
 
 """CDP Browser Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from browser.methods.types import *
+from protocol.browser.methods.types import *
 
 class BrowserMethods:
     def __init__(self, methods:CDPMethods):

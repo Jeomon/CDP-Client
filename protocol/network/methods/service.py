@@ -1,9 +1,9 @@
 
 """CDP Network Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from network.methods.types import *
+from protocol.network.methods.types import *
 
 class NetworkMethods:
     def __init__(self, methods:CDPMethods):

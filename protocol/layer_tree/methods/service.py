@@ -1,9 +1,9 @@
 
 """CDP LayerTree Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from layer_tree.methods.types import *
+from protocol.layer_tree.methods.types import *
 
 class LayerTreeMethods:
     def __init__(self, methods:CDPMethods):

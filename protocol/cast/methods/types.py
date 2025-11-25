@@ -5,24 +5,24 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class enableParameters(TypedDict, total=False):
-    presentationUrl: NotRequired[str]
+    presentationUrl: NotRequired['str']
 
 
 
 class setSinkToUseParameters(TypedDict, total=True):
-    sinkName: str
+    sinkName: 'str'
 
 
 class startDesktopMirroringParameters(TypedDict, total=True):
-    sinkName: str
+    sinkName: 'str'
 
 
 class startTabMirroringParameters(TypedDict, total=True):
-    sinkName: str
+    sinkName: 'str'
 
 
 class stopCastingParameters(TypedDict, total=True):
-    sinkName: str
+    sinkName: 'str'
 
 
 

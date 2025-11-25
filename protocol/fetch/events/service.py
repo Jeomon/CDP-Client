@@ -1,9 +1,9 @@
 
 """CDP Fetch Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from fetch.events.types import *
+from protocol.fetch.events.types import *
 
 class FetchEvents:
     def __init__(self,events:CDPEvents):

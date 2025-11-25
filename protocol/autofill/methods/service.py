@@ -1,9 +1,9 @@
 
 """CDP Autofill Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from autofill.methods.types import *
+from protocol.autofill.methods.types import *
 
 class AutofillMethods:
     def __init__(self, methods:CDPMethods):

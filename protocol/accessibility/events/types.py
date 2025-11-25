@@ -5,15 +5,15 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from accessibility.types import AXNode
+    from protocol.accessibility.types import AXNode
 
 
 class loadCompleteEvent(TypedDict, total=True):
-    root: AXNode
+    root: 'AXNode'
     """New document root node."""
 
 
 class nodesUpdatedEvent(TypedDict, total=True):
-    nodes: List[AXNode]
+    nodes: 'List[AXNode]'
     """Updated node data."""
 

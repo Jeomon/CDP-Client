@@ -1,9 +1,9 @@
 
 """CDP Overlay Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from overlay.methods.types import *
+from protocol.overlay.methods.types import *
 
 class OverlayMethods:
     def __init__(self, methods:CDPMethods):

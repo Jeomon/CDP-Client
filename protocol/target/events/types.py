@@ -5,49 +5,49 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from target.types import SessionID
-    from target.types import TargetID
-    from target.types import TargetInfo
+    from protocol.target.types import SessionID
+    from protocol.target.types import TargetID
+    from protocol.target.types import TargetInfo
 
 
 class attachedToTargetEvent(TypedDict, total=True):
-    sessionId: SessionID
+    sessionId: 'SessionID'
     """Identifier assigned to the session used to send/receive messages."""
-    targetInfo: TargetInfo
-    waitingForDebugger: bool
+    targetInfo: 'TargetInfo'
+    waitingForDebugger: 'bool'
 
 
 class detachedFromTargetEvent(TypedDict, total=True):
-    sessionId: SessionID
+    sessionId: 'SessionID'
     """Detached session identifier."""
-    targetId: NotRequired[TargetID]
+    targetId: NotRequired['TargetID']
     """Deprecated."""
 
 
 class receivedMessageFromTargetEvent(TypedDict, total=True):
-    sessionId: SessionID
+    sessionId: 'SessionID'
     """Identifier of a session which sends a message."""
-    message: str
-    targetId: NotRequired[TargetID]
+    message: 'str'
+    targetId: NotRequired['TargetID']
     """Deprecated."""
 
 
 class targetCreatedEvent(TypedDict, total=True):
-    targetInfo: TargetInfo
+    targetInfo: 'TargetInfo'
 
 
 class targetDestroyedEvent(TypedDict, total=True):
-    targetId: TargetID
+    targetId: 'TargetID'
 
 
 class targetCrashedEvent(TypedDict, total=True):
-    targetId: TargetID
-    status: str
+    targetId: 'TargetID'
+    status: 'str'
     """Termination status type."""
-    errorCode: int
+    errorCode: 'int'
     """Termination error code."""
 
 
 class targetInfoChangedEvent(TypedDict, total=True):
-    targetInfo: TargetInfo
+    targetInfo: 'TargetInfo'
 

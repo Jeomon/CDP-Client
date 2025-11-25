@@ -1,9 +1,9 @@
 
 """CDP Animation Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from animation.methods.types import *
+from protocol.animation.methods.types import *
 
 class AnimationMethods:
     def __init__(self, methods:CDPMethods):

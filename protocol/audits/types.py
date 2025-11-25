@@ -17,22 +17,22 @@ if TYPE_CHECKING:
 
 class AffectedCookie(TypedDict, total=True):
     """Information about a cookie that is affected by an inspector issue."""
-    name: str
+    name: 'str'
     """The following three properties uniquely identify a cookie"""
-    path: str
-    domain: str
+    path: 'str'
+    domain: 'str'
 
 
 class AffectedRequest(TypedDict, total=True):
     """Information about a request that is affected by an inspector issue."""
-    url: str
-    requestId: NotRequired[RequestId]
+    url: 'str'
+    requestId: NotRequired['RequestId']
     """The unique request id."""
 
 
 class AffectedFrame(TypedDict, total=True):
     """Information about the frame affected by an inspector issue."""
-    frameId: FrameId
+    frameId: 'FrameId'
 
 
 CookieExclusionReason = Literal['ExcludeSameSiteUnspecifiedTreatedAsLax','ExcludeSameSiteNoneInsecure','ExcludeSameSiteLax','ExcludeSameSiteStrict','ExcludeInvalidSameParty','ExcludeSamePartyCrossPartyContext','ExcludeDomainNonASCII','ExcludeThirdPartyCookieBlockedInFirstPartySet','ExcludeThirdPartyPhaseout','ExcludePortMismatch','ExcludeSchemeMismatch']
@@ -50,24 +50,24 @@ InsightType = Literal['GitHubResource','GracePeriod','Heuristics']
 
 class CookieIssueInsight(TypedDict, total=True):
     """Information about the suggested solution to a cookie issue."""
-    type: InsightType
-    tableEntryUrl: NotRequired[str]
+    type: 'InsightType'
+    tableEntryUrl: NotRequired['str']
     """Link to table entry in third-party cookie migration readiness list."""
 
 
 class CookieIssueDetails(TypedDict, total=True):
     """This information is currently necessary, as the front-end has a difficult time finding a specific cookie. With this, we can convey specific error information without the cookie."""
-    cookieWarningReasons: List[CookieWarningReason]
-    cookieExclusionReasons: List[CookieExclusionReason]
-    operation: CookieOperation
+    cookieWarningReasons: 'List[CookieWarningReason]'
+    cookieExclusionReasons: 'List[CookieExclusionReason]'
+    operation: 'CookieOperation'
     """Optionally identifies the site-for-cookies and the cookie url, which may be used by the front-end as additional context."""
-    cookie: NotRequired[AffectedCookie]
+    cookie: NotRequired['AffectedCookie']
     """If AffectedCookie is not set then rawCookieLine contains the raw Set-Cookie header string. This hints at a problem where the cookie line is syntactically or semantically malformed in a way that no valid cookie could be created."""
-    rawCookieLine: NotRequired[str]
-    siteForCookies: NotRequired[str]
-    cookieUrl: NotRequired[str]
-    request: NotRequired[AffectedRequest]
-    insight: NotRequired[CookieIssueInsight]
+    rawCookieLine: NotRequired['str']
+    siteForCookies: NotRequired['str']
+    cookieUrl: NotRequired['str']
+    request: NotRequired['AffectedRequest']
+    insight: NotRequired['CookieIssueInsight']
     """The recommended solution to the issue."""
 
 
@@ -79,17 +79,17 @@ MixedContentResourceType = Literal['AttributionSrc','Audio','Beacon','CSPReport'
 
 class MixedContentIssueDetails(TypedDict, total=True):
     """"""
-    resolutionStatus: MixedContentResolutionStatus
+    resolutionStatus: 'MixedContentResolutionStatus'
     """The way the mixed content issue is being resolved."""
-    insecureURL: str
+    insecureURL: 'str'
     """The unsafe http url causing the mixed content issue."""
-    mainResourceURL: str
+    mainResourceURL: 'str'
     """The url responsible for the call to an unsafe url."""
-    resourceType: NotRequired[MixedContentResourceType]
+    resourceType: NotRequired['MixedContentResourceType']
     """The type of resource causing the mixed content issue (css, js, iframe, form,...). Marked as optional because it is mapped to from blink::mojom::RequestContextType, which will be replaced by network::mojom::RequestDestination"""
-    request: NotRequired[AffectedRequest]
+    request: NotRequired['AffectedRequest']
     """The mixed content request. Does not always exist (e.g. for unsafe form submission urls)."""
-    frame: NotRequired[AffectedFrame]
+    frame: NotRequired['AffectedFrame']
     """Optional because not every mixed content issue is necessarily linked to a frame."""
 
 
@@ -99,10 +99,10 @@ BlockedByResponseReason = Literal['CoepFrameResourceNeedsCoepHeader','CoopSandbo
 
 class BlockedByResponseIssueDetails(TypedDict, total=True):
     """Details for a request that has been blocked with the BLOCKED_BY_RESPONSE code. Currently only used for COEP/COOP, but may be extended to include some CSP errors in the future."""
-    request: AffectedRequest
-    reason: BlockedByResponseReason
-    parentFrame: NotRequired[AffectedFrame]
-    blockedFrame: NotRequired[AffectedFrame]
+    request: 'AffectedRequest'
+    reason: 'BlockedByResponseReason'
+    parentFrame: NotRequired['AffectedFrame']
+    blockedFrame: NotRequired['AffectedFrame']
 
 
 HeavyAdResolutionStatus = Literal['HeavyAdBlocked','HeavyAdWarning']
@@ -113,11 +113,11 @@ HeavyAdReason = Literal['NetworkTotalLimit','CpuTotalLimit','CpuPeakLimit']
 
 class HeavyAdIssueDetails(TypedDict, total=True):
     """"""
-    resolution: HeavyAdResolutionStatus
+    resolution: 'HeavyAdResolutionStatus'
     """The resolution status, either blocking the content or warning."""
-    reason: HeavyAdReason
+    reason: 'HeavyAdReason'
     """The reason the ad was blocked, total network or cpu or peak cpu."""
-    frame: AffectedFrame
+    frame: 'AffectedFrame'
     """The frame that was blocked."""
 
 
@@ -126,23 +126,23 @@ ContentSecurityPolicyViolationType = Literal['kInlineViolation','kEvalViolation'
 
 class SourceCodeLocation(TypedDict, total=True):
     """"""
-    url: str
-    lineNumber: int
-    columnNumber: int
-    scriptId: NotRequired[ScriptId]
+    url: 'str'
+    lineNumber: 'int'
+    columnNumber: 'int'
+    scriptId: NotRequired['ScriptId']
 
 
 class ContentSecurityPolicyIssueDetails(TypedDict, total=True):
     """"""
-    violatedDirective: str
+    violatedDirective: 'str'
     """Specific directive that is violated, causing the CSP issue."""
-    isReportOnly: bool
-    contentSecurityPolicyViolationType: ContentSecurityPolicyViolationType
-    blockedURL: NotRequired[str]
+    isReportOnly: 'bool'
+    contentSecurityPolicyViolationType: 'ContentSecurityPolicyViolationType'
+    blockedURL: NotRequired['str']
     """The url not included in allowed sources."""
-    frameAncestor: NotRequired[AffectedFrame]
-    sourceCodeLocation: NotRequired[SourceCodeLocation]
-    violatingNodeId: NotRequired[BackendNodeId]
+    frameAncestor: NotRequired['AffectedFrame']
+    sourceCodeLocation: NotRequired['SourceCodeLocation']
+    violatingNodeId: NotRequired['BackendNodeId']
 
 
 SharedArrayBufferIssueType = Literal['TransferIssue','CreationIssue']
@@ -150,31 +150,31 @@ SharedArrayBufferIssueType = Literal['TransferIssue','CreationIssue']
 
 class SharedArrayBufferIssueDetails(TypedDict, total=True):
     """Details for a issue arising from an SAB being instantiated in, or transferred to a context that is not cross-origin isolated."""
-    sourceCodeLocation: SourceCodeLocation
-    isWarning: bool
-    type: SharedArrayBufferIssueType
+    sourceCodeLocation: 'SourceCodeLocation'
+    isWarning: 'bool'
+    type: 'SharedArrayBufferIssueType'
 
 
 class LowTextContrastIssueDetails(TypedDict, total=True):
     """"""
-    violatingNodeId: BackendNodeId
-    violatingNodeSelector: str
-    contrastRatio: float
-    thresholdAA: float
-    thresholdAAA: float
-    fontSize: str
-    fontWeight: str
+    violatingNodeId: 'BackendNodeId'
+    violatingNodeSelector: 'str'
+    contrastRatio: 'float'
+    thresholdAA: 'float'
+    thresholdAAA: 'float'
+    fontSize: 'str'
+    fontWeight: 'str'
 
 
 class CorsIssueDetails(TypedDict, total=True):
     """Details for a CORS related issue, e.g. a warning or error related to CORS RFC1918 enforcement."""
-    corsErrorStatus: CorsErrorStatus
-    isWarning: bool
-    request: AffectedRequest
-    location: NotRequired[SourceCodeLocation]
-    initiatorOrigin: NotRequired[str]
-    resourceIPAddressSpace: NotRequired[IPAddressSpace]
-    clientSecurityState: NotRequired[ClientSecurityState]
+    corsErrorStatus: 'CorsErrorStatus'
+    isWarning: 'bool'
+    request: 'AffectedRequest'
+    location: NotRequired['SourceCodeLocation']
+    initiatorOrigin: NotRequired['str']
+    resourceIPAddressSpace: NotRequired['IPAddressSpace']
+    clientSecurityState: NotRequired['ClientSecurityState']
 
 
 AttributionReportingIssueType = Literal['PermissionPolicyDisabled','UntrustworthyReportingOrigin','InsecureContext','InvalidHeader','InvalidRegisterTriggerHeader','SourceAndTriggerHeaders','SourceIgnored','TriggerIgnored','OsSourceIgnored','OsTriggerIgnored','InvalidRegisterOsSourceHeader','InvalidRegisterOsTriggerHeader','WebAndOsHeaders','NoWebOrOsSupport','NavigationRegistrationWithoutTransientUserActivation','InvalidInfoHeader','NoRegisterSourceHeader','NoRegisterTriggerHeader','NoRegisterOsSourceHeader','NoRegisterOsTriggerHeader','NavigationRegistrationUniqueScopeAlreadySet']
@@ -191,46 +191,46 @@ UnencodedDigestError = Literal['MalformedDictionary','UnknownAlgorithm','Incorre
 
 class AttributionReportingIssueDetails(TypedDict, total=True):
     """Details for issues around "Attribution Reporting API" usage. Explainer: https://github.com/WICG/attribution-reporting-api"""
-    violationType: AttributionReportingIssueType
-    request: NotRequired[AffectedRequest]
-    violatingNodeId: NotRequired[BackendNodeId]
-    invalidParameter: NotRequired[str]
+    violationType: 'AttributionReportingIssueType'
+    request: NotRequired['AffectedRequest']
+    violatingNodeId: NotRequired['BackendNodeId']
+    invalidParameter: NotRequired['str']
 
 
 class QuirksModeIssueDetails(TypedDict, total=True):
     """Details for issues about documents in Quirks Mode or Limited Quirks Mode that affects page layouting."""
-    isLimitedQuirksMode: bool
+    isLimitedQuirksMode: 'bool'
     """If false, it means the document's mode is quirks instead of limited-quirks."""
-    documentNodeId: BackendNodeId
-    url: str
-    frameId: FrameId
-    loaderId: LoaderId
+    documentNodeId: 'BackendNodeId'
+    url: 'str'
+    frameId: 'FrameId'
+    loaderId: 'LoaderId'
 
 
 class NavigatorUserAgentIssueDetails(TypedDict, total=True):
     """"""
-    url: str
-    location: NotRequired[SourceCodeLocation]
+    url: 'str'
+    location: NotRequired['SourceCodeLocation']
 
 
 class SharedDictionaryIssueDetails(TypedDict, total=True):
     """"""
-    sharedDictionaryError: SharedDictionaryError
-    request: AffectedRequest
+    sharedDictionaryError: 'SharedDictionaryError'
+    request: 'AffectedRequest'
 
 
 class SRIMessageSignatureIssueDetails(TypedDict, total=True):
     """"""
-    error: SRIMessageSignatureError
-    signatureBase: str
-    integrityAssertions: List[str]
-    request: AffectedRequest
+    error: 'SRIMessageSignatureError'
+    signatureBase: 'str'
+    integrityAssertions: 'List[str]'
+    request: 'AffectedRequest'
 
 
 class UnencodedDigestIssueDetails(TypedDict, total=True):
     """"""
-    error: UnencodedDigestError
-    request: AffectedRequest
+    error: 'UnencodedDigestError'
+    request: 'AffectedRequest'
 
 
 GenericIssueErrorType = Literal['FormLabelForNameError','FormDuplicateIdForInputError','FormInputWithNoLabelError','FormAutocompleteAttributeEmptyError','FormEmptyIdAndNameAttributesForInputError','FormAriaLabelledByToNonExistingIdError','FormInputAssignedAutocompleteValueToIdOrNameAttributeError','FormLabelHasNeitherForNorNestedInputError','FormLabelForMatchesNonExistingIdError','FormInputHasWrongButWellIntendedAutocompleteValueError','ResponseWasBlockedByORB','NavigationEntryMarkedSkippable']
@@ -238,33 +238,33 @@ GenericIssueErrorType = Literal['FormLabelForNameError','FormDuplicateIdForInput
 
 class GenericIssueDetails(TypedDict, total=True):
     """Depending on the concrete errorType, different properties are set."""
-    errorType: GenericIssueErrorType
+    errorType: 'GenericIssueErrorType'
     """Issues with the same errorType are aggregated in the frontend."""
-    frameId: NotRequired[FrameId]
-    violatingNodeId: NotRequired[BackendNodeId]
-    violatingNodeAttribute: NotRequired[str]
-    request: NotRequired[AffectedRequest]
+    frameId: NotRequired['FrameId']
+    violatingNodeId: NotRequired['BackendNodeId']
+    violatingNodeAttribute: NotRequired['str']
+    request: NotRequired['AffectedRequest']
 
 
 class DeprecationIssueDetails(TypedDict, total=True):
     """This issue tracks information needed to print a deprecation message. https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/third_party/blink/renderer/core/frame/deprecation/README.md"""
-    sourceCodeLocation: SourceCodeLocation
-    type: str
+    sourceCodeLocation: 'SourceCodeLocation'
+    type: 'str'
     """One of the deprecation names from third_party/blink/renderer/core/frame/deprecation/deprecation.json5"""
-    affectedFrame: NotRequired[AffectedFrame]
+    affectedFrame: NotRequired['AffectedFrame']
 
 
 class BounceTrackingIssueDetails(TypedDict, total=True):
     """This issue warns about sites in the redirect chain of a finished navigation that may be flagged as trackers and have their state cleared if they don't receive a user interaction. Note that in this context 'site' means eTLD+1. For example, if the URL https://example.test:80/bounce was in the redirect chain, the site reported would be example.test."""
-    trackingSites: List[str]
+    trackingSites: 'List[str]'
 
 
 class CookieDeprecationMetadataIssueDetails(TypedDict, total=True):
     """This issue warns about third-party sites that are accessing cookies on the current page, and have been permitted due to having a global metadata grant. Note that in this context 'site' means eTLD+1. For example, if the URL https://example.test:80/web_page was accessing cookies, the site reported would be example.test."""
-    allowedSites: List[str]
-    optOutPercentage: float
-    isOptOutTopLevel: bool
-    operation: CookieOperation
+    allowedSites: 'List[str]'
+    optOutPercentage: 'float'
+    isOptOutTopLevel: 'bool'
+    operation: 'CookieOperation'
 
 
 ClientHintIssueReason = Literal['MetaTagAllowListInvalidOrigin','MetaTagModifiedHTML']
@@ -272,7 +272,7 @@ ClientHintIssueReason = Literal['MetaTagAllowListInvalidOrigin','MetaTagModified
 
 class FederatedAuthRequestIssueDetails(TypedDict, total=True):
     """"""
-    federatedAuthRequestIssueReason: FederatedAuthRequestIssueReason
+    federatedAuthRequestIssueReason: 'FederatedAuthRequestIssueReason'
 
 
 FederatedAuthRequestIssueReason = Literal['ShouldEmbargo','TooManyRequests','WellKnownHttpNotFound','WellKnownNoResponse','WellKnownInvalidResponse','WellKnownListEmpty','WellKnownInvalidContentType','ConfigNotInWellKnown','WellKnownTooBig','ConfigHttpNotFound','ConfigNoResponse','ConfigInvalidResponse','ConfigInvalidContentType','ClientMetadataHttpNotFound','ClientMetadataNoResponse','ClientMetadataInvalidResponse','ClientMetadataInvalidContentType','IdpNotPotentiallyTrustworthy','DisabledInSettings','DisabledInFlags','ErrorFetchingSignin','InvalidSigninResponse','AccountsHttpNotFound','AccountsNoResponse','AccountsInvalidResponse','AccountsListEmpty','AccountsInvalidContentType','IdTokenHttpNotFound','IdTokenNoResponse','IdTokenInvalidResponse','IdTokenIdpErrorResponse','IdTokenCrossSiteIdpErrorResponse','IdTokenInvalidRequest','IdTokenInvalidContentType','ErrorIdToken','Canceled','RpPageNotVisible','SilentMediationFailure','ThirdPartyCookiesBlocked','NotSignedInWithIdp','MissingTransientUserActivation','ReplacedByActiveMode','InvalidFieldsSpecified','RelyingPartyOriginIsOpaque','TypeNotMatching','UiDismissedNoEmbargo','CorsError','SuppressedBySegmentationPlatform']
@@ -281,7 +281,7 @@ FederatedAuthRequestIssueReason = Literal['ShouldEmbargo','TooManyRequests','Wel
 
 class FederatedAuthUserInfoRequestIssueDetails(TypedDict, total=True):
     """"""
-    federatedAuthUserInfoRequestIssueReason: FederatedAuthUserInfoRequestIssueReason
+    federatedAuthUserInfoRequestIssueReason: 'FederatedAuthUserInfoRequestIssueReason'
 
 
 FederatedAuthUserInfoRequestIssueReason = Literal['NotSameOrigin','NotIframe','NotPotentiallyTrustworthy','NoApiPermission','NotSignedInWithIdp','NoAccountSharingPermission','InvalidConfigOrWellKnown','InvalidAccountsResponse','NoReturningUserFromFetchedAccounts']
@@ -290,17 +290,17 @@ FederatedAuthUserInfoRequestIssueReason = Literal['NotSameOrigin','NotIframe','N
 
 class ClientHintIssueDetails(TypedDict, total=True):
     """This issue tracks client hints related issues. It's used to deprecate old features, encourage the use of new ones, and provide general guidance."""
-    sourceCodeLocation: SourceCodeLocation
-    clientHintIssueReason: ClientHintIssueReason
+    sourceCodeLocation: 'SourceCodeLocation'
+    clientHintIssueReason: 'ClientHintIssueReason'
 
 
 class FailedRequestInfo(TypedDict, total=True):
     """"""
-    url: str
+    url: 'str'
     """The URL that failed to load."""
-    failureMessage: str
+    failureMessage: 'str'
     """The failure message for the failed request."""
-    requestId: NotRequired[RequestId]
+    requestId: NotRequired['RequestId']
 
 
 PartitioningBlobURLInfo = Literal['BlockedCrossPartitionFetching','EnforceNoopenerForNavigation']
@@ -308,9 +308,9 @@ PartitioningBlobURLInfo = Literal['BlockedCrossPartitionFetching','EnforceNoopen
 
 class PartitioningBlobURLIssueDetails(TypedDict, total=True):
     """"""
-    url: str
+    url: 'str'
     """The BlobURL that failed to load."""
-    partitioningBlobURLInfo: PartitioningBlobURLInfo
+    partitioningBlobURLInfo: 'PartitioningBlobURLInfo'
     """Additional information about the Partitioning Blob URL issue."""
 
 
@@ -319,9 +319,9 @@ ElementAccessibilityIssueReason = Literal['DisallowedSelectChild','DisallowedOpt
 
 class ElementAccessibilityIssueDetails(TypedDict, total=True):
     """This issue warns about errors in the select or summary element content model."""
-    nodeId: BackendNodeId
-    elementAccessibilityIssueReason: ElementAccessibilityIssueReason
-    hasDisallowedAttributes: bool
+    nodeId: 'BackendNodeId'
+    elementAccessibilityIssueReason: 'ElementAccessibilityIssueReason'
+    hasDisallowedAttributes: 'bool'
 
 
 StyleSheetLoadingIssueReason = Literal['LateImportRule','RequestFailed']
@@ -329,11 +329,11 @@ StyleSheetLoadingIssueReason = Literal['LateImportRule','RequestFailed']
 
 class StylesheetLoadingIssueDetails(TypedDict, total=True):
     """This issue warns when a referenced stylesheet couldn't be loaded."""
-    sourceCodeLocation: SourceCodeLocation
+    sourceCodeLocation: 'SourceCodeLocation'
     """Source code position that referenced the failing stylesheet."""
-    styleSheetLoadingIssueReason: StyleSheetLoadingIssueReason
+    styleSheetLoadingIssueReason: 'StyleSheetLoadingIssueReason'
     """Reason why the stylesheet couldn't be loaded."""
-    failedRequestInfo: NotRequired[FailedRequestInfo]
+    failedRequestInfo: NotRequired['FailedRequestInfo']
     """Contains additional info when the failure was due to a request."""
 
 
@@ -342,11 +342,11 @@ PropertyRuleIssueReason = Literal['InvalidSyntax','InvalidInitialValue','Invalid
 
 class PropertyRuleIssueDetails(TypedDict, total=True):
     """This issue warns about errors in property rules that lead to property registrations being ignored."""
-    sourceCodeLocation: SourceCodeLocation
+    sourceCodeLocation: 'SourceCodeLocation'
     """Source code position of the property rule."""
-    propertyRuleIssueReason: PropertyRuleIssueReason
+    propertyRuleIssueReason: 'PropertyRuleIssueReason'
     """Reason why the property rule was discarded."""
-    propertyValue: NotRequired[str]
+    propertyValue: NotRequired['str']
     """The value of the property rule property that failed to parse"""
 
 
@@ -355,10 +355,10 @@ UserReidentificationIssueType = Literal['BlockedFrameNavigation','BlockedSubreso
 
 class UserReidentificationIssueDetails(TypedDict, total=True):
     """This issue warns about uses of APIs that may be considered misuse to re-identify users."""
-    type: UserReidentificationIssueType
-    request: NotRequired[AffectedRequest]
+    type: 'UserReidentificationIssueType'
+    request: NotRequired['AffectedRequest']
     """Applies to BlockedFrameNavigation and BlockedSubresource issue types."""
-    sourceCodeLocation: NotRequired[SourceCodeLocation]
+    sourceCodeLocation: NotRequired['SourceCodeLocation']
     """Applies to NoisedCanvasReadback issue type."""
 
 
@@ -368,31 +368,31 @@ InspectorIssueCode = Literal['CookieIssue','MixedContentIssue','BlockedByRespons
 
 class InspectorIssueDetails(TypedDict, total=False):
     """This struct holds a list of optional fields with additional information specific to the kind of issue. When adding a new issue code, please also add a new optional field to this type."""
-    cookieIssueDetails: NotRequired[CookieIssueDetails]
-    mixedContentIssueDetails: NotRequired[MixedContentIssueDetails]
-    blockedByResponseIssueDetails: NotRequired[BlockedByResponseIssueDetails]
-    heavyAdIssueDetails: NotRequired[HeavyAdIssueDetails]
-    contentSecurityPolicyIssueDetails: NotRequired[ContentSecurityPolicyIssueDetails]
-    sharedArrayBufferIssueDetails: NotRequired[SharedArrayBufferIssueDetails]
-    lowTextContrastIssueDetails: NotRequired[LowTextContrastIssueDetails]
-    corsIssueDetails: NotRequired[CorsIssueDetails]
-    attributionReportingIssueDetails: NotRequired[AttributionReportingIssueDetails]
-    quirksModeIssueDetails: NotRequired[QuirksModeIssueDetails]
-    partitioningBlobURLIssueDetails: NotRequired[PartitioningBlobURLIssueDetails]
-    genericIssueDetails: NotRequired[GenericIssueDetails]
-    deprecationIssueDetails: NotRequired[DeprecationIssueDetails]
-    clientHintIssueDetails: NotRequired[ClientHintIssueDetails]
-    federatedAuthRequestIssueDetails: NotRequired[FederatedAuthRequestIssueDetails]
-    bounceTrackingIssueDetails: NotRequired[BounceTrackingIssueDetails]
-    cookieDeprecationMetadataIssueDetails: NotRequired[CookieDeprecationMetadataIssueDetails]
-    stylesheetLoadingIssueDetails: NotRequired[StylesheetLoadingIssueDetails]
-    propertyRuleIssueDetails: NotRequired[PropertyRuleIssueDetails]
-    federatedAuthUserInfoRequestIssueDetails: NotRequired[FederatedAuthUserInfoRequestIssueDetails]
-    sharedDictionaryIssueDetails: NotRequired[SharedDictionaryIssueDetails]
-    elementAccessibilityIssueDetails: NotRequired[ElementAccessibilityIssueDetails]
-    sriMessageSignatureIssueDetails: NotRequired[SRIMessageSignatureIssueDetails]
-    unencodedDigestIssueDetails: NotRequired[UnencodedDigestIssueDetails]
-    userReidentificationIssueDetails: NotRequired[UserReidentificationIssueDetails]
+    cookieIssueDetails: NotRequired['CookieIssueDetails']
+    mixedContentIssueDetails: NotRequired['MixedContentIssueDetails']
+    blockedByResponseIssueDetails: NotRequired['BlockedByResponseIssueDetails']
+    heavyAdIssueDetails: NotRequired['HeavyAdIssueDetails']
+    contentSecurityPolicyIssueDetails: NotRequired['ContentSecurityPolicyIssueDetails']
+    sharedArrayBufferIssueDetails: NotRequired['SharedArrayBufferIssueDetails']
+    lowTextContrastIssueDetails: NotRequired['LowTextContrastIssueDetails']
+    corsIssueDetails: NotRequired['CorsIssueDetails']
+    attributionReportingIssueDetails: NotRequired['AttributionReportingIssueDetails']
+    quirksModeIssueDetails: NotRequired['QuirksModeIssueDetails']
+    partitioningBlobURLIssueDetails: NotRequired['PartitioningBlobURLIssueDetails']
+    genericIssueDetails: NotRequired['GenericIssueDetails']
+    deprecationIssueDetails: NotRequired['DeprecationIssueDetails']
+    clientHintIssueDetails: NotRequired['ClientHintIssueDetails']
+    federatedAuthRequestIssueDetails: NotRequired['FederatedAuthRequestIssueDetails']
+    bounceTrackingIssueDetails: NotRequired['BounceTrackingIssueDetails']
+    cookieDeprecationMetadataIssueDetails: NotRequired['CookieDeprecationMetadataIssueDetails']
+    stylesheetLoadingIssueDetails: NotRequired['StylesheetLoadingIssueDetails']
+    propertyRuleIssueDetails: NotRequired['PropertyRuleIssueDetails']
+    federatedAuthUserInfoRequestIssueDetails: NotRequired['FederatedAuthUserInfoRequestIssueDetails']
+    sharedDictionaryIssueDetails: NotRequired['SharedDictionaryIssueDetails']
+    elementAccessibilityIssueDetails: NotRequired['ElementAccessibilityIssueDetails']
+    sriMessageSignatureIssueDetails: NotRequired['SRIMessageSignatureIssueDetails']
+    unencodedDigestIssueDetails: NotRequired['UnencodedDigestIssueDetails']
+    userReidentificationIssueDetails: NotRequired['UserReidentificationIssueDetails']
 
 
 IssueId = str
@@ -401,8 +401,8 @@ IssueId = str
 
 class InspectorIssue(TypedDict, total=True):
     """An inspector issue reported from the back-end."""
-    code: InspectorIssueCode
-    details: InspectorIssueDetails
-    issueId: NotRequired[IssueId]
+    code: 'InspectorIssueCode'
+    details: 'InspectorIssueDetails'
+    issueId: NotRequired['IssueId']
     """A unique id for this issue. May be omitted if no other entity (e.g. exception, CDP message, etc.) is referencing this issue."""
 

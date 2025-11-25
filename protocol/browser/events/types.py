@@ -5,29 +5,29 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from page.types import FrameId
+    from protocol.page.types import FrameId
 
 
 class downloadWillBeginEvent(TypedDict, total=True):
-    frameId: FrameId
+    frameId: 'FrameId'
     """Id of the frame that caused the download to begin."""
-    guid: str
+    guid: 'str'
     """Global unique identifier of the download."""
-    url: str
+    url: 'str'
     """URL of the resource being downloaded."""
-    suggestedFilename: str
+    suggestedFilename: 'str'
     """Suggested file name of the resource (the actual name of the file saved on disk may differ)."""
 
 
 class downloadProgressEvent(TypedDict, total=True):
-    guid: str
+    guid: 'str'
     """Global unique identifier of the download."""
-    totalBytes: float
+    totalBytes: 'float'
     """Total expected bytes to download."""
-    receivedBytes: float
+    receivedBytes: 'float'
     """Total bytes received."""
-    state: Literal["inProgress", "completed", "canceled"]
+    state: 'Literal["inProgress", "completed", "canceled"]'
     """Download status."""
-    filePath: NotRequired[str]
+    filePath: NotRequired['str']
     """If download is "completed", provides the path of the downloaded file. Depending on the platform, it is not guaranteed to be set, nor the file is guaranteed to exist."""
 

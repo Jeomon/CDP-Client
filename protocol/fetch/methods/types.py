@@ -5,86 +5,86 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from fetch.types import AuthChallengeResponse
-    from fetch.types import HeaderEntry
-    from fetch.types import RequestId
-    from fetch.types import RequestPattern
-    from io.types import StreamHandle
-    from network.types import ErrorReason
+    from protocol.fetch.types import AuthChallengeResponse
+    from protocol.fetch.types import HeaderEntry
+    from protocol.fetch.types import RequestId
+    from protocol.fetch.types import RequestPattern
+    from protocol.io.types import StreamHandle
+    from protocol.network.types import ErrorReason
 
 
 
 class enableParameters(TypedDict, total=False):
-    patterns: NotRequired[List[RequestPattern]]
+    patterns: NotRequired['List[RequestPattern]']
     """If specified, only requests matching any of these patterns will produce fetchRequested event and will be paused until clients response. If not set, all requests will be affected."""
-    handleAuthRequests: NotRequired[bool]
+    handleAuthRequests: NotRequired['bool']
     """If true, authRequired events will be issued and requests will be paused expecting a call to continueWithAuth."""
 
 
 class failRequestParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """An id the client received in requestPaused event."""
-    errorReason: ErrorReason
+    errorReason: 'ErrorReason'
     """Causes the request to fail with the given reason."""
 
 
 class fulfillRequestParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """An id the client received in requestPaused event."""
-    responseCode: int
+    responseCode: 'int'
     """An HTTP response code."""
-    responseHeaders: NotRequired[List[HeaderEntry]]
+    responseHeaders: NotRequired['List[HeaderEntry]']
     """Response headers."""
-    binaryResponseHeaders: NotRequired[str]
+    binaryResponseHeaders: NotRequired['str']
     """Alternative way of specifying response headers as a \0-separated series of name: value pairs. Prefer the above method unless you need to represent some non-UTF8 values that can't be transmitted over the protocol as text. (Encoded as a base64 string when passed over JSON)"""
-    body: NotRequired[str]
+    body: NotRequired['str']
     """A response body. If absent, original response body will be used if the request is intercepted at the response stage and empty body will be used if the request is intercepted at the request stage. (Encoded as a base64 string when passed over JSON)"""
-    responsePhrase: NotRequired[str]
+    responsePhrase: NotRequired['str']
     """A textual representation of responseCode. If absent, a standard phrase matching responseCode is used."""
 
 
 class continueRequestParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """An id the client received in requestPaused event."""
-    url: NotRequired[str]
+    url: NotRequired['str']
     """If set, the request url will be modified in a way that's not observable by page."""
-    method: NotRequired[str]
+    method: NotRequired['str']
     """If set, the request method is overridden."""
-    postData: NotRequired[str]
+    postData: NotRequired['str']
     """If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)"""
-    headers: NotRequired[List[HeaderEntry]]
+    headers: NotRequired['List[HeaderEntry]']
     """If set, overrides the request headers. Note that the overrides do not extend to subsequent redirect hops, if a redirect happens. Another override may be applied to a different request produced by a redirect."""
-    interceptResponse: NotRequired[bool]
+    interceptResponse: NotRequired['bool']
     """If set, overrides response interception behavior for this request."""
 
 
 class continueWithAuthParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """An id the client received in authRequired event."""
-    authChallengeResponse: AuthChallengeResponse
+    authChallengeResponse: 'AuthChallengeResponse'
     """Response to  with an authChallenge."""
 
 
 class continueResponseParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """An id the client received in requestPaused event."""
-    responseCode: NotRequired[int]
+    responseCode: NotRequired['int']
     """An HTTP response code. If absent, original response code will be used."""
-    responsePhrase: NotRequired[str]
+    responsePhrase: NotRequired['str']
     """A textual representation of responseCode. If absent, a standard phrase matching responseCode is used."""
-    responseHeaders: NotRequired[List[HeaderEntry]]
+    responseHeaders: NotRequired['List[HeaderEntry]']
     """Response headers. If absent, original response headers will be used."""
-    binaryResponseHeaders: NotRequired[str]
+    binaryResponseHeaders: NotRequired['str']
     """Alternative way of specifying response headers as a \0-separated series of name: value pairs. Prefer the above method unless you need to represent some non-UTF8 values that can't be transmitted over the protocol as text. (Encoded as a base64 string when passed over JSON)"""
 
 
 class getResponseBodyParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
     """Identifier for the intercepted request to get body for."""
 
 
 class takeResponseBodyAsStreamParameters(TypedDict, total=True):
-    requestId: RequestId
+    requestId: 'RequestId'
 
 
 
@@ -95,12 +95,12 @@ class takeResponseBodyAsStreamParameters(TypedDict, total=True):
 
 
 class getResponseBodyReturns(TypedDict):
-    body: str
+    body: 'str'
     """Response body."""
-    base64Encoded: bool
+    base64Encoded: 'bool'
     """True, if content was sent as base64."""
 
 
 class takeResponseBodyAsStreamReturns(TypedDict):
-    stream: StreamHandle
+    stream: 'StreamHandle'
 

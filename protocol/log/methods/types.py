@@ -5,14 +5,14 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from log.types import ViolationSetting
+    from protocol.log.types import ViolationSetting
 
 
 
 
 
 class startViolationsReportParameters(TypedDict, total=True):
-    config: List[ViolationSetting]
+    config: 'List[ViolationSetting]'
     """Configuration for violations."""
 
 

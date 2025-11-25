@@ -1,9 +1,9 @@
 
 """CDP Emulation Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from emulation.methods.types import *
+from protocol.emulation.methods.types import *
 
 class EmulationMethods:
     def __init__(self, methods:CDPMethods):

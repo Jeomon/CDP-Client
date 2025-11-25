@@ -1,9 +1,9 @@
 
 """CDP DOMDebugger Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from dom_debugger.methods.types import *
+from protocol.dom_debugger.methods.types import *
 
 class DOMDebuggerMethods:
     def __init__(self, methods:CDPMethods):

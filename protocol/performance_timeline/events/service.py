@@ -1,9 +1,9 @@
 
 """CDP PerformanceTimeline Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from performance_timeline.events.types import *
+from protocol.performance_timeline.events.types import *
 
 class PerformanceTimelineEvents:
     def __init__(self,events:CDPEvents):

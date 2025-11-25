@@ -5,10 +5,10 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from security.types import VisibleSecurityState
+    from protocol.security.types import VisibleSecurityState
 
 
 class visibleSecurityStateChangedEvent(TypedDict, total=True):
-    visibleSecurityState: VisibleSecurityState
+    visibleSecurityState: 'VisibleSecurityState'
     """Security state information about the page."""
 

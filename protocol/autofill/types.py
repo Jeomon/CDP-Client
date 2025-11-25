@@ -11,40 +11,40 @@ if TYPE_CHECKING:
 
 class CreditCard(TypedDict, total=True):
     """"""
-    number: str
+    number: 'str'
     """16-digit credit card number."""
-    name: str
+    name: 'str'
     """Name of the credit card owner."""
-    expiryMonth: str
+    expiryMonth: 'str'
     """2-digit expiry month."""
-    expiryYear: str
+    expiryYear: 'str'
     """4-digit expiry year."""
-    cvc: str
+    cvc: 'str'
     """3-digit card verification code."""
 
 
 class AddressField(TypedDict, total=True):
     """"""
-    name: str
+    name: 'str'
     """address field name, for example GIVEN_NAME. The full list of supported field names: https://source.chromium.org/chromium/chromium/src/+/main:components/autofill/core/browser/field_types.cc;l=38"""
-    value: str
+    value: 'str'
     """address field value, for example Jon Doe."""
 
 
 class AddressFields(TypedDict, total=True):
     """A list of address fields."""
-    fields: List[AddressField]
+    fields: 'List[AddressField]'
 
 
 class Address(TypedDict, total=True):
     """"""
-    fields: List[AddressField]
+    fields: 'List[AddressField]'
     """fields and values defining an address."""
 
 
 class AddressUI(TypedDict, total=True):
     """Defines how an address can be displayed like in chrome://settings/addresses. Address UI is a two dimensional array, each inner array is an "address information line", and when rendered in a UI surface should be displayed as such. The following address UI for instance: [[{name: "GIVE_NAME", value: "Jon"}, {name: "FAMILY_NAME", value: "Doe"}], [{name: "CITY", value: "Munich"}, {name: "ZIP", value: "81456"}]] should allow the receiver to render: Jon Doe Munich 81456"""
-    addressFields: List[AddressFields]
+    addressFields: 'List[AddressFields]'
     """A two dimension array containing the representation of values from an address profile."""
 
 
@@ -54,20 +54,20 @@ FillingStrategy = Literal['autocompleteAttribute','autofillInferred']
 
 class FilledField(TypedDict, total=True):
     """"""
-    htmlType: str
+    htmlType: 'str'
     """The type of the field, e.g text, password etc."""
-    id: str
+    id: 'str'
     """the html id"""
-    name: str
+    name: 'str'
     """the html name"""
-    value: str
+    value: 'str'
     """the field value"""
-    autofillType: str
+    autofillType: 'str'
     """The actual field type, e.g FAMILY_NAME"""
-    fillingStrategy: FillingStrategy
+    fillingStrategy: 'FillingStrategy'
     """The filling strategy"""
-    frameId: FrameId
+    frameId: 'FrameId'
     """The frame the field belongs to"""
-    fieldId: BackendNodeId
+    fieldId: 'BackendNodeId'
     """The form field's DOM node"""
 

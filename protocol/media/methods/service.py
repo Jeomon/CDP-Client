@@ -1,9 +1,9 @@
 
 """CDP Media Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from media.methods.types import *
+from protocol.media.methods.types import *
 
 class MediaMethods:
     def __init__(self, methods:CDPMethods):

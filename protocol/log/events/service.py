@@ -1,9 +1,9 @@
 
 """CDP Log Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from log.events.types import *
+from protocol.log.events.types import *
 
 class LogEvents:
     def __init__(self,events:CDPEvents):

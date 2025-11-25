@@ -5,102 +5,102 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from indexed_db.types import DataEntry
-    from indexed_db.types import DatabaseWithObjectStores
-    from indexed_db.types import KeyRange
-    from storage.types import StorageBucket
+    from protocol.indexed_db.types import DataEntry
+    from protocol.indexed_db.types import DatabaseWithObjectStores
+    from protocol.indexed_db.types import KeyRange
+    from protocol.storage.types import StorageBucket
 
 
 class clearObjectStoreParameters(TypedDict, total=True):
-    databaseName: str
+    databaseName: 'str'
     """Database name."""
-    objectStoreName: str
+    objectStoreName: 'str'
     """Object store name."""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
 
 
 class deleteDatabaseParameters(TypedDict, total=True):
-    databaseName: str
+    databaseName: 'str'
     """Database name."""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
 
 
 class deleteObjectStoreEntriesParameters(TypedDict, total=True):
-    databaseName: str
-    objectStoreName: str
-    keyRange: KeyRange
+    databaseName: 'str'
+    objectStoreName: 'str'
+    keyRange: 'KeyRange'
     """Range of entry keys to delete"""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
 
 
 
 
 class requestDataParameters(TypedDict, total=True):
-    databaseName: str
+    databaseName: 'str'
     """Database name."""
-    objectStoreName: str
+    objectStoreName: 'str'
     """Object store name."""
-    skipCount: int
+    skipCount: 'int'
     """Number of records to skip."""
-    pageSize: int
+    pageSize: 'int'
     """Number of records to fetch."""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
-    indexName: NotRequired[str]
+    indexName: NotRequired['str']
     """Index name. If not specified, it performs an object store data request."""
-    keyRange: NotRequired[KeyRange]
+    keyRange: NotRequired['KeyRange']
     """Key range."""
 
 
 class getMetadataParameters(TypedDict, total=True):
-    databaseName: str
+    databaseName: 'str'
     """Database name."""
-    objectStoreName: str
+    objectStoreName: 'str'
     """Object store name."""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
 
 
 class requestDatabaseParameters(TypedDict, total=True):
-    databaseName: str
+    databaseName: 'str'
     """Database name."""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
 
 
 class requestDatabaseNamesParameters(TypedDict, total=False):
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """At least and at most one of securityOrigin, storageKey, or storageBucket must be specified. Security origin."""
-    storageKey: NotRequired[str]
+    storageKey: NotRequired['str']
     """Storage key."""
-    storageBucket: NotRequired[StorageBucket]
+    storageBucket: NotRequired['StorageBucket']
     """Storage bucket. If not specified, it uses the default bucket."""
 
 
@@ -110,25 +110,25 @@ class requestDatabaseNamesParameters(TypedDict, total=False):
 
 
 class requestDataReturns(TypedDict):
-    objectStoreDataEntries: List[DataEntry]
+    objectStoreDataEntries: 'List[DataEntry]'
     """Array of object store data entries."""
-    hasMore: bool
+    hasMore: 'bool'
     """If true, there are more entries to fetch in the given range."""
 
 
 class getMetadataReturns(TypedDict):
-    entriesCount: float
+    entriesCount: 'float'
     """the entries count"""
-    keyGeneratorValue: float
+    keyGeneratorValue: 'float'
     """the current value of key generator, to become the next inserted key into the object store. Valid if objectStore.autoIncrement is true."""
 
 
 class requestDatabaseReturns(TypedDict):
-    databaseWithObjectStores: DatabaseWithObjectStores
+    databaseWithObjectStores: 'DatabaseWithObjectStores'
     """Database with an array of object stores."""
 
 
 class requestDatabaseNamesReturns(TypedDict):
-    databaseNames: List[str]
+    databaseNames: 'List[str]'
     """Database names for origin."""
 

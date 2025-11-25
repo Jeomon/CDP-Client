@@ -5,24 +5,24 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from background_service.types import ServiceName
+    from protocol.background_service.types import ServiceName
 
 
 class startObservingParameters(TypedDict, total=True):
-    service: ServiceName
+    service: 'ServiceName'
 
 
 class stopObservingParameters(TypedDict, total=True):
-    service: ServiceName
+    service: 'ServiceName'
 
 
 class setRecordingParameters(TypedDict, total=True):
-    shouldRecord: bool
-    service: ServiceName
+    shouldRecord: 'bool'
+    service: 'ServiceName'
 
 
 class clearEventsParameters(TypedDict, total=True):
-    service: ServiceName
+    service: 'ServiceName'
 
 
 

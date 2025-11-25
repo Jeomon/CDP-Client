@@ -1,9 +1,9 @@
 
 """CDP Log Methods"""
 
-from cdp_client.methods import CDPMethods
+from client.methods import CDPMethods
 from typing import TypedDict,Optional
-from log.methods.types import *
+from protocol.log.methods.types import *
 
 class LogMethods:
     def __init__(self, methods:CDPMethods):

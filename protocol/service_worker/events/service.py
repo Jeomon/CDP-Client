@@ -1,9 +1,9 @@
 
 """CDP ServiceWorker Events"""
 
-from cdp_client.events import CDPEvents
+from client.events import CDPEvents
 from typing import TypedDict, Optional, Callable
-from service_worker.events.types import *
+from protocol.service_worker.events.types import *
 
 class ServiceWorkerEvents:
     def __init__(self,events:CDPEvents):
