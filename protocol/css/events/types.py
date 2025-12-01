@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from protocol.css.types import CSSStyleSheetHeader
     from protocol.css.types import FontFace
-    from protocol.css.types import StyleSheetId
     from protocol.dom.types import NodeId
+    from protocol.dom.types import StyleSheetId
 
 
 class fontsUpdatedEvent(TypedDict, total=False):

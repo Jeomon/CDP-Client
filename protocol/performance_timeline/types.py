@@ -13,45 +13,45 @@ if TYPE_CHECKING:
 
 class LargestContentfulPaint(TypedDict, total=True):
     """See https://github.com/WICG/LargestContentfulPaint and largest_contentful_paint.idl"""
-    renderTime: 'TimeSinceEpoch'
-    loadTime: 'TimeSinceEpoch'
-    size: 'float'
+    renderTime: TimeSinceEpoch
+    loadTime: TimeSinceEpoch
+    size: float
     """The number of pixels being painted."""
-    elementId: NotRequired['str']
+    elementId: NotRequired[str]
     """The id attribute of the element, if available."""
-    url: NotRequired['str']
+    url: NotRequired[str]
     """The URL of the image (may be trimmed)."""
-    nodeId: NotRequired['BackendNodeId']
+    nodeId: NotRequired[BackendNodeId]
 
 
 class LayoutShiftAttribution(TypedDict, total=True):
     """"""
-    previousRect: 'Rect'
-    currentRect: 'Rect'
-    nodeId: NotRequired['BackendNodeId']
+    previousRect: Rect
+    currentRect: Rect
+    nodeId: NotRequired[BackendNodeId]
 
 
 class LayoutShift(TypedDict, total=True):
     """See https://wicg.github.io/layout-instability/#sec-layout-shift and layout_shift.idl"""
-    value: 'float'
+    value: float
     """Score increment produced by this event."""
-    hadRecentInput: 'bool'
-    lastInputTime: 'TimeSinceEpoch'
-    sources: 'List[LayoutShiftAttribution]'
+    hadRecentInput: bool
+    lastInputTime: TimeSinceEpoch
+    sources: List[LayoutShiftAttribution]
 
 
 class TimelineEvent(TypedDict, total=True):
     """"""
-    frameId: 'FrameId'
+    frameId: FrameId
     """Identifies the frame that this event is related to. Empty for non-frame targets."""
-    type: 'str'
+    type: str
     """The event type, as specified in https://w3c.github.io/performance-timeline/#dom-performanceentry-entrytype This determines which of the optional details fields is present."""
-    name: 'str'
+    name: str
     """Name may be empty depending on the type."""
-    time: 'TimeSinceEpoch'
+    time: TimeSinceEpoch
     """Time in seconds since Epoch, monotonically increasing within document lifetime."""
-    duration: NotRequired['float']
+    duration: NotRequired[float]
     """Event duration, if applicable."""
-    lcpDetails: NotRequired['LargestContentfulPaint']
-    layoutShiftDetails: NotRequired['LayoutShift']
+    lcpDetails: NotRequired[LargestContentfulPaint]
+    layoutShiftDetails: NotRequired[LayoutShift]
 

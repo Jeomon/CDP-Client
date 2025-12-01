@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class startViolationsReportParameters(TypedDict, total=True):
-    config: 'List[ViolationSetting]'
+    config: List[ViolationSetting]
     """Configuration for violations."""
 
 

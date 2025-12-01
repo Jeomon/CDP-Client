@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from protocol.dom.types import BackendNode
     from protocol.dom.types import Node
     from protocol.dom.types import NodeId
+    from protocol.dom.types import StyleSheetId
 
 
 class attributeModifiedEvent(TypedDict, total=True):
@@ -17,6 +18,13 @@ class attributeModifiedEvent(TypedDict, total=True):
     """Attribute name."""
     value: 'str'
     """Attribute value."""
+
+
+class adoptedStyleSheetsModifiedEvent(TypedDict, total=True):
+    nodeId: 'NodeId'
+    """Id of the node that has changed."""
+    adoptedStyleSheets: 'List[StyleSheetId]'
+    """New adoptedStyleSheets array."""
 
 
 class attributeRemovedEvent(TypedDict, total=True):

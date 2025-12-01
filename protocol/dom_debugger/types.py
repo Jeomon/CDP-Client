@@ -20,24 +20,24 @@ CSPViolationType = Literal['trustedtype-sink-violation','trustedtype-policy-viol
 
 class EventListener(TypedDict, total=True):
     """Object event listener."""
-    type: 'str'
+    type: str
     """EventListener's type."""
-    useCapture: 'bool'
+    useCapture: bool
     """EventListener's useCapture."""
-    passive: 'bool'
+    passive: bool
     """EventListener's passive flag."""
-    once: 'bool'
+    once: bool
     """EventListener's once flag."""
-    scriptId: 'ScriptId'
+    scriptId: ScriptId
     """Script id of the handler code."""
-    lineNumber: 'int'
+    lineNumber: int
     """Line number in the script (0-based)."""
-    columnNumber: 'int'
+    columnNumber: int
     """Column number in the script (0-based)."""
-    handler: NotRequired['RemoteObject']
+    handler: NotRequired[RemoteObject]
     """Event handler function value."""
-    originalHandler: NotRequired['RemoteObject']
+    originalHandler: NotRequired[RemoteObject]
     """Event original handler function value."""
-    backendNodeId: NotRequired['BackendNodeId']
+    backendNodeId: NotRequired[BackendNodeId]
     """Node the listener is added to (if any)."""
 

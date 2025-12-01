@@ -18,46 +18,46 @@ CachedResponseType = Literal['basic','cors','default','error','opaqueResponse','
 
 class DataEntry(TypedDict, total=True):
     """Data entry."""
-    requestURL: 'str'
+    requestURL: str
     """Request URL."""
-    requestMethod: 'str'
+    requestMethod: str
     """Request method."""
-    requestHeaders: 'List[Header]'
+    requestHeaders: List[Header]
     """Request headers"""
-    responseTime: 'float'
+    responseTime: float
     """Number of seconds since epoch."""
-    responseStatus: 'int'
+    responseStatus: int
     """HTTP response status code."""
-    responseStatusText: 'str'
+    responseStatusText: str
     """HTTP response status text."""
-    responseType: 'CachedResponseType'
+    responseType: CachedResponseType
     """HTTP response type"""
-    responseHeaders: 'List[Header]'
+    responseHeaders: List[Header]
     """Response headers"""
 
 
 class Cache(TypedDict, total=True):
     """Cache identifier."""
-    cacheId: 'CacheId'
+    cacheId: CacheId
     """An opaque unique id of the cache."""
-    securityOrigin: 'str'
+    securityOrigin: str
     """Security origin of the cache."""
-    storageKey: 'str'
+    storageKey: str
     """Storage key of the cache."""
-    cacheName: 'str'
+    cacheName: str
     """The name of the cache."""
-    storageBucket: NotRequired['StorageBucket']
+    storageBucket: NotRequired[StorageBucket]
     """Storage bucket of the cache."""
 
 
 class Header(TypedDict, total=True):
     """"""
-    name: 'str'
-    value: 'str'
+    name: str
+    value: str
 
 
 class CachedResponse(TypedDict, total=True):
     """Cached response"""
-    body: 'str'
+    body: str
     """Entry content, base64-encoded. (Encoded as a base64 string when passed over JSON)"""
 

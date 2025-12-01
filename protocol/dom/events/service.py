@@ -13,6 +13,10 @@ class DOMEvents:
         """Fired when `Element`'s attribute is modified."""
         self.client.on('DOM.attributeModified', callback)
     
+    def on_adopted_style_sheets_modified(self, callback: Callable[[adoptedStyleSheetsModifiedEvent,Optional[str]], None]=None) -> None:
+        """Fired when `Element`'s adoptedStyleSheets are modified."""
+        self.client.on('DOM.adoptedStyleSheetsModified', callback)
+    
     def on_attribute_removed(self, callback: Callable[[attributeRemovedEvent,Optional[str]], None]=None) -> None:
         """Fired when `Element`'s attribute is removed."""
         self.client.on('DOM.attributeRemoved', callback)

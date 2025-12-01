@@ -9,10 +9,8 @@ if TYPE_CHECKING:
     from dom.types import LogicalAxes
     from dom.types import PhysicalAxes
     from dom.types import PseudoType
+    from dom.types import StyleSheetId
     from page.types import FrameId
-
-
-StyleSheetId = str
 
 
 StyleSheetOrigin = Literal['injected','user-agent','inspector','regular']
@@ -21,147 +19,147 @@ StyleSheetOrigin = Literal['injected','user-agent','inspector','regular']
 
 class PseudoElementMatches(TypedDict, total=True):
     """CSS rule collection for a single pseudo style."""
-    pseudoType: 'PseudoType'
+    pseudoType: PseudoType
     """Pseudo element type."""
-    matches: 'List[RuleMatch]'
+    matches: List[RuleMatch]
     """Matches of CSS rules applicable to the pseudo style."""
-    pseudoIdentifier: NotRequired['str']
+    pseudoIdentifier: NotRequired[str]
     """Pseudo element custom ident."""
 
 
 class CSSAnimationStyle(TypedDict, total=True):
     """CSS style coming from animations with the name of the animation."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """The style coming from the animation."""
-    name: NotRequired['str']
+    name: NotRequired[str]
     """The name of the animation."""
 
 
 class InheritedStyleEntry(TypedDict, total=True):
     """Inherited CSS rule collection from ancestor node."""
-    matchedCSSRules: 'List[RuleMatch]'
+    matchedCSSRules: List[RuleMatch]
     """Matches of CSS rules matching the ancestor node in the style inheritance chain."""
-    inlineStyle: NotRequired['CSSStyle']
+    inlineStyle: NotRequired[CSSStyle]
     """The ancestor node's inline style, if any, in the style inheritance chain."""
 
 
 class InheritedAnimatedStyleEntry(TypedDict, total=False):
     """Inherited CSS style collection for animated styles from ancestor node."""
-    animationStyles: NotRequired['List[CSSAnimationStyle]']
+    animationStyles: NotRequired[List[CSSAnimationStyle]]
     """Styles coming from the animations of the ancestor, if any, in the style inheritance chain."""
-    transitionsStyle: NotRequired['CSSStyle']
+    transitionsStyle: NotRequired[CSSStyle]
     """The style coming from the transitions of the ancestor, if any, in the style inheritance chain."""
 
 
 class InheritedPseudoElementMatches(TypedDict, total=True):
     """Inherited pseudo element matches from pseudos of an ancestor node."""
-    pseudoElements: 'List[PseudoElementMatches]'
+    pseudoElements: List[PseudoElementMatches]
     """Matches of pseudo styles from the pseudos of an ancestor node."""
 
 
 class RuleMatch(TypedDict, total=True):
     """Match data for a CSS rule."""
-    rule: 'CSSRule'
+    rule: CSSRule
     """CSS rule in the match."""
-    matchingSelectors: 'List[int]'
+    matchingSelectors: List[int]
     """Matching selector indices in the rule's selectorList selectors (0-based)."""
 
 
 class Value(TypedDict, total=True):
     """Data for a simple selector (these are delimited by commas in a selector list)."""
-    text: 'str'
+    text: str
     """Value text."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """Value range in the underlying resource (if available)."""
-    specificity: NotRequired['Specificity']
+    specificity: NotRequired[Specificity]
     """Specificity of the selector."""
 
 
 class Specificity(TypedDict, total=True):
     """Specificity: https://drafts.csswg.org/selectors/#specificity-rules"""
-    a: 'int'
+    a: int
     """The a component, which represents the number of ID selectors."""
-    b: 'int'
+    b: int
     """The b component, which represents the number of class selectors, attributes selectors, and pseudo-classes."""
-    c: 'int'
+    c: int
     """The c component, which represents the number of type selectors and pseudo-elements."""
 
 
 class SelectorList(TypedDict, total=True):
     """Selector list data."""
-    selectors: 'List[Value]'
+    selectors: List[Value]
     """Selectors in the list."""
-    text: 'str'
+    text: str
     """Rule selector text."""
 
 
 class CSSStyleSheetHeader(TypedDict, total=True):
     """CSS stylesheet metainformation."""
-    styleSheetId: 'StyleSheetId'
+    styleSheetId: StyleSheetId
     """The stylesheet identifier."""
-    frameId: 'FrameId'
+    frameId: FrameId
     """Owner frame identifier."""
-    sourceURL: 'str'
+    sourceURL: str
     """Stylesheet resource URL. Empty if this is a constructed stylesheet created using new CSSStyleSheet() (but non-empty if this is a constructed stylesheet imported as a CSS module script)."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Stylesheet origin."""
-    title: 'str'
+    title: str
     """Stylesheet title."""
-    disabled: 'bool'
+    disabled: bool
     """Denotes whether the stylesheet is disabled."""
-    isInline: 'bool'
+    isInline: bool
     """Whether this stylesheet is created for STYLE tag by parser. This flag is not set for document.written STYLE tags."""
-    isMutable: 'bool'
+    isMutable: bool
     """Whether this stylesheet is mutable. Inline stylesheets become mutable after they have been modified via CSSOM API. <link> element's stylesheets become mutable only if DevTools modifies them. Constructed stylesheets (new CSSStyleSheet()) are mutable immediately after creation."""
-    isConstructed: 'bool'
+    isConstructed: bool
     """True if this stylesheet is created through new CSSStyleSheet() or imported as a CSS module script."""
-    startLine: 'float'
+    startLine: float
     """Line offset of the stylesheet within the resource (zero based)."""
-    startColumn: 'float'
+    startColumn: float
     """Column offset of the stylesheet within the resource (zero based)."""
-    length: 'float'
+    length: float
     """Size of the content (in characters)."""
-    endLine: 'float'
+    endLine: float
     """Line offset of the end of the stylesheet within the resource (zero based)."""
-    endColumn: 'float'
+    endColumn: float
     """Column offset of the end of the stylesheet within the resource (zero based)."""
-    sourceMapURL: NotRequired['str']
+    sourceMapURL: NotRequired[str]
     """URL of source map associated with the stylesheet (if any)."""
-    ownerNode: NotRequired['BackendNodeId']
+    ownerNode: NotRequired[BackendNodeId]
     """The backend id for the owner node of the stylesheet."""
-    hasSourceURL: NotRequired['bool']
+    hasSourceURL: NotRequired[bool]
     """Whether the sourceURL field value comes from the sourceURL comment."""
-    loadingFailed: NotRequired['bool']
+    loadingFailed: NotRequired[bool]
     """If the style sheet was loaded from a network resource, this indicates when the resource failed to load"""
 
 
 class CSSRule(TypedDict, total=True):
     """CSS rule representation."""
-    selectorList: 'SelectorList'
+    selectorList: SelectorList
     """Rule selector data."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """Associated style declaration."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
-    nestingSelectors: NotRequired['List[str]']
+    nestingSelectors: NotRequired[List[str]]
     """Array of selectors from ancestor style rules, sorted by distance from the current rule."""
-    originTreeScopeNodeId: NotRequired['BackendNodeId']
+    originTreeScopeNodeId: NotRequired[BackendNodeId]
     """The BackendNodeId of the DOM node that constitutes the origin tree scope of this rule."""
-    media: NotRequired['List[CSSMedia]']
+    media: NotRequired[List[CSSMedia]]
     """Media list array (for rules involving media queries). The array enumerates media queries starting with the innermost one, going outwards."""
-    containerQueries: NotRequired['List[CSSContainerQuery]']
+    containerQueries: NotRequired[List[CSSContainerQuery]]
     """Container query list array (for rules involving container queries). The array enumerates container queries starting with the innermost one, going outwards."""
-    supports: NotRequired['List[CSSSupports]']
+    supports: NotRequired[List[CSSSupports]]
     """@supports CSS at-rule array. The array enumerates @supports at-rules starting with the innermost one, going outwards."""
-    layers: NotRequired['List[CSSLayer]']
+    layers: NotRequired[List[CSSLayer]]
     """Cascade layer array. Contains the layer hierarchy that this rule belongs to starting with the innermost layer and going outwards."""
-    scopes: NotRequired['List[CSSScope]']
+    scopes: NotRequired[List[CSSScope]]
     """@scope CSS at-rule array. The array enumerates @scope at-rules starting with the innermost one, going outwards."""
-    ruleTypes: NotRequired['List[CSSRuleType]']
+    ruleTypes: NotRequired[List[CSSRuleType]]
     """The array keeps the types of ancestor CSSRules from the innermost going outwards."""
-    startingStyles: NotRequired['List[CSSStartingStyle]']
+    startingStyles: NotRequired[List[CSSStartingStyle]]
     """@starting-style CSS at-rule array. The array enumerates @starting-style at-rules starting with the innermost one, going outwards."""
 
 
@@ -171,375 +169,375 @@ CSSRuleType = Literal['MediaRule','SupportsRule','ContainerRule','LayerRule','Sc
 
 class RuleUsage(TypedDict, total=True):
     """CSS coverage information."""
-    styleSheetId: 'StyleSheetId'
+    styleSheetId: StyleSheetId
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
-    startOffset: 'float'
+    startOffset: float
     """Offset of the start of the rule (including selector) from the beginning of the stylesheet."""
-    endOffset: 'float'
+    endOffset: float
     """Offset of the end of the rule body from the beginning of the stylesheet."""
-    used: 'bool'
+    used: bool
     """Indicates whether the rule was actually used by some element in the page."""
 
 
 class SourceRange(TypedDict, total=True):
     """Text range within a resource. All numbers are zero-based."""
-    startLine: 'int'
+    startLine: int
     """Start line of range."""
-    startColumn: 'int'
+    startColumn: int
     """Start column of range (inclusive)."""
-    endLine: 'int'
+    endLine: int
     """End line of range"""
-    endColumn: 'int'
+    endColumn: int
     """End column of range (exclusive)."""
 
 
 class ShorthandEntry(TypedDict, total=True):
     """"""
-    name: 'str'
+    name: str
     """Shorthand name."""
-    value: 'str'
+    value: str
     """Shorthand value."""
-    important: NotRequired['bool']
+    important: NotRequired[bool]
     """Whether the property has "!important" annotation (implies false if absent)."""
 
 
 class CSSComputedStyleProperty(TypedDict, total=True):
     """"""
-    name: 'str'
+    name: str
     """Computed style property name."""
-    value: 'str'
+    value: str
     """Computed style property value."""
 
 
 class ComputedStyleExtraFields(TypedDict, total=True):
     """"""
-    isAppearanceBase: 'bool'
+    isAppearanceBase: bool
     """Returns whether or not this node is being rendered with base appearance, which happens when it has its appearance property set to base/base-select or it is in the subtree of an element being rendered with base appearance."""
 
 
 class CSSStyle(TypedDict, total=True):
     """CSS style representation."""
-    cssProperties: 'List[CSSProperty]'
+    cssProperties: List[CSSProperty]
     """CSS properties in the style."""
-    shorthandEntries: 'List[ShorthandEntry]'
+    shorthandEntries: List[ShorthandEntry]
     """Computed values for all shorthands found in the style."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
-    cssText: NotRequired['str']
+    cssText: NotRequired[str]
     """Style declaration text (if available)."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """Style declaration range in the enclosing stylesheet (if available)."""
 
 
 class CSSProperty(TypedDict, total=True):
     """CSS property declaration data."""
-    name: 'str'
+    name: str
     """The property name."""
-    value: 'str'
+    value: str
     """The property value."""
-    important: NotRequired['bool']
+    important: NotRequired[bool]
     """Whether the property has "!important" annotation (implies false if absent)."""
-    implicit: NotRequired['bool']
+    implicit: NotRequired[bool]
     """Whether the property is implicit (implies false if absent)."""
-    text: NotRequired['str']
+    text: NotRequired[str]
     """The full property text as specified in the style."""
-    parsedOk: NotRequired['bool']
+    parsedOk: NotRequired[bool]
     """Whether the property is understood by the browser (implies true if absent)."""
-    disabled: NotRequired['bool']
+    disabled: NotRequired[bool]
     """Whether the property is disabled by the user (present for source-based properties only)."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The entire property range in the enclosing style declaration (if available)."""
-    longhandProperties: NotRequired['List[CSSProperty]']
+    longhandProperties: NotRequired[List[CSSProperty]]
     """Parsed longhand components of this property if it is a shorthand. This field will be empty if the given property is not a shorthand."""
 
 
 class CSSMedia(TypedDict, total=True):
     """CSS media rule descriptor."""
-    text: 'str'
+    text: str
     """Media query text."""
-    source: 'Literal["mediaRule", "importRule", "linkedSheet", "inlineSheet"]'
+    source: Literal["mediaRule", "importRule", "linkedSheet", "inlineSheet"]
     """Source of the media query: mediaRule if specified by a @media rule, importRule if specified by an @import rule, linkedSheet if specified by a media attribute in a linked stylesheet's LINK tag, inlineSheet if specified by a media attribute in an inline stylesheet's STYLE tag."""
-    sourceURL: NotRequired['str']
+    sourceURL: NotRequired[str]
     """URL of the document containing the media query description."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The associated rule (@media or @import) header range in the enclosing stylesheet (if available)."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """Identifier of the stylesheet containing this object (if exists)."""
-    mediaList: NotRequired['List[MediaQuery]']
+    mediaList: NotRequired[List[MediaQuery]]
     """Array of media queries."""
 
 
 class MediaQuery(TypedDict, total=True):
     """Media query descriptor."""
-    expressions: 'List[MediaQueryExpression]'
+    expressions: List[MediaQueryExpression]
     """Array of media query expressions."""
-    active: 'bool'
+    active: bool
     """Whether the media query condition is satisfied."""
 
 
 class MediaQueryExpression(TypedDict, total=True):
     """Media query expression descriptor."""
-    value: 'float'
+    value: float
     """Media query expression value."""
-    unit: 'str'
+    unit: str
     """Media query expression units."""
-    feature: 'str'
+    feature: str
     """Media query expression feature."""
-    valueRange: NotRequired['SourceRange']
+    valueRange: NotRequired[SourceRange]
     """The associated range of the value text in the enclosing stylesheet (if available)."""
-    computedLength: NotRequired['float']
+    computedLength: NotRequired[float]
     """Computed length of media query expression (if applicable)."""
 
 
 class CSSContainerQuery(TypedDict, total=True):
     """CSS container query rule descriptor."""
-    text: 'str'
+    text: str
     """Container query text."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The associated rule header range in the enclosing stylesheet (if available)."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """Identifier of the stylesheet containing this object (if exists)."""
-    name: NotRequired['str']
+    name: NotRequired[str]
     """Optional name for the container."""
-    physicalAxes: NotRequired['PhysicalAxes']
+    physicalAxes: NotRequired[PhysicalAxes]
     """Optional physical axes queried for the container."""
-    logicalAxes: NotRequired['LogicalAxes']
+    logicalAxes: NotRequired[LogicalAxes]
     """Optional logical axes queried for the container."""
-    queriesScrollState: NotRequired['bool']
+    queriesScrollState: NotRequired[bool]
     """true if the query contains scroll-state() queries."""
-    queriesAnchored: NotRequired['bool']
+    queriesAnchored: NotRequired[bool]
     """true if the query contains anchored() queries."""
 
 
 class CSSSupports(TypedDict, total=True):
     """CSS Supports at-rule descriptor."""
-    text: 'str'
+    text: str
     """Supports rule text."""
-    active: 'bool'
+    active: bool
     """Whether the supports condition is satisfied."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The associated rule header range in the enclosing stylesheet (if available)."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """Identifier of the stylesheet containing this object (if exists)."""
 
 
 class CSSScope(TypedDict, total=True):
     """CSS Scope at-rule descriptor."""
-    text: 'str'
+    text: str
     """Scope rule text."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The associated rule header range in the enclosing stylesheet (if available)."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """Identifier of the stylesheet containing this object (if exists)."""
 
 
 class CSSLayer(TypedDict, total=True):
     """CSS Layer at-rule descriptor."""
-    text: 'str'
+    text: str
     """Layer name."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The associated rule header range in the enclosing stylesheet (if available)."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """Identifier of the stylesheet containing this object (if exists)."""
 
 
 class CSSStartingStyle(TypedDict, total=False):
     """CSS Starting Style at-rule descriptor."""
-    range: NotRequired['SourceRange']
+    range: NotRequired[SourceRange]
     """The associated rule header range in the enclosing stylesheet (if available)."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """Identifier of the stylesheet containing this object (if exists)."""
 
 
 class CSSLayerData(TypedDict, total=True):
     """CSS Layer data."""
-    name: 'str'
+    name: str
     """Layer name."""
-    order: 'float'
+    order: float
     """Layer order. The order determines the order of the layer in the cascade order. A higher number has higher priority in the cascade order."""
-    subLayers: NotRequired['List[CSSLayerData]']
+    subLayers: NotRequired[List[CSSLayerData]]
     """Direct sub-layers"""
 
 
 class PlatformFontUsage(TypedDict, total=True):
     """Information about amount of glyphs that were rendered with given font."""
-    familyName: 'str'
+    familyName: str
     """Font's family name reported by platform."""
-    postScriptName: 'str'
+    postScriptName: str
     """Font's PostScript name reported by platform."""
-    isCustomFont: 'bool'
+    isCustomFont: bool
     """Indicates if the font was downloaded or resolved locally."""
-    glyphCount: 'float'
+    glyphCount: float
     """Amount of glyphs that were rendered with this font."""
 
 
 class FontVariationAxis(TypedDict, total=True):
     """Information about font variation axes for variable fonts"""
-    tag: 'str'
+    tag: str
     """The font-variation-setting tag (a.k.a. axis tag)."""
-    name: 'str'
+    name: str
     """Human-readable variation name in the default language (normally, en)."""
-    minValue: 'float'
+    minValue: float
     """The minimum value (inclusive) the font supports for this tag."""
-    maxValue: 'float'
+    maxValue: float
     """The maximum value (inclusive) the font supports for this tag."""
-    defaultValue: 'float'
+    defaultValue: float
     """The default value."""
 
 
 class FontFace(TypedDict, total=True):
     """Properties of a web font: https://www.w3.org/TR/2008/REC-CSS2-20080411/fonts.html#font-descriptions and additional information such as platformFontFamily and fontVariationAxes."""
-    fontFamily: 'str'
+    fontFamily: str
     """The font-family."""
-    fontStyle: 'str'
+    fontStyle: str
     """The font-style."""
-    fontVariant: 'str'
+    fontVariant: str
     """The font-variant."""
-    fontWeight: 'str'
+    fontWeight: str
     """The font-weight."""
-    fontStretch: 'str'
+    fontStretch: str
     """The font-stretch."""
-    fontDisplay: 'str'
+    fontDisplay: str
     """The font-display."""
-    unicodeRange: 'str'
+    unicodeRange: str
     """The unicode-range."""
-    src: 'str'
+    src: str
     """The src."""
-    platformFontFamily: 'str'
+    platformFontFamily: str
     """The resolved platform font family"""
-    fontVariationAxes: NotRequired['List[FontVariationAxis]']
+    fontVariationAxes: NotRequired[List[FontVariationAxis]]
     """Available variation settings (a.k.a. "axes")."""
 
 
 class CSSTryRule(TypedDict, total=True):
     """CSS try rule representation."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """Associated style declaration."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
 
 
 class CSSPositionTryRule(TypedDict, total=True):
     """CSS @position-try rule representation."""
-    name: 'Value'
+    name: Value
     """The prelude dashed-ident name"""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """Associated style declaration."""
-    active: 'bool'
-    styleSheetId: NotRequired['StyleSheetId']
+    active: bool
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
 
 
 class CSSKeyframesRule(TypedDict, total=True):
     """CSS keyframes rule representation."""
-    animationName: 'Value'
+    animationName: Value
     """Animation name."""
-    keyframes: 'List[CSSKeyframeRule]'
+    keyframes: List[CSSKeyframeRule]
     """List of keyframes."""
 
 
 class CSSPropertyRegistration(TypedDict, total=True):
     """Representation of a custom property registration through CSS.registerProperty"""
-    propertyName: 'str'
-    inherits: 'bool'
-    syntax: 'str'
-    initialValue: NotRequired['Value']
+    propertyName: str
+    inherits: bool
+    syntax: str
+    initialValue: NotRequired[Value]
 
 
 class CSSAtRule(TypedDict, total=True):
     """CSS generic @rule representation."""
-    type: 'Literal["font-face", "font-feature-values", "font-palette-values"]'
+    type: Literal["font-face", "font-feature-values", "font-palette-values"]
     """Type of at-rule."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """Associated style declaration."""
-    subsection: NotRequired['Literal["swash", "annotation", "ornaments", "stylistic", "styleset", "character-variant"]']
+    subsection: NotRequired[Literal["swash", "annotation", "ornaments", "stylistic", "styleset", "character-variant"]]
     """Subsection of font-feature-values, if this is a subsection."""
-    name: NotRequired['Value']
+    name: NotRequired[Value]
     """LINT.ThenChange(//third_party/blink/renderer/core/inspector/inspector_style_sheet.cc:FontVariantAlternatesFeatureType,//third_party/blink/renderer/core/inspector/inspector_css_agent.cc:FontVariantAlternatesFeatureType) Associated name, if applicable."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
 
 
 class CSSPropertyRule(TypedDict, total=True):
     """CSS property at-rule representation."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    propertyName: 'Value'
+    propertyName: Value
     """Associated property name."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """Associated style declaration."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
 
 
 class CSSFunctionParameter(TypedDict, total=True):
     """CSS function argument representation."""
-    name: 'str'
+    name: str
     """The parameter name."""
-    type: 'str'
+    type: str
     """The parameter type."""
 
 
 class CSSFunctionConditionNode(TypedDict, total=True):
     """CSS function conditional block representation."""
-    children: 'List[CSSFunctionNode]'
+    children: List[CSSFunctionNode]
     """Block body."""
-    conditionText: 'str'
+    conditionText: str
     """The condition text."""
-    media: NotRequired['CSSMedia']
+    media: NotRequired[CSSMedia]
     """Media query for this conditional block. Only one type of condition should be set."""
-    containerQueries: NotRequired['CSSContainerQuery']
+    containerQueries: NotRequired[CSSContainerQuery]
     """Container query for this conditional block. Only one type of condition should be set."""
-    supports: NotRequired['CSSSupports']
+    supports: NotRequired[CSSSupports]
     """@supports CSS at-rule condition. Only one type of condition should be set."""
 
 
 class CSSFunctionNode(TypedDict, total=False):
     """Section of the body of a CSS function rule."""
-    condition: NotRequired['CSSFunctionConditionNode']
+    condition: NotRequired[CSSFunctionConditionNode]
     """A conditional block. If set, style should not be set."""
-    style: NotRequired['CSSStyle']
+    style: NotRequired[CSSStyle]
     """Values set by this node. If set, condition should not be set."""
 
 
 class CSSFunctionRule(TypedDict, total=True):
     """CSS function at-rule representation."""
-    name: 'Value'
+    name: Value
     """Name of the function."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    parameters: 'List[CSSFunctionParameter]'
+    parameters: List[CSSFunctionParameter]
     """List of parameters."""
-    children: 'List[CSSFunctionNode]'
+    children: List[CSSFunctionNode]
     """Function body."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
 
 
 class CSSKeyframeRule(TypedDict, total=True):
     """CSS keyframe rule representation."""
-    origin: 'StyleSheetOrigin'
+    origin: StyleSheetOrigin
     """Parent stylesheet's origin."""
-    keyText: 'Value'
+    keyText: Value
     """Associated key text."""
-    style: 'CSSStyle'
+    style: CSSStyle
     """Associated style declaration."""
-    styleSheetId: NotRequired['StyleSheetId']
+    styleSheetId: NotRequired[StyleSheetId]
     """The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from."""
 
 
 class StyleDeclarationEdit(TypedDict, total=True):
     """A descriptor of operation to mutate style declaration text."""
-    styleSheetId: 'StyleSheetId'
+    styleSheetId: StyleSheetId
     """The css style sheet identifier."""
-    range: 'SourceRange'
+    range: SourceRange
     """The range of the style text in the enclosing stylesheet."""
-    text: 'str'
+    text: str
     """New style text."""
 

@@ -73,6 +73,10 @@ class TargetMethods:
         """Enables target discovery for the specified locations, when `setDiscoverTargets` was set to `true`."""
         return await self.client.send(method="Target.setRemoteLocations", params=params,session_id=session_id)
 
+    async def get_dev_tools_target(self, params: Optional[getDevToolsTargetParameters]=None,session_id: Optional[str] = None) -> getDevToolsTargetReturns:
+        """Gets the targetId of the DevTools page target opened for the given target (if any)."""
+        return await self.client.send(method="Target.getDevToolsTarget", params=params,session_id=session_id)
+
     async def open_dev_tools(self, params: Optional[openDevToolsParameters]=None,session_id: Optional[str] = None) -> openDevToolsReturns:
         """Opens a DevTools window for the target."""
         return await self.client.send(method="Target.openDevTools", params=params,session_id=session_id)

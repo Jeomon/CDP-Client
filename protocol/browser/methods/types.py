@@ -17,38 +17,38 @@ if TYPE_CHECKING:
 
 
 class setPermissionParameters(TypedDict, total=True):
-    permission: 'PermissionDescriptor'
+    permission: PermissionDescriptor
     """Descriptor of permission to override."""
-    setting: 'PermissionSetting'
+    setting: PermissionSetting
     """Setting of the permission."""
-    origin: NotRequired['str']
+    origin: NotRequired[str]
     """Embedding origin the permission applies to, all origins if not specified."""
-    embeddedOrigin: NotRequired['str']
+    embeddedOrigin: NotRequired[str]
     """Embedded origin the permission applies to. It is ignored unless the embedding origin is present and valid. If the embedding origin is provided but the embedded origin isn't, the embedding origin is used as the embedded origin."""
-    browserContextId: NotRequired['BrowserContextID']
+    browserContextId: NotRequired[BrowserContextID]
     """Context to override. When omitted, default browser context is used."""
 
 
 class resetPermissionsParameters(TypedDict, total=False):
-    browserContextId: NotRequired['BrowserContextID']
+    browserContextId: NotRequired[BrowserContextID]
     """BrowserContext to reset permissions. When omitted, default browser context is used."""
 
 
 class setDownloadBehaviorParameters(TypedDict, total=True):
-    behavior: 'Literal["deny", "allow", "allowAndName", "default"]'
+    behavior: Literal["deny", "allow", "allowAndName", "default"]
     """Whether to allow all or deny all download requests, or use default Chrome behavior if available (otherwise deny). |allowAndName| allows download and names files according to their download guids."""
-    browserContextId: NotRequired['BrowserContextID']
+    browserContextId: NotRequired[BrowserContextID]
     """BrowserContext to set download behavior. When omitted, default browser context is used."""
-    downloadPath: NotRequired['str']
+    downloadPath: NotRequired[str]
     """The default path to save downloaded files to. This is required if behavior is set to 'allow' or 'allowAndName'."""
-    eventsEnabled: NotRequired['bool']
+    eventsEnabled: NotRequired[bool]
     """Whether to emit download events (defaults to false)."""
 
 
 class cancelDownloadParameters(TypedDict, total=True):
-    guid: 'str'
+    guid: str
     """Global unique identifier of the download."""
-    browserContextId: NotRequired['BrowserContextID']
+    browserContextId: NotRequired[BrowserContextID]
     """BrowserContext to perform the action in. When omitted, default browser context is used."""
 
 
@@ -58,64 +58,64 @@ class cancelDownloadParameters(TypedDict, total=True):
 
 
 class getHistogramsParameters(TypedDict, total=False):
-    query: NotRequired['str']
+    query: NotRequired[str]
     """Requested substring in name. Only histograms which have query as a substring in their name are extracted. An empty or absent query returns all histograms."""
-    delta: NotRequired['bool']
+    delta: NotRequired[bool]
     """If true, retrieve delta since last delta call."""
 
 
 class getHistogramParameters(TypedDict, total=True):
-    name: 'str'
+    name: str
     """Requested histogram name."""
-    delta: NotRequired['bool']
+    delta: NotRequired[bool]
     """If true, retrieve delta since last delta call."""
 
 
 class getWindowBoundsParameters(TypedDict, total=True):
-    windowId: 'WindowID'
+    windowId: WindowID
     """Browser window id."""
 
 
 class getWindowForTargetParameters(TypedDict, total=False):
-    targetId: NotRequired['TargetID']
+    targetId: NotRequired[TargetID]
     """Devtools agent host id. If called as a part of the session, associated targetId is used."""
 
 
 class setWindowBoundsParameters(TypedDict, total=True):
-    windowId: 'WindowID'
+    windowId: WindowID
     """Browser window id."""
-    bounds: 'Bounds'
+    bounds: Bounds
     """New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged."""
 
 
 class setContentsSizeParameters(TypedDict, total=True):
-    windowId: 'WindowID'
+    windowId: WindowID
     """Browser window id."""
-    width: NotRequired['int']
+    width: NotRequired[int]
     """The window contents width in DIP. Assumes current width if omitted. Must be specified if 'height' is omitted."""
-    height: NotRequired['int']
+    height: NotRequired[int]
     """The window contents height in DIP. Assumes current height if omitted. Must be specified if 'width' is omitted."""
 
 
 class setDockTileParameters(TypedDict, total=False):
-    badgeLabel: NotRequired['str']
-    image: NotRequired['str']
+    badgeLabel: NotRequired[str]
+    image: NotRequired[str]
     """Png encoded image. (Encoded as a base64 string when passed over JSON)"""
 
 
 class executeBrowserCommandParameters(TypedDict, total=True):
-    commandId: 'BrowserCommandId'
+    commandId: BrowserCommandId
 
 
 class addPrivacySandboxEnrollmentOverrideParameters(TypedDict, total=True):
-    url: 'str'
+    url: str
 
 
 class addPrivacySandboxCoordinatorKeyConfigParameters(TypedDict, total=True):
-    api: 'PrivacySandboxAPI'
-    coordinatorOrigin: 'str'
-    keyConfig: 'str'
-    browserContextId: NotRequired['BrowserContextID']
+    api: PrivacySandboxAPI
+    coordinatorOrigin: str
+    keyConfig: str
+    browserContextId: NotRequired[BrowserContextID]
     """BrowserContext to perform the action in. When omitted, default browser context is used."""
 
 
@@ -127,42 +127,42 @@ class addPrivacySandboxCoordinatorKeyConfigParameters(TypedDict, total=True):
 
 
 class getVersionReturns(TypedDict):
-    protocolVersion: 'str'
+    protocolVersion: str
     """Protocol version."""
-    product: 'str'
+    product: str
     """Product name."""
-    revision: 'str'
+    revision: str
     """Product revision."""
-    userAgent: 'str'
+    userAgent: str
     """User-Agent."""
-    jsVersion: 'str'
+    jsVersion: str
     """V8 version."""
 
 
 class getBrowserCommandLineReturns(TypedDict):
-    arguments: 'List[str]'
+    arguments: List[str]
     """Commandline parameters"""
 
 
 class getHistogramsReturns(TypedDict):
-    histograms: 'List[Histogram]'
+    histograms: List[Histogram]
     """Histograms."""
 
 
 class getHistogramReturns(TypedDict):
-    histogram: 'Histogram'
+    histogram: Histogram
     """Histogram."""
 
 
 class getWindowBoundsReturns(TypedDict):
-    bounds: 'Bounds'
+    bounds: Bounds
     """Bounds information of the window. When window state is 'minimized', the restored window position and size are returned."""
 
 
 class getWindowForTargetReturns(TypedDict):
-    windowId: 'WindowID'
+    windowId: WindowID
     """Browser window id."""
-    bounds: 'Bounds'
+    bounds: Bounds
     """Bounds information of the window. When window state is 'minimized', the restored window position and size are returned."""
 
 

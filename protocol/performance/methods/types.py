@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 class enableParameters(TypedDict, total=False):
-    timeDomain: NotRequired['Literal["timeTicks", "threadTicks"]']
+    timeDomain: NotRequired[Literal["timeTicks", "threadTicks"]]
     """Time domain to use for collecting and reporting duration metrics."""
 
 
@@ -18,6 +18,6 @@ class enableParameters(TypedDict, total=False):
 
 
 class getMetricsReturns(TypedDict):
-    metrics: 'List[Metric]'
+    metrics: List[Metric]
     """Current values for run-time metrics."""
 

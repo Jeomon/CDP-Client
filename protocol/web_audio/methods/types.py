@@ -12,11 +12,11 @@ if TYPE_CHECKING:
 
 
 class getRealtimeDataParameters(TypedDict, total=True):
-    contextId: 'GraphObjectId'
+    contextId: GraphObjectId
 
 
 
 
 class getRealtimeDataReturns(TypedDict):
-    realtimeData: 'ContextRealtimeData'
+    realtimeData: ContextRealtimeData
 

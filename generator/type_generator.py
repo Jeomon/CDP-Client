@@ -166,7 +166,7 @@ class TypeGenerator:
                 {% else %}
                 {% if required_properties %}
                 {% for property in required_properties %}
-                {{ property['name'] }}: '{{ property['type'] }}'
+                {{ property['name'] }}: {{ property['type'] }}
                 {% if property.get('description') %}
                 """{{ property['description'] | replace('\n', ' ') | replace('\"', '') | replace('`','') }}"""
                 {% endif %}
@@ -174,7 +174,7 @@ class TypeGenerator:
                 {% endif %}
                 {% if optional_properties %}
                 {% for property in optional_properties %}
-                {{ property['name'] }}: NotRequired['{{ property['type'] }}']
+                {{ property['name'] }}: NotRequired[{{ property['type'] }}]
                 {% if property.get('description') %}
                 """{{ property['description'] | replace('\n', ' ') | replace('`', '') }}"""
                 {% endif %}

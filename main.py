@@ -1,10 +1,11 @@
 from client.service import CDPClient
-from protocol.target.events.types import attachedToTargetEvent
+from protocol.accessibility.events.types import loadCompleteEvent
 from httpx import AsyncClient
 from pathlib import Path
 import subprocess
 import logging
 import time
+import json
 
 
 logging.basicConfig(level=logging.INFO)
@@ -24,19 +25,21 @@ async def main():
         response = await client.get(f"http://localhost:{port}/json/version")
     ws_url = response.json()['webSocketDebuggerUrl']
 
-    async def on_attached_to_target(event:attachedToTargetEvent,session_id:str):
-        print(event)
-
     async with CDPClient(ws_url) as client:
-        client.events.target.on_attached_to_target(on_attached_to_target)
         targets=await client.methods.target.get_targets()
         page_targets=[target for target in targets['targetInfos'] if target['type']=='page']
+
         if not page_targets:
             raise Exception("No page targets found")
+
         target_id=page_targets[0]['targetId']
         response=await client.methods.target.attach_to_target(params={'targetId':target_id,"flatten":True})
         session_id=response['sessionId']
-        response=await client.methods.page.navigate(params={'url':'https://www.google.com'},session_id=session_id)
+        await client.methods.dom_snapshot.enable(session_id=session_id)
+        await client.methods.page.navigate(params={'url':'https://www.google.com/'},session_id=session_id)
+        document=await client.methods.dom_snapshot.capture_snapshot(params={'depth':-1,'pierce':True},session_id=session_id)
+        print(json.dumps(document,indent=4))
+        await client.methods.dom_snapshot.disable(session_id=session_id)
     time.sleep(5)
     process.terminate()
 if __name__ == "__main__":

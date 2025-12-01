@@ -19,67 +19,67 @@ SnapshotId = str
 
 class ScrollRect(TypedDict, total=True):
     """Rectangle where scrolling happens on the main thread."""
-    rect: 'Rect'
+    rect: Rect
     """Rectangle itself."""
-    type: 'Literal["RepaintsOnScroll", "TouchEventHandler", "WheelEventHandler"]'
+    type: Literal["RepaintsOnScroll", "TouchEventHandler", "WheelEventHandler"]
     """Reason for rectangle to force scrolling on the main thread"""
 
 
 class StickyPositionConstraint(TypedDict, total=True):
     """Sticky position constraints."""
-    stickyBoxRect: 'Rect'
+    stickyBoxRect: Rect
     """Layout rectangle of the sticky element before being shifted"""
-    containingBlockRect: 'Rect'
+    containingBlockRect: Rect
     """Layout rectangle of the containing block of the sticky element"""
-    nearestLayerShiftingStickyBox: NotRequired['LayerId']
+    nearestLayerShiftingStickyBox: NotRequired[LayerId]
     """The nearest sticky layer that shifts the sticky box"""
-    nearestLayerShiftingContainingBlock: NotRequired['LayerId']
+    nearestLayerShiftingContainingBlock: NotRequired[LayerId]
     """The nearest sticky layer that shifts the containing block"""
 
 
 class PictureTile(TypedDict, total=True):
     """Serialized fragment of layer picture along with its offset within the layer."""
-    x: 'float'
+    x: float
     """Offset from owning layer left boundary"""
-    y: 'float'
+    y: float
     """Offset from owning layer top boundary"""
-    picture: 'str'
+    picture: str
     """Base64-encoded snapshot data. (Encoded as a base64 string when passed over JSON)"""
 
 
 class Layer(TypedDict, total=True):
     """Information about a compositing layer."""
-    layerId: 'LayerId'
+    layerId: LayerId
     """The unique id for this layer."""
-    offsetX: 'float'
+    offsetX: float
     """Offset from parent layer, X coordinate."""
-    offsetY: 'float'
+    offsetY: float
     """Offset from parent layer, Y coordinate."""
-    width: 'float'
+    width: float
     """Layer width."""
-    height: 'float'
+    height: float
     """Layer height."""
-    paintCount: 'int'
+    paintCount: int
     """Indicates how many time this layer has painted."""
-    drawsContent: 'bool'
+    drawsContent: bool
     """Indicates whether this layer hosts any content, rather than being used for transform/scrolling purposes only."""
-    parentLayerId: NotRequired['LayerId']
+    parentLayerId: NotRequired[LayerId]
     """The id of parent (not present for root)."""
-    backendNodeId: NotRequired['BackendNodeId']
+    backendNodeId: NotRequired[BackendNodeId]
     """The backend id for the node associated with this layer."""
-    transform: NotRequired['List[float]']
+    transform: NotRequired[List[float]]
     """Transformation matrix for layer, default is identity matrix"""
-    anchorX: NotRequired['float']
+    anchorX: NotRequired[float]
     """Transform anchor point X, absent if no transform specified"""
-    anchorY: NotRequired['float']
+    anchorY: NotRequired[float]
     """Transform anchor point Y, absent if no transform specified"""
-    anchorZ: NotRequired['float']
+    anchorZ: NotRequired[float]
     """Transform anchor point Z, absent if no transform specified"""
-    invisible: NotRequired['bool']
+    invisible: NotRequired[bool]
     """Set if layer is not visible."""
-    scrollRects: NotRequired['List[ScrollRect]']
+    scrollRects: NotRequired[List[ScrollRect]]
     """Rectangles scrolling on main thread only."""
-    stickyPositionConstraint: NotRequired['StickyPositionConstraint']
+    stickyPositionConstraint: NotRequired[StickyPositionConstraint]
     """Sticky position constraint information"""
 
 

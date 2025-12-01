@@ -6,8 +6,8 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 class Metric(TypedDict, total=True):
     """Run-time execution metric."""
-    name: 'str'
+    name: str
     """Metric name."""
-    value: 'float'
+    value: float
     """Metric value."""
 

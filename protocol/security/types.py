@@ -22,41 +22,41 @@ SecurityState = Literal['unknown','neutral','insecure','secure','info','insecure
 
 class CertificateSecurityState(TypedDict, total=True):
     """Details about the security state of the page certificate."""
-    protocol: 'str'
+    protocol: str
     """Protocol name (e.g. TLS 1.2 or QUIC)."""
-    keyExchange: 'str'
+    keyExchange: str
     """Key Exchange used by the connection, or the empty string if not applicable."""
-    cipher: 'str'
+    cipher: str
     """Cipher name."""
-    certificate: 'List[str]'
+    certificate: List[str]
     """Page certificate."""
-    subjectName: 'str'
+    subjectName: str
     """Certificate subject name."""
-    issuer: 'str'
+    issuer: str
     """Name of the issuing CA."""
-    validFrom: 'TimeSinceEpoch'
+    validFrom: TimeSinceEpoch
     """Certificate valid from date."""
-    validTo: 'TimeSinceEpoch'
+    validTo: TimeSinceEpoch
     """Certificate valid to (expiration) date"""
-    certificateHasWeakSignature: 'bool'
+    certificateHasWeakSignature: bool
     """True if the certificate uses a weak signature algorithm."""
-    certificateHasSha1Signature: 'bool'
+    certificateHasSha1Signature: bool
     """True if the certificate has a SHA1 signature in the chain."""
-    modernSSL: 'bool'
+    modernSSL: bool
     """True if modern SSL"""
-    obsoleteSslProtocol: 'bool'
+    obsoleteSslProtocol: bool
     """True if the connection is using an obsolete SSL protocol."""
-    obsoleteSslKeyExchange: 'bool'
+    obsoleteSslKeyExchange: bool
     """True if the connection is using an obsolete SSL key exchange."""
-    obsoleteSslCipher: 'bool'
+    obsoleteSslCipher: bool
     """True if the connection is using an obsolete SSL cipher."""
-    obsoleteSslSignature: 'bool'
+    obsoleteSslSignature: bool
     """True if the connection is using an obsolete SSL signature."""
-    keyExchangeGroup: NotRequired['str']
+    keyExchangeGroup: NotRequired[str]
     """(EC)DH group used by the connection, if applicable."""
-    mac: NotRequired['str']
+    mac: NotRequired[str]
     """TLS MAC. Note that AEAD ciphers do not have separate MACs."""
-    certificateNetworkError: NotRequired['str']
+    certificateNetworkError: NotRequired[str]
     """The highest priority network error code, if the certificate has an error."""
 
 
@@ -65,57 +65,57 @@ SafetyTipStatus = Literal['badReputation','lookalike']
 
 class SafetyTipInfo(TypedDict, total=True):
     """"""
-    safetyTipStatus: 'SafetyTipStatus'
+    safetyTipStatus: SafetyTipStatus
     """Describes whether the page triggers any safety tips or reputation warnings. Default is unknown."""
-    safeUrl: NotRequired['str']
+    safeUrl: NotRequired[str]
     """The URL the safety tip suggested ("Did you mean?"). Only filled in for lookalike matches."""
 
 
 class VisibleSecurityState(TypedDict, total=True):
     """Security state information about the page."""
-    securityState: 'SecurityState'
+    securityState: SecurityState
     """The security level of the page."""
-    securityStateIssueIds: 'List[str]'
+    securityStateIssueIds: List[str]
     """Array of security state issues ids."""
-    certificateSecurityState: NotRequired['CertificateSecurityState']
+    certificateSecurityState: NotRequired[CertificateSecurityState]
     """Security state details about the page certificate."""
-    safetyTipInfo: NotRequired['SafetyTipInfo']
+    safetyTipInfo: NotRequired[SafetyTipInfo]
     """The type of Safety Tip triggered on the page. Note that this field will be set even if the Safety Tip UI was not actually shown."""
 
 
 class SecurityStateExplanation(TypedDict, total=True):
     """An explanation of an factor contributing to the security state."""
-    securityState: 'SecurityState'
+    securityState: SecurityState
     """Security state representing the severity of the factor being explained."""
-    title: 'str'
+    title: str
     """Title describing the type of factor."""
-    summary: 'str'
+    summary: str
     """Short phrase describing the type of factor."""
-    description: 'str'
+    description: str
     """Full text explanation of the factor."""
-    mixedContentType: 'MixedContentType'
+    mixedContentType: MixedContentType
     """The type of mixed content described by the explanation."""
-    certificate: 'List[str]'
+    certificate: List[str]
     """Page certificate."""
-    recommendations: NotRequired['List[str]']
+    recommendations: NotRequired[List[str]]
     """Recommendations to fix any issues."""
 
 
 class InsecureContentStatus(TypedDict, total=True):
     """Information about insecure content on the page."""
-    ranMixedContent: 'bool'
+    ranMixedContent: bool
     """Always false."""
-    displayedMixedContent: 'bool'
+    displayedMixedContent: bool
     """Always false."""
-    containedMixedForm: 'bool'
+    containedMixedForm: bool
     """Always false."""
-    ranContentWithCertErrors: 'bool'
+    ranContentWithCertErrors: bool
     """Always false."""
-    displayedContentWithCertErrors: 'bool'
+    displayedContentWithCertErrors: bool
     """Always false."""
-    ranInsecureContentStyle: 'SecurityState'
+    ranInsecureContentStyle: SecurityState
     """Always set to unknown."""
-    displayedInsecureContentStyle: 'SecurityState'
+    displayedInsecureContentStyle: SecurityState
     """Always set to unknown."""
 
 

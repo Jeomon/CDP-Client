@@ -10,10 +10,10 @@ if TYPE_CHECKING:
 
 
 class getDirectoryParameters(TypedDict, total=True):
-    bucketFileSystemLocator: 'BucketFileSystemLocator'
+    bucketFileSystemLocator: BucketFileSystemLocator
 
 
 class getDirectoryReturns(TypedDict):
-    directory: 'Directory'
+    directory: Directory
     """Returns the directory object at the path."""
 

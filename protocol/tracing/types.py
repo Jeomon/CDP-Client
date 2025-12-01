@@ -11,23 +11,23 @@ class MemoryDumpConfig(TypedDict, total=True):
 
 class TraceConfig(TypedDict, total=False):
     """"""
-    recordMode: NotRequired['Literal["recordUntilFull", "recordContinuously", "recordAsMuchAsPossible", "echoToConsole"]']
+    recordMode: NotRequired[Literal["recordUntilFull", "recordContinuously", "recordAsMuchAsPossible", "echoToConsole"]]
     """Controls how the trace buffer stores data. The default is recordUntilFull."""
-    traceBufferSizeInKb: NotRequired['float']
+    traceBufferSizeInKb: NotRequired[float]
     """Size of the trace buffer in kilobytes. If not specified or zero is passed, a default value of 200 MB would be used."""
-    enableSampling: NotRequired['bool']
+    enableSampling: NotRequired[bool]
     """Turns on JavaScript stack sampling."""
-    enableSystrace: NotRequired['bool']
+    enableSystrace: NotRequired[bool]
     """Turns on system tracing."""
-    enableArgumentFilter: NotRequired['bool']
+    enableArgumentFilter: NotRequired[bool]
     """Turns on argument filter."""
-    includedCategories: NotRequired['List[str]']
+    includedCategories: NotRequired[List[str]]
     """Included category filters."""
-    excludedCategories: NotRequired['List[str]']
+    excludedCategories: NotRequired[List[str]]
     """Excluded category filters."""
-    syntheticDelays: NotRequired['List[str]']
+    syntheticDelays: NotRequired[List[str]]
     """Configuration to synthesize the delays in tracing."""
-    memoryDumpConfig: NotRequired['MemoryDumpConfig']
+    memoryDumpConfig: NotRequired[MemoryDumpConfig]
     """Configuration for memory dump triggers. Used only when "memory-infra" category is enabled."""
 
 

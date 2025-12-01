@@ -12,12 +12,12 @@ if TYPE_CHECKING:
 
 
 class selectPromptParameters(TypedDict, total=True):
-    id: 'RequestId'
-    deviceId: 'DeviceId'
+    id: RequestId
+    deviceId: DeviceId
 
 
 class cancelPromptParameters(TypedDict, total=True):
-    id: 'RequestId'
+    id: RequestId
 
 
 

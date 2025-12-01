@@ -22,15 +22,15 @@ AccountUrlType = Literal['TermsOfService','PrivacyPolicy']
 
 class Account(TypedDict, total=True):
     """Corresponds to IdentityRequestAccount"""
-    accountId: 'str'
-    email: 'str'
-    name: 'str'
-    givenName: 'str'
-    pictureUrl: 'str'
-    idpConfigUrl: 'str'
-    idpLoginUrl: 'str'
-    loginState: 'LoginState'
-    termsOfServiceUrl: NotRequired['str']
+    accountId: str
+    email: str
+    name: str
+    givenName: str
+    pictureUrl: str
+    idpConfigUrl: str
+    idpLoginUrl: str
+    loginState: LoginState
+    termsOfServiceUrl: NotRequired[str]
     """These two are only set if the loginState is signUp"""
-    privacyPolicyUrl: NotRequired['str']
+    privacyPolicyUrl: NotRequired[str]
 

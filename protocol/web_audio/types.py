@@ -38,56 +38,56 @@ AutomationRate = Literal['a-rate','k-rate']
 
 class ContextRealtimeData(TypedDict, total=True):
     """Fields in AudioContext that change in real-time."""
-    currentTime: 'float'
+    currentTime: float
     """The current context time in second in BaseAudioContext."""
-    renderCapacity: 'float'
+    renderCapacity: float
     """The time spent on rendering graph divided by render quantum duration, and multiplied by 100. 100 means the audio renderer reached the full capacity and glitch may occur."""
-    callbackIntervalMean: 'float'
+    callbackIntervalMean: float
     """A running mean of callback interval."""
-    callbackIntervalVariance: 'float'
+    callbackIntervalVariance: float
     """A running variance of callback interval."""
 
 
 class BaseAudioContext(TypedDict, total=True):
     """Protocol object for BaseAudioContext"""
-    contextId: 'GraphObjectId'
-    contextType: 'ContextType'
-    contextState: 'ContextState'
-    callbackBufferSize: 'float'
+    contextId: GraphObjectId
+    contextType: ContextType
+    contextState: ContextState
+    callbackBufferSize: float
     """Platform-dependent callback buffer size."""
-    maxOutputChannelCount: 'float'
+    maxOutputChannelCount: float
     """Number of output channels supported by audio hardware in use."""
-    sampleRate: 'float'
+    sampleRate: float
     """Context sample rate."""
-    realtimeData: NotRequired['ContextRealtimeData']
+    realtimeData: NotRequired[ContextRealtimeData]
 
 
 class AudioListener(TypedDict, total=True):
     """Protocol object for AudioListener"""
-    listenerId: 'GraphObjectId'
-    contextId: 'GraphObjectId'
+    listenerId: GraphObjectId
+    contextId: GraphObjectId
 
 
 class AudioNode(TypedDict, total=True):
     """Protocol object for AudioNode"""
-    nodeId: 'GraphObjectId'
-    contextId: 'GraphObjectId'
-    nodeType: 'NodeType'
-    numberOfInputs: 'float'
-    numberOfOutputs: 'float'
-    channelCount: 'float'
-    channelCountMode: 'ChannelCountMode'
-    channelInterpretation: 'ChannelInterpretation'
+    nodeId: GraphObjectId
+    contextId: GraphObjectId
+    nodeType: NodeType
+    numberOfInputs: float
+    numberOfOutputs: float
+    channelCount: float
+    channelCountMode: ChannelCountMode
+    channelInterpretation: ChannelInterpretation
 
 
 class AudioParam(TypedDict, total=True):
     """Protocol object for AudioParam"""
-    paramId: 'GraphObjectId'
-    nodeId: 'GraphObjectId'
-    contextId: 'GraphObjectId'
-    paramType: 'ParamType'
-    rate: 'AutomationRate'
-    defaultValue: 'float'
-    minValue: 'float'
-    maxValue: 'float'
+    paramId: GraphObjectId
+    nodeId: GraphObjectId
+    contextId: GraphObjectId
+    paramType: ParamType
+    rate: AutomationRate
+    defaultValue: float
+    minValue: float
+    maxValue: float
 

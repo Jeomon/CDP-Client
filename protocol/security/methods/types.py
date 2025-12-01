@@ -7,7 +7,7 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class setIgnoreCertificateErrorsParameters(TypedDict, total=True):
-    ignore: 'bool'
+    ignore: bool
     """If true, all certificate errors will be ignored."""
 
 

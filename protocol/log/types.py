@@ -13,33 +13,33 @@ if TYPE_CHECKING:
 
 class LogEntry(TypedDict, total=True):
     """Log entry."""
-    source: 'Literal["xml", "javascript", "network", "storage", "appcache", "rendering", "security", "deprecation", "worker", "violation", "intervention", "recommendation", "other"]'
+    source: Literal["xml", "javascript", "network", "storage", "appcache", "rendering", "security", "deprecation", "worker", "violation", "intervention", "recommendation", "other"]
     """Log entry source."""
-    level: 'Literal["verbose", "info", "warning", "error"]'
+    level: Literal["verbose", "info", "warning", "error"]
     """Log entry severity."""
-    text: 'str'
+    text: str
     """Logged text."""
-    timestamp: 'Timestamp'
+    timestamp: Timestamp
     """Timestamp when this entry was added."""
-    category: NotRequired['Literal["cors"]']
-    url: NotRequired['str']
+    category: NotRequired[Literal["cors"]]
+    url: NotRequired[str]
     """URL of the resource if known."""
-    lineNumber: NotRequired['int']
+    lineNumber: NotRequired[int]
     """Line number in the resource."""
-    stackTrace: NotRequired['StackTrace']
+    stackTrace: NotRequired[StackTrace]
     """JavaScript stack trace."""
-    networkRequestId: NotRequired['RequestId']
+    networkRequestId: NotRequired[RequestId]
     """Identifier of the network request associated with this entry."""
-    workerId: NotRequired['str']
+    workerId: NotRequired[str]
     """Identifier of the worker associated with this entry."""
-    args: NotRequired['List[RemoteObject]']
+    args: NotRequired[List[RemoteObject]]
     """Call arguments."""
 
 
 class ViolationSetting(TypedDict, total=True):
     """Violation configuration setting."""
-    name: 'Literal["longTask", "longLayout", "blockedEvent", "blockedParser", "discouragedAPIUse", "handler", "recurringHandler"]'
+    name: Literal["longTask", "longLayout", "blockedEvent", "blockedParser", "discouragedAPIUse", "handler", "recurringHandler"]
     """Violation type."""
-    threshold: 'float'
+    threshold: float
     """Time threshold to trigger upon."""
 

@@ -5,12 +5,12 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 
 class bindParameters(TypedDict, total=True):
-    port: 'int'
+    port: int
     """Port number to bind."""
 
 
 class unbindParameters(TypedDict, total=True):
-    port: 'int'
+    port: int
     """Port number to unbind."""
 
 

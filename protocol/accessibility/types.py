@@ -27,53 +27,53 @@ AXValueNativeSourceType = Literal['description','figcaption','label','labelfor',
 
 class AXValueSource(TypedDict, total=True):
     """A single source for a computed AX property."""
-    type: 'AXValueSourceType'
+    type: AXValueSourceType
     """What type of source this is."""
-    value: NotRequired['AXValue']
+    value: NotRequired[AXValue]
     """The value of this property source."""
-    attribute: NotRequired['str']
+    attribute: NotRequired[str]
     """The name of the relevant attribute, if any."""
-    attributeValue: NotRequired['AXValue']
+    attributeValue: NotRequired[AXValue]
     """The value of the relevant attribute, if any."""
-    superseded: NotRequired['bool']
+    superseded: NotRequired[bool]
     """Whether this source is superseded by a higher priority source."""
-    nativeSource: NotRequired['AXValueNativeSourceType']
+    nativeSource: NotRequired[AXValueNativeSourceType]
     """The native markup source for this value, e.g. a <label> element."""
-    nativeSourceValue: NotRequired['AXValue']
+    nativeSourceValue: NotRequired[AXValue]
     """The value, such as a node or node list, of the native source."""
-    invalid: NotRequired['bool']
+    invalid: NotRequired[bool]
     """Whether the value for this property is invalid."""
-    invalidReason: NotRequired['str']
+    invalidReason: NotRequired[str]
     """Reason for the value being invalid, if it is."""
 
 
 class AXRelatedNode(TypedDict, total=True):
     """"""
-    backendDOMNodeId: 'BackendNodeId'
+    backendDOMNodeId: BackendNodeId
     """The BackendNodeId of the related DOM node."""
-    idref: NotRequired['str']
+    idref: NotRequired[str]
     """The IDRef value provided, if any."""
-    text: NotRequired['str']
+    text: NotRequired[str]
     """The text alternative of this node in the current context."""
 
 
 class AXProperty(TypedDict, total=True):
     """"""
-    name: 'AXPropertyName'
+    name: AXPropertyName
     """The name of this property."""
-    value: 'AXValue'
+    value: AXValue
     """The value of this property."""
 
 
 class AXValue(TypedDict, total=True):
     """A single computed AX property."""
-    type: 'AXValueType'
+    type: AXValueType
     """The type of this value."""
-    value: NotRequired['Any']
+    value: NotRequired[Any]
     """The computed value of this property."""
-    relatedNodes: NotRequired['List[AXRelatedNode]']
+    relatedNodes: NotRequired[List[AXRelatedNode]]
     """One or more related nodes, if applicable."""
-    sources: NotRequired['List[AXValueSource]']
+    sources: NotRequired[List[AXValueSource]]
     """The sources which contributed to the computation of this property."""
 
 
@@ -83,30 +83,30 @@ AXPropertyName = Literal['actions','busy','disabled','editable','focusable','foc
 
 class AXNode(TypedDict, total=True):
     """A node in the accessibility tree."""
-    nodeId: 'AXNodeId'
+    nodeId: AXNodeId
     """Unique identifier for this node."""
-    ignored: 'bool'
+    ignored: bool
     """Whether this node is ignored for accessibility"""
-    ignoredReasons: NotRequired['List[AXProperty]']
+    ignoredReasons: NotRequired[List[AXProperty]]
     """Collection of reasons why this node is hidden."""
-    role: NotRequired['AXValue']
+    role: NotRequired[AXValue]
     """This Node's role, whether explicit or implicit."""
-    chromeRole: NotRequired['AXValue']
+    chromeRole: NotRequired[AXValue]
     """This Node's Chrome raw role."""
-    name: NotRequired['AXValue']
+    name: NotRequired[AXValue]
     """The accessible name for this Node."""
-    description: NotRequired['AXValue']
+    description: NotRequired[AXValue]
     """The accessible description for this Node."""
-    value: NotRequired['AXValue']
+    value: NotRequired[AXValue]
     """The value for this Node."""
-    properties: NotRequired['List[AXProperty]']
+    properties: NotRequired[List[AXProperty]]
     """All other properties"""
-    parentId: NotRequired['AXNodeId']
+    parentId: NotRequired[AXNodeId]
     """ID for this node's parent."""
-    childIds: NotRequired['List[AXNodeId]']
+    childIds: NotRequired[List[AXNodeId]]
     """IDs for each of this node's child nodes."""
-    backendDOMNodeId: NotRequired['BackendNodeId']
+    backendDOMNodeId: NotRequired[BackendNodeId]
     """The backend ID for the associated DOM node, if any."""
-    frameId: NotRequired['FrameId']
+    frameId: NotRequired[FrameId]
     """The frame ID for the frame associated with this nodes document."""
 

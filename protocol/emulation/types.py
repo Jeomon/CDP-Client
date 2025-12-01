@@ -6,52 +6,52 @@ from typing import TypedDict, NotRequired, Required, Literal, Any, Dict, Union, 
 
 class SafeAreaInsets(TypedDict, total=False):
     """"""
-    top: NotRequired['int']
+    top: NotRequired[int]
     """Overrides safe-area-inset-top."""
-    topMax: NotRequired['int']
+    topMax: NotRequired[int]
     """Overrides safe-area-max-inset-top."""
-    left: NotRequired['int']
+    left: NotRequired[int]
     """Overrides safe-area-inset-left."""
-    leftMax: NotRequired['int']
+    leftMax: NotRequired[int]
     """Overrides safe-area-max-inset-left."""
-    bottom: NotRequired['int']
+    bottom: NotRequired[int]
     """Overrides safe-area-inset-bottom."""
-    bottomMax: NotRequired['int']
+    bottomMax: NotRequired[int]
     """Overrides safe-area-max-inset-bottom."""
-    right: NotRequired['int']
+    right: NotRequired[int]
     """Overrides safe-area-inset-right."""
-    rightMax: NotRequired['int']
+    rightMax: NotRequired[int]
     """Overrides safe-area-max-inset-right."""
 
 
 class ScreenOrientation(TypedDict, total=True):
     """Screen orientation."""
-    type: 'Literal["portraitPrimary", "portraitSecondary", "landscapePrimary", "landscapeSecondary"]'
+    type: Literal["portraitPrimary", "portraitSecondary", "landscapePrimary", "landscapeSecondary"]
     """Orientation type."""
-    angle: 'int'
+    angle: int
     """Orientation angle."""
 
 
 class DisplayFeature(TypedDict, total=True):
     """"""
-    orientation: 'Literal["vertical", "horizontal"]'
+    orientation: Literal["vertical", "horizontal"]
     """Orientation of a display feature in relation to screen"""
-    offset: 'int'
+    offset: int
     """The offset from the screen origin in either the x (for vertical orientation) or y (for horizontal orientation) direction."""
-    maskLength: 'int'
+    maskLength: int
     """A display feature may mask content such that it is not physically displayed - this length along with the offset describes this area. A display feature that only splits content will have a 0 mask_length."""
 
 
 class DevicePosture(TypedDict, total=True):
     """"""
-    type: 'Literal["continuous", "folded"]'
+    type: Literal["continuous", "folded"]
     """Current posture of the device"""
 
 
 class MediaFeature(TypedDict, total=True):
     """"""
-    name: 'str'
-    value: 'str'
+    name: str
+    value: str
 
 
 VirtualTimePolicy = Literal['advance','pause','pauseIfNetworkFetchesPending']
@@ -60,24 +60,24 @@ VirtualTimePolicy = Literal['advance','pause','pauseIfNetworkFetchesPending']
 
 class UserAgentBrandVersion(TypedDict, total=True):
     """Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints"""
-    brand: 'str'
-    version: 'str'
+    brand: str
+    version: str
 
 
 class UserAgentMetadata(TypedDict, total=True):
     """Used to specify User Agent Client Hints to emulate. See https://wicg.github.io/ua-client-hints Missing optional values will be filled in by the target with what it would normally use."""
-    platform: 'str'
-    platformVersion: 'str'
-    architecture: 'str'
-    model: 'str'
-    mobile: 'bool'
-    brands: NotRequired['List[UserAgentBrandVersion]']
+    platform: str
+    platformVersion: str
+    architecture: str
+    model: str
+    mobile: bool
+    brands: NotRequired[List[UserAgentBrandVersion]]
     """Brands appearing in Sec-CH-UA."""
-    fullVersionList: NotRequired['List[UserAgentBrandVersion]']
+    fullVersionList: NotRequired[List[UserAgentBrandVersion]]
     """Brands appearing in Sec-CH-UA-Full-Version-List."""
-    bitness: NotRequired['str']
-    wow64: NotRequired['bool']
-    formFactors: NotRequired['List[str]']
+    bitness: NotRequired[str]
+    wow64: NotRequired[bool]
+    formFactors: NotRequired[List[str]]
     """Used to specify User Agent form-factor values. See https://wicg.github.io/ua-client-hints/#sec-ch-ua-form-factors"""
 
 
@@ -87,36 +87,36 @@ SensorType = Literal['absolute-orientation','accelerometer','ambient-light','gra
 
 class SensorMetadata(TypedDict, total=False):
     """"""
-    available: NotRequired['bool']
-    minimumFrequency: NotRequired['float']
-    maximumFrequency: NotRequired['float']
+    available: NotRequired[bool]
+    minimumFrequency: NotRequired[float]
+    maximumFrequency: NotRequired[float]
 
 
 class SensorReadingSingle(TypedDict, total=True):
     """"""
-    value: 'float'
+    value: float
 
 
 class SensorReadingXYZ(TypedDict, total=True):
     """"""
-    x: 'float'
-    y: 'float'
-    z: 'float'
+    x: float
+    y: float
+    z: float
 
 
 class SensorReadingQuaternion(TypedDict, total=True):
     """"""
-    x: 'float'
-    y: 'float'
-    z: 'float'
-    w: 'float'
+    x: float
+    y: float
+    z: float
+    w: float
 
 
 class SensorReading(TypedDict, total=False):
     """"""
-    single: NotRequired['SensorReadingSingle']
-    xyz: NotRequired['SensorReadingXYZ']
-    quaternion: NotRequired['SensorReadingQuaternion']
+    single: NotRequired[SensorReadingSingle]
+    xyz: NotRequired[SensorReadingXYZ]
+    quaternion: NotRequired[SensorReadingQuaternion]
 
 
 PressureSource = Literal['cpu']
@@ -127,18 +127,18 @@ PressureState = Literal['nominal','fair','serious','critical']
 
 class PressureMetadata(TypedDict, total=False):
     """"""
-    available: NotRequired['bool']
+    available: NotRequired[bool]
 
 
 class WorkAreaInsets(TypedDict, total=False):
     """"""
-    top: NotRequired['int']
+    top: NotRequired[int]
     """Work area top inset in pixels. Default is 0;"""
-    left: NotRequired['int']
+    left: NotRequired[int]
     """Work area left inset in pixels. Default is 0;"""
-    bottom: NotRequired['int']
+    bottom: NotRequired[int]
     """Work area bottom inset in pixels. Default is 0;"""
-    right: NotRequired['int']
+    right: NotRequired[int]
     """Work area right inset in pixels. Default is 0;"""
 
 
@@ -147,37 +147,37 @@ ScreenId = str
 
 class ScreenInfo(TypedDict, total=True):
     """Screen information similar to the one returned by window.getScreenDetails() method, see https://w3c.github.io/window-management/#screendetailed."""
-    left: 'int'
+    left: int
     """Offset of the left edge of the screen."""
-    top: 'int'
+    top: int
     """Offset of the top edge of the screen."""
-    width: 'int'
+    width: int
     """Width of the screen."""
-    height: 'int'
+    height: int
     """Height of the screen."""
-    availLeft: 'int'
+    availLeft: int
     """Offset of the left edge of the available screen area."""
-    availTop: 'int'
+    availTop: int
     """Offset of the top edge of the available screen area."""
-    availWidth: 'int'
+    availWidth: int
     """Width of the available screen area."""
-    availHeight: 'int'
+    availHeight: int
     """Height of the available screen area."""
-    devicePixelRatio: 'float'
+    devicePixelRatio: float
     """Specifies the screen's device pixel ratio."""
-    orientation: 'ScreenOrientation'
+    orientation: ScreenOrientation
     """Specifies the screen's orientation."""
-    colorDepth: 'int'
+    colorDepth: int
     """Specifies the screen's color depth in bits."""
-    isExtended: 'bool'
+    isExtended: bool
     """Indicates whether the device has multiple screens."""
-    isInternal: 'bool'
+    isInternal: bool
     """Indicates whether the screen is internal to the device or external, attached to the device."""
-    isPrimary: 'bool'
+    isPrimary: bool
     """Indicates whether the screen is set as the the operating system primary screen."""
-    label: 'str'
+    label: str
     """Specifies the descriptive label for the screen."""
-    id: 'ScreenId'
+    id: ScreenId
     """Specifies the unique identifier of the screen."""
 
 

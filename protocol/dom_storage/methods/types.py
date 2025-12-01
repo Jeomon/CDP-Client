@@ -10,31 +10,31 @@ if TYPE_CHECKING:
 
 
 class clearParameters(TypedDict, total=True):
-    storageId: 'StorageId'
+    storageId: StorageId
 
 
 
 
 class getDOMStorageItemsParameters(TypedDict, total=True):
-    storageId: 'StorageId'
+    storageId: StorageId
 
 
 class removeDOMStorageItemParameters(TypedDict, total=True):
-    storageId: 'StorageId'
-    key: 'str'
+    storageId: StorageId
+    key: str
 
 
 class setDOMStorageItemParameters(TypedDict, total=True):
-    storageId: 'StorageId'
-    key: 'str'
-    value: 'str'
+    storageId: StorageId
+    key: str
+    value: str
 
 
 
 
 
 class getDOMStorageItemsReturns(TypedDict):
-    entries: 'List[Item]'
+    entries: List[Item]
 
 
 
