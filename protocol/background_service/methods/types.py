@@ -9,20 +9,20 @@ if TYPE_CHECKING:
 
 
 class startObservingParameters(TypedDict, total=True):
-    service: ServiceName
+    service: 'ServiceName'
 
 
 class stopObservingParameters(TypedDict, total=True):
-    service: ServiceName
+    service: 'ServiceName'
 
 
 class setRecordingParameters(TypedDict, total=True):
-    shouldRecord: bool
-    service: ServiceName
+    shouldRecord: 'bool'
+    service: 'ServiceName'
 
 
 class clearEventsParameters(TypedDict, total=True):
-    service: ServiceName
+    service: 'ServiceName'
 
 
 

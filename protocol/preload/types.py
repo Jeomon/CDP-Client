@@ -16,18 +16,18 @@ RuleSetId = str
 
 class RuleSet(TypedDict, total=True):
     """Corresponds to SpeculationRuleSet"""
-    id: RuleSetId
-    loaderId: LoaderId
+    id: 'RuleSetId'
+    loaderId: 'LoaderId'
     """Identifies a document which the rule set is associated with."""
-    sourceText: str
+    sourceText: 'str'
     """Source text of JSON representing the rule set. If it comes from <script> tag, it is the textContent of the node. Note that it is a JSON for valid case.  See also: - https://wicg.github.io/nav-speculation/speculation-rules.html - https://github.com/WICG/nav-speculation/blob/main/triggers.md"""
-    backendNodeId: NotRequired[BackendNodeId]
+    backendNodeId: NotRequired['BackendNodeId']
     """A speculation rule set is either added through an inline <script> tag or through an external resource via the 'Speculation-Rules' HTTP header. For the first case, we include the BackendNodeId of the relevant <script> tag. For the second case, we include the external URL where the rule set was loaded from, and also RequestId if Network domain is enabled.  See also: - https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-script - https://wicg.github.io/nav-speculation/speculation-rules.html#speculation-rules-header"""
-    url: NotRequired[str]
-    requestId: NotRequired[RequestId]
-    errorType: NotRequired[RuleSetErrorType]
+    url: NotRequired['str']
+    requestId: NotRequired['RequestId']
+    errorType: NotRequired['RuleSetErrorType']
     """Error information errorMessage is null iff errorType is null."""
-    tag: NotRequired[str]
+    tag: NotRequired['str']
     """For more details, see: https://github.com/WICG/nav-speculation/blob/main/speculation-rules-tags.md"""
 
 
@@ -44,17 +44,17 @@ SpeculationTargetHint = Literal['Blank','Self']
 
 class PreloadingAttemptKey(TypedDict, total=True):
     """A key that identifies a preloading attempt.  The url used is the url specified by the trigger (i.e. the initial URL), and not the final url that is navigated to. For example, prerendering allows same-origin main frame navigations during the attempt, but the attempt is still keyed with the initial URL."""
-    loaderId: LoaderId
-    action: SpeculationAction
-    url: str
-    targetHint: NotRequired[SpeculationTargetHint]
+    loaderId: 'LoaderId'
+    action: 'SpeculationAction'
+    url: 'str'
+    targetHint: NotRequired['SpeculationTargetHint']
 
 
 class PreloadingAttemptSource(TypedDict, total=True):
     """Lists sources for a preloading attempt, specifically the ids of rule sets that had a speculation rule that triggered the attempt, and the BackendNodeIds of <a href> or <area href> elements that triggered the attempt (in the case of attempts triggered by a document rule). It is possible for multiple rule sets and links to trigger a single attempt."""
-    key: PreloadingAttemptKey
-    ruleSetIds: List[RuleSetId]
-    nodeIds: List[BackendNodeId]
+    key: 'PreloadingAttemptKey'
+    ruleSetIds: 'List[RuleSetId]'
+    nodeIds: 'List[BackendNodeId]'
 
 
 PreloadPipelineId = str
@@ -75,7 +75,7 @@ PrefetchStatus = Literal['PrefetchAllowed','PrefetchFailedIneligibleRedirect','P
 
 class PrerenderMismatchedHeaders(TypedDict, total=True):
     """Information of headers to be displayed when the header mismatch occurred."""
-    headerName: str
-    initialValue: NotRequired[str]
-    activationValue: NotRequired[str]
+    headerName: 'str'
+    initialValue: NotRequired['str']
+    activationValue: NotRequired['str']
 

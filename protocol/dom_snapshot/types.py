@@ -15,102 +15,102 @@ if TYPE_CHECKING:
 
 class DOMNode(TypedDict, total=True):
     """A Node in the DOM tree."""
-    nodeType: int
+    nodeType: 'int'
     """Node's nodeType."""
-    nodeName: str
+    nodeName: 'str'
     """Node's nodeName."""
-    nodeValue: str
+    nodeValue: 'str'
     """Node's nodeValue."""
-    backendNodeId: BackendNodeId
+    backendNodeId: 'BackendNodeId'
     """Node's id, corresponds to DOM.Node.backendNodeId."""
-    textValue: NotRequired[str]
+    textValue: NotRequired['str']
     """Only set for textarea elements, contains the text value."""
-    inputValue: NotRequired[str]
+    inputValue: NotRequired['str']
     """Only set for input elements, contains the input's associated text value."""
-    inputChecked: NotRequired[bool]
+    inputChecked: NotRequired['bool']
     """Only set for radio and checkbox input elements, indicates if the element has been checked"""
-    optionSelected: NotRequired[bool]
+    optionSelected: NotRequired['bool']
     """Only set for option elements, indicates if the element has been selected"""
-    childNodeIndexes: NotRequired[List[int]]
+    childNodeIndexes: NotRequired['List[int]']
     """The indexes of the node's child nodes in the domNodes array returned by getSnapshot, if any."""
-    attributes: NotRequired[List[NameValue]]
+    attributes: NotRequired['List[NameValue]']
     """Attributes of an Element node."""
-    pseudoElementIndexes: NotRequired[List[int]]
+    pseudoElementIndexes: NotRequired['List[int]']
     """Indexes of pseudo elements associated with this node in the domNodes array returned by getSnapshot, if any."""
-    layoutNodeIndex: NotRequired[int]
+    layoutNodeIndex: NotRequired['int']
     """The index of the node's related layout tree node in the layoutTreeNodes array returned by getSnapshot, if any."""
-    documentURL: NotRequired[str]
+    documentURL: NotRequired['str']
     """Document URL that Document or FrameOwner node points to."""
-    baseURL: NotRequired[str]
+    baseURL: NotRequired['str']
     """Base URL that Document or FrameOwner node uses for URL completion."""
-    contentLanguage: NotRequired[str]
+    contentLanguage: NotRequired['str']
     """Only set for documents, contains the document's content language."""
-    documentEncoding: NotRequired[str]
+    documentEncoding: NotRequired['str']
     """Only set for documents, contains the document's character set encoding."""
-    publicId: NotRequired[str]
+    publicId: NotRequired['str']
     """DocumentType node's publicId."""
-    systemId: NotRequired[str]
+    systemId: NotRequired['str']
     """DocumentType node's systemId."""
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """Frame ID for frame owner elements and also for the document node."""
-    contentDocumentIndex: NotRequired[int]
+    contentDocumentIndex: NotRequired['int']
     """The index of a frame owner element's content document in the domNodes array returned by getSnapshot, if any."""
-    pseudoType: NotRequired[PseudoType]
+    pseudoType: NotRequired['PseudoType']
     """Type of a pseudo element node."""
-    shadowRootType: NotRequired[ShadowRootType]
+    shadowRootType: NotRequired['ShadowRootType']
     """Shadow root type."""
-    isClickable: NotRequired[bool]
+    isClickable: NotRequired['bool']
     """Whether this DOM node responds to mouse clicks. This includes nodes that have had click event listeners attached via JavaScript as well as anchor tags that naturally navigate when clicked."""
-    eventListeners: NotRequired[List[EventListener]]
+    eventListeners: NotRequired['List[EventListener]']
     """Details of the node's event listeners, if any."""
-    currentSourceURL: NotRequired[str]
+    currentSourceURL: NotRequired['str']
     """The selected url for nodes with a srcset attribute."""
-    originURL: NotRequired[str]
+    originURL: NotRequired['str']
     """The url of the script (if any) that generates this node."""
-    scrollOffsetX: NotRequired[float]
+    scrollOffsetX: NotRequired['float']
     """Scroll offsets, set when this node is a Document."""
-    scrollOffsetY: NotRequired[float]
+    scrollOffsetY: NotRequired['float']
 
 
 class InlineTextBox(TypedDict, total=True):
     """Details of post layout rendered text positions. The exact layout should not be regarded as stable and may change between versions."""
-    boundingBox: Rect
+    boundingBox: 'Rect'
     """The bounding box in document coordinates. Note that scroll offset of the document is ignored."""
-    startCharacterIndex: int
+    startCharacterIndex: 'int'
     """The starting index in characters, for this post layout textbox substring. Characters that would be represented as a surrogate pair in UTF-16 have length 2."""
-    numCharacters: int
+    numCharacters: 'int'
     """The number of characters in this post layout textbox substring. Characters that would be represented as a surrogate pair in UTF-16 have length 2."""
 
 
 class LayoutTreeNode(TypedDict, total=True):
     """Details of an element in the DOM tree with a LayoutObject."""
-    domNodeIndex: int
+    domNodeIndex: 'int'
     """The index of the related DOM node in the domNodes array returned by getSnapshot."""
-    boundingBox: Rect
+    boundingBox: 'Rect'
     """The bounding box in document coordinates. Note that scroll offset of the document is ignored."""
-    layoutText: NotRequired[str]
+    layoutText: NotRequired['str']
     """Contents of the LayoutText, if any."""
-    inlineTextNodes: NotRequired[List[InlineTextBox]]
+    inlineTextNodes: NotRequired['List[InlineTextBox]']
     """The post-layout inline text nodes, if any."""
-    styleIndex: NotRequired[int]
+    styleIndex: NotRequired['int']
     """Index into the computedStyles array returned by getSnapshot."""
-    paintOrder: NotRequired[int]
+    paintOrder: NotRequired['int']
     """Global paint order index, which is determined by the stacking order of the nodes. Nodes that are painted together will have the same index. Only provided if includePaintOrder in getSnapshot was true."""
-    isStackingContext: NotRequired[bool]
+    isStackingContext: NotRequired['bool']
     """Set to true to indicate the element begins a new stacking context."""
 
 
 class ComputedStyle(TypedDict, total=True):
     """A subset of the full ComputedStyle as defined by the request whitelist."""
-    properties: List[NameValue]
+    properties: 'List[NameValue]'
     """Name/value pairs of computed style properties."""
 
 
 class NameValue(TypedDict, total=True):
     """A name/value pair."""
-    name: str
+    name: 'str'
     """Attribute/property name."""
-    value: str
+    value: 'str'
     """Attribute/property value."""
 
 
@@ -123,19 +123,19 @@ ArrayOfStrings = List[StringIndex]
 
 class RareStringData(TypedDict, total=True):
     """Data that is only present on rare nodes."""
-    index: List[int]
-    value: List[StringIndex]
+    index: 'List[int]'
+    value: 'List[StringIndex]'
 
 
 class RareBooleanData(TypedDict, total=True):
     """"""
-    index: List[int]
+    index: 'List[int]'
 
 
 class RareIntegerData(TypedDict, total=True):
     """"""
-    index: List[int]
-    value: List[int]
+    index: 'List[int]'
+    value: 'List[int]'
 
 
 Rectangle = List[float]
@@ -143,110 +143,110 @@ Rectangle = List[float]
 
 class DocumentSnapshot(TypedDict, total=True):
     """Document snapshot."""
-    documentURL: StringIndex
+    documentURL: 'StringIndex'
     """Document URL that Document or FrameOwner node points to."""
-    title: StringIndex
+    title: 'StringIndex'
     """Document title."""
-    baseURL: StringIndex
+    baseURL: 'StringIndex'
     """Base URL that Document or FrameOwner node uses for URL completion."""
-    contentLanguage: StringIndex
+    contentLanguage: 'StringIndex'
     """Contains the document's content language."""
-    encodingName: StringIndex
+    encodingName: 'StringIndex'
     """Contains the document's character set encoding."""
-    publicId: StringIndex
+    publicId: 'StringIndex'
     """DocumentType node's publicId."""
-    systemId: StringIndex
+    systemId: 'StringIndex'
     """DocumentType node's systemId."""
-    frameId: StringIndex
+    frameId: 'StringIndex'
     """Frame ID for frame owner elements and also for the document node."""
-    nodes: NodeTreeSnapshot
+    nodes: 'NodeTreeSnapshot'
     """A table with dom nodes."""
-    layout: LayoutTreeSnapshot
+    layout: 'LayoutTreeSnapshot'
     """The nodes in the layout tree."""
-    textBoxes: TextBoxSnapshot
+    textBoxes: 'TextBoxSnapshot'
     """The post-layout inline text nodes."""
-    scrollOffsetX: NotRequired[float]
+    scrollOffsetX: NotRequired['float']
     """Horizontal scroll offset."""
-    scrollOffsetY: NotRequired[float]
+    scrollOffsetY: NotRequired['float']
     """Vertical scroll offset."""
-    contentWidth: NotRequired[float]
+    contentWidth: NotRequired['float']
     """Document content width."""
-    contentHeight: NotRequired[float]
+    contentHeight: NotRequired['float']
     """Document content height."""
 
 
 class NodeTreeSnapshot(TypedDict, total=False):
     """Table containing nodes."""
-    parentIndex: NotRequired[List[int]]
+    parentIndex: NotRequired['List[int]']
     """Parent node index."""
-    nodeType: NotRequired[List[int]]
+    nodeType: NotRequired['List[int]']
     """Node's nodeType."""
-    shadowRootType: NotRequired[RareStringData]
+    shadowRootType: NotRequired['RareStringData']
     """Type of the shadow root the Node is in. String values are equal to the ShadowRootType enum."""
-    nodeName: NotRequired[List[StringIndex]]
+    nodeName: NotRequired['List[StringIndex]']
     """Node's nodeName."""
-    nodeValue: NotRequired[List[StringIndex]]
+    nodeValue: NotRequired['List[StringIndex]']
     """Node's nodeValue."""
-    backendNodeId: NotRequired[List[BackendNodeId]]
+    backendNodeId: NotRequired['List[BackendNodeId]']
     """Node's id, corresponds to DOM.Node.backendNodeId."""
-    attributes: NotRequired[List[ArrayOfStrings]]
+    attributes: NotRequired['List[ArrayOfStrings]']
     """Attributes of an Element node. Flatten name, value pairs."""
-    textValue: NotRequired[RareStringData]
+    textValue: NotRequired['RareStringData']
     """Only set for textarea elements, contains the text value."""
-    inputValue: NotRequired[RareStringData]
+    inputValue: NotRequired['RareStringData']
     """Only set for input elements, contains the input's associated text value."""
-    inputChecked: NotRequired[RareBooleanData]
+    inputChecked: NotRequired['RareBooleanData']
     """Only set for radio and checkbox input elements, indicates if the element has been checked"""
-    optionSelected: NotRequired[RareBooleanData]
+    optionSelected: NotRequired['RareBooleanData']
     """Only set for option elements, indicates if the element has been selected"""
-    contentDocumentIndex: NotRequired[RareIntegerData]
+    contentDocumentIndex: NotRequired['RareIntegerData']
     """The index of the document in the list of the snapshot documents."""
-    pseudoType: NotRequired[RareStringData]
+    pseudoType: NotRequired['RareStringData']
     """Type of a pseudo element node."""
-    pseudoIdentifier: NotRequired[RareStringData]
+    pseudoIdentifier: NotRequired['RareStringData']
     """Pseudo element identifier for this node. Only present if there is a valid pseudoType."""
-    isClickable: NotRequired[RareBooleanData]
+    isClickable: NotRequired['RareBooleanData']
     """Whether this DOM node responds to mouse clicks. This includes nodes that have had click event listeners attached via JavaScript as well as anchor tags that naturally navigate when clicked."""
-    currentSourceURL: NotRequired[RareStringData]
+    currentSourceURL: NotRequired['RareStringData']
     """The selected url for nodes with a srcset attribute."""
-    originURL: NotRequired[RareStringData]
+    originURL: NotRequired['RareStringData']
     """The url of the script (if any) that generates this node."""
 
 
 class LayoutTreeSnapshot(TypedDict, total=True):
     """Table of details of an element in the DOM tree with a LayoutObject."""
-    nodeIndex: List[int]
+    nodeIndex: 'List[int]'
     """Index of the corresponding node in the NodeTreeSnapshot array returned by captureSnapshot."""
-    styles: List[ArrayOfStrings]
+    styles: 'List[ArrayOfStrings]'
     """Array of indexes specifying computed style strings, filtered according to the computedStyles parameter passed to captureSnapshot."""
-    bounds: List[Rectangle]
+    bounds: 'List[Rectangle]'
     """The absolute position bounding box."""
-    text: List[StringIndex]
+    text: 'List[StringIndex]'
     """Contents of the LayoutText, if any."""
-    stackingContexts: RareBooleanData
+    stackingContexts: 'RareBooleanData'
     """Stacking context information."""
-    paintOrders: NotRequired[List[int]]
+    paintOrders: NotRequired['List[int]']
     """Global paint order index, which is determined by the stacking order of the nodes. Nodes that are painted together will have the same index. Only provided if includePaintOrder in captureSnapshot was true."""
-    offsetRects: NotRequired[List[Rectangle]]
+    offsetRects: NotRequired['List[Rectangle]']
     """The offset rect of nodes. Only available when includeDOMRects is set to true"""
-    scrollRects: NotRequired[List[Rectangle]]
+    scrollRects: NotRequired['List[Rectangle]']
     """The scroll rect of nodes. Only available when includeDOMRects is set to true"""
-    clientRects: NotRequired[List[Rectangle]]
+    clientRects: NotRequired['List[Rectangle]']
     """The client rect of nodes. Only available when includeDOMRects is set to true"""
-    blendedBackgroundColors: NotRequired[List[StringIndex]]
+    blendedBackgroundColors: NotRequired['List[StringIndex]']
     """The list of background colors that are blended with colors of overlapping elements."""
-    textColorOpacities: NotRequired[List[float]]
+    textColorOpacities: NotRequired['List[float]']
     """The list of computed text opacities."""
 
 
 class TextBoxSnapshot(TypedDict, total=True):
     """Table of details of the post layout rendered text positions. The exact layout should not be regarded as stable and may change between versions."""
-    layoutIndex: List[int]
+    layoutIndex: 'List[int]'
     """Index of the layout tree node that owns this box collection."""
-    bounds: List[Rectangle]
+    bounds: 'List[Rectangle]'
     """The absolute position bounding box."""
-    start: List[int]
+    start: 'List[int]'
     """The starting index in characters, for this post layout textbox substring. Characters that would be represented as a surrogate pair in UTF-16 have length 2."""
-    length: List[int]
+    length: 'List[int]'
     """The number of characters in this post layout textbox substring. Characters that would be represented as a surrogate pair in UTF-16 have length 2."""
 

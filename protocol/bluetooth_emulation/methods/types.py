@@ -15,79 +15,79 @@ if TYPE_CHECKING:
 
 
 class enableParameters(TypedDict, total=True):
-    state: CentralState
+    state: 'CentralState'
     """State of the simulated central."""
-    leSupported: bool
+    leSupported: 'bool'
     """If the simulated central supports low-energy."""
 
 
 class setSimulatedCentralStateParameters(TypedDict, total=True):
-    state: CentralState
+    state: 'CentralState'
     """State of the simulated central."""
 
 
 
 class simulatePreconnectedPeripheralParameters(TypedDict, total=True):
-    address: str
-    name: str
-    manufacturerData: List[ManufacturerData]
-    knownServiceUuids: List[str]
+    address: 'str'
+    name: 'str'
+    manufacturerData: 'List[ManufacturerData]'
+    knownServiceUuids: 'List[str]'
 
 
 class simulateAdvertisementParameters(TypedDict, total=True):
-    entry: ScanEntry
+    entry: 'ScanEntry'
 
 
 class simulateGATTOperationResponseParameters(TypedDict, total=True):
-    address: str
-    type: GATTOperationType
-    code: int
+    address: 'str'
+    type: 'GATTOperationType'
+    code: 'int'
 
 
 class simulateCharacteristicOperationResponseParameters(TypedDict, total=True):
-    characteristicId: str
-    type: CharacteristicOperationType
-    code: int
-    data: NotRequired[str]
+    characteristicId: 'str'
+    type: 'CharacteristicOperationType'
+    code: 'int'
+    data: NotRequired['str']
 
 
 class simulateDescriptorOperationResponseParameters(TypedDict, total=True):
-    descriptorId: str
-    type: DescriptorOperationType
-    code: int
-    data: NotRequired[str]
+    descriptorId: 'str'
+    type: 'DescriptorOperationType'
+    code: 'int'
+    data: NotRequired['str']
 
 
 class addServiceParameters(TypedDict, total=True):
-    address: str
-    serviceUuid: str
+    address: 'str'
+    serviceUuid: 'str'
 
 
 class removeServiceParameters(TypedDict, total=True):
-    serviceId: str
+    serviceId: 'str'
 
 
 class addCharacteristicParameters(TypedDict, total=True):
-    serviceId: str
-    characteristicUuid: str
-    properties: CharacteristicProperties
+    serviceId: 'str'
+    characteristicUuid: 'str'
+    properties: 'CharacteristicProperties'
 
 
 class removeCharacteristicParameters(TypedDict, total=True):
-    characteristicId: str
+    characteristicId: 'str'
 
 
 class addDescriptorParameters(TypedDict, total=True):
-    characteristicId: str
-    descriptorUuid: str
+    characteristicId: 'str'
+    descriptorUuid: 'str'
 
 
 class removeDescriptorParameters(TypedDict, total=True):
-    descriptorId: str
+    descriptorId: 'str'
 
 
 class simulateGATTDisconnectionParameters(TypedDict, total=True):
-    address: str
+    address: 'str'
 
 
 
@@ -99,19 +99,19 @@ class simulateGATTDisconnectionParameters(TypedDict, total=True):
 
 
 class addServiceReturns(TypedDict):
-    serviceId: str
+    serviceId: 'str'
     """An identifier that uniquely represents this service."""
 
 
 
 class addCharacteristicReturns(TypedDict):
-    characteristicId: str
+    characteristicId: 'str'
     """An identifier that uniquely represents this characteristic."""
 
 
 
 class addDescriptorReturns(TypedDict):
-    descriptorId: str
+    descriptorId: 'str'
     """An identifier that uniquely represents this descriptor."""
 
 

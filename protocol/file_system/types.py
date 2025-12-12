@@ -11,28 +11,28 @@ if TYPE_CHECKING:
 
 class File(TypedDict, total=True):
     """"""
-    name: str
-    lastModified: TimeSinceEpoch
+    name: 'str'
+    lastModified: 'TimeSinceEpoch'
     """Timestamp"""
-    size: float
+    size: 'float'
     """Size in bytes"""
-    type: str
+    type: 'str'
 
 
 class Directory(TypedDict, total=True):
     """"""
-    name: str
-    nestedDirectories: List[str]
-    nestedFiles: List[File]
+    name: 'str'
+    nestedDirectories: 'List[str]'
+    nestedFiles: 'List[File]'
     """Files that are directly nested under this directory."""
 
 
 class BucketFileSystemLocator(TypedDict, total=True):
     """"""
-    storageKey: SerializedStorageKey
+    storageKey: 'SerializedStorageKey'
     """Storage key"""
-    pathComponents: List[str]
+    pathComponents: 'List[str]'
     """Path to the directory using each path component as an array item."""
-    bucketName: NotRequired[str]
+    bucketName: NotRequired['str']
     """Bucket name. Not passing a bucketName will retrieve the default Bucket. (https://developer.mozilla.org/en-US/docs/Web/API/Storage_API#storage_buckets)"""
 

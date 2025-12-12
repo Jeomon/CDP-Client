@@ -9,11 +9,11 @@ SerializedStorageKey = str
 
 class StorageId(TypedDict, total=True):
     """DOM Storage identifier."""
-    isLocalStorage: bool
+    isLocalStorage: 'bool'
     """Whether the storage is local storage (not session storage)."""
-    securityOrigin: NotRequired[str]
+    securityOrigin: NotRequired['str']
     """Security origin for the storage."""
-    storageKey: NotRequired[SerializedStorageKey]
+    storageKey: NotRequired['SerializedStorageKey']
     """Represents a key by which DOM Storage keys its CachedStorageAreas"""
 
 

@@ -22,11 +22,11 @@ StyleSheetId = str
 
 class BackendNode(TypedDict, total=True):
     """Backend node with a friendly name."""
-    nodeType: int
+    nodeType: 'int'
     """Node's nodeType."""
-    nodeName: str
+    nodeName: 'str'
     """Node's nodeName."""
-    backendNodeId: BackendNodeId
+    backendNodeId: 'BackendNodeId'
 
 
 PseudoType = Literal['first-line','first-letter','checkmark','before','after','picker-icon','interest-hint','marker','backdrop','column','selection','search-text','target-text','spelling-error','grammar-error','highlight','first-line-inherited','scroll-marker','scroll-marker-group','scroll-button','scrollbar','scrollbar-thumb','scrollbar-button','scrollbar-track','scrollbar-track-piece','scrollbar-corner','resizer','input-list-button','view-transition','view-transition-group','view-transition-image-pair','view-transition-group-children','view-transition-old','view-transition-new','placeholder','file-selector-button','details-content','picker','permission-icon','overscroll-area-parent','overscroll-client-area']
@@ -55,84 +55,84 @@ ScrollOrientation = Literal['horizontal','vertical']
 
 class Node(TypedDict, total=True):
     """DOM interaction is implemented in terms of mirror objects that represent the actual DOM nodes. DOMNode is a base node mirror type."""
-    nodeId: NodeId
+    nodeId: 'NodeId'
     """Node identifier that is passed into the rest of the DOM messages as the nodeId. Backend will only push node with given id once. It is aware of all requested nodes and will only fire DOM events for nodes known to the client."""
-    backendNodeId: BackendNodeId
+    backendNodeId: 'BackendNodeId'
     """The BackendNodeId for this node."""
-    nodeType: int
+    nodeType: 'int'
     """Node's nodeType."""
-    nodeName: str
+    nodeName: 'str'
     """Node's nodeName."""
-    localName: str
+    localName: 'str'
     """Node's localName."""
-    nodeValue: str
+    nodeValue: 'str'
     """Node's nodeValue."""
-    parentId: NotRequired[NodeId]
+    parentId: NotRequired['NodeId']
     """The id of the parent node if any."""
-    childNodeCount: NotRequired[int]
+    childNodeCount: NotRequired['int']
     """Child count for Container nodes."""
-    children: NotRequired[List[Node]]
+    children: NotRequired['List[Node]']
     """Child nodes of this node when requested with children."""
-    attributes: NotRequired[List[str]]
+    attributes: NotRequired['List[str]']
     """Attributes of the Element node in the form of flat array [name1, value1, name2, value2]."""
-    documentURL: NotRequired[str]
+    documentURL: NotRequired['str']
     """Document URL that Document or FrameOwner node points to."""
-    baseURL: NotRequired[str]
+    baseURL: NotRequired['str']
     """Base URL that Document or FrameOwner node uses for URL completion."""
-    publicId: NotRequired[str]
+    publicId: NotRequired['str']
     """DocumentType's publicId."""
-    systemId: NotRequired[str]
+    systemId: NotRequired['str']
     """DocumentType's systemId."""
-    internalSubset: NotRequired[str]
+    internalSubset: NotRequired['str']
     """DocumentType's internalSubset."""
-    xmlVersion: NotRequired[str]
+    xmlVersion: NotRequired['str']
     """Document's XML version in case of XML documents."""
-    name: NotRequired[str]
+    name: NotRequired['str']
     """Attr's name."""
-    value: NotRequired[str]
+    value: NotRequired['str']
     """Attr's value."""
-    pseudoType: NotRequired[PseudoType]
+    pseudoType: NotRequired['PseudoType']
     """Pseudo element type for this node."""
-    pseudoIdentifier: NotRequired[str]
+    pseudoIdentifier: NotRequired['str']
     """Pseudo element identifier for this node. Only present if there is a valid pseudoType."""
-    shadowRootType: NotRequired[ShadowRootType]
+    shadowRootType: NotRequired['ShadowRootType']
     """Shadow root type."""
-    frameId: NotRequired[FrameId]
+    frameId: NotRequired['FrameId']
     """Frame ID for frame owner elements."""
-    contentDocument: NotRequired[Node]
+    contentDocument: NotRequired['Node']
     """Content document for frame owner elements."""
-    shadowRoots: NotRequired[List[Node]]
+    shadowRoots: NotRequired['List[Node]']
     """Shadow root list for given element host."""
-    templateContent: NotRequired[Node]
+    templateContent: NotRequired['Node']
     """Content document fragment for template elements."""
-    pseudoElements: NotRequired[List[Node]]
+    pseudoElements: NotRequired['List[Node]']
     """Pseudo elements associated with this node."""
-    distributedNodes: NotRequired[List[BackendNode]]
+    distributedNodes: NotRequired['List[BackendNode]']
     """Distributed nodes for given insertion point."""
-    isSVG: NotRequired[bool]
+    isSVG: NotRequired['bool']
     """Whether the node is SVG."""
-    compatibilityMode: NotRequired[CompatibilityMode]
-    assignedSlot: NotRequired[BackendNode]
-    isScrollable: NotRequired[bool]
-    affectedByStartingStyles: NotRequired[bool]
-    adoptedStyleSheets: NotRequired[List[StyleSheetId]]
+    compatibilityMode: NotRequired['CompatibilityMode']
+    assignedSlot: NotRequired['BackendNode']
+    isScrollable: NotRequired['bool']
+    affectedByStartingStyles: NotRequired['bool']
+    adoptedStyleSheets: NotRequired['List[StyleSheetId]']
 
 
 class DetachedElementInfo(TypedDict, total=True):
     """A structure to hold the top-level node of a detached tree and an array of its retained descendants."""
-    treeNode: Node
-    retainedNodeIds: List[NodeId]
+    treeNode: 'Node'
+    retainedNodeIds: 'List[NodeId]'
 
 
 class RGBA(TypedDict, total=True):
     """A structure holding an RGBA color."""
-    r: int
+    r: 'int'
     """The red component, in the [0-255] range."""
-    g: int
+    g: 'int'
     """The green component, in the [0-255] range."""
-    b: int
+    b: 'int'
     """The blue component, in the [0-255] range."""
-    a: NotRequired[float]
+    a: NotRequired['float']
     """The alpha component, in the [0-1] range (default: 1)."""
 
 
@@ -141,48 +141,48 @@ Quad = List[float]
 
 class BoxModel(TypedDict, total=True):
     """Box model."""
-    content: Quad
+    content: 'Quad'
     """Content box"""
-    padding: Quad
+    padding: 'Quad'
     """Padding box"""
-    border: Quad
+    border: 'Quad'
     """Border box"""
-    margin: Quad
+    margin: 'Quad'
     """Margin box"""
-    width: int
+    width: 'int'
     """Node width"""
-    height: int
+    height: 'int'
     """Node height"""
-    shapeOutside: NotRequired[ShapeOutsideInfo]
+    shapeOutside: NotRequired['ShapeOutsideInfo']
     """Shape outside coordinates"""
 
 
 class ShapeOutsideInfo(TypedDict, total=True):
     """CSS Shape Outside details."""
-    bounds: Quad
+    bounds: 'Quad'
     """Shape bounds"""
-    shape: List[Any]
+    shape: 'List[Any]'
     """Shape coordinate details"""
-    marginShape: List[Any]
+    marginShape: 'List[Any]'
     """Margin shape bounds"""
 
 
 class Rect(TypedDict, total=True):
     """Rectangle."""
-    x: float
+    x: 'float'
     """X coordinate"""
-    y: float
+    y: 'float'
     """Y coordinate"""
-    width: float
+    width: 'float'
     """Rectangle width"""
-    height: float
+    height: 'float'
     """Rectangle height"""
 
 
 class CSSComputedStyleProperty(TypedDict, total=True):
     """"""
-    name: str
+    name: 'str'
     """Computed style property name."""
-    value: str
+    value: 'str'
     """Computed style property value."""
 

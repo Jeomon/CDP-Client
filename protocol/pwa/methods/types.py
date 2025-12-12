@@ -11,55 +11,55 @@ if TYPE_CHECKING:
 
 
 class getOsAppStateParameters(TypedDict, total=True):
-    manifestId: str
+    manifestId: 'str'
     """The id from the webapp's manifest file, commonly it's the url of the site installing the webapp. See https://web.dev/learn/pwa/web-app-manifest."""
 
 
 class installParameters(TypedDict, total=True):
-    manifestId: str
-    installUrlOrBundleUrl: NotRequired[str]
+    manifestId: 'str'
+    installUrlOrBundleUrl: NotRequired['str']
     """The location of the app or bundle overriding the one derived from the manifestId."""
 
 
 class uninstallParameters(TypedDict, total=True):
-    manifestId: str
+    manifestId: 'str'
 
 
 class launchParameters(TypedDict, total=True):
-    manifestId: str
-    url: NotRequired[str]
+    manifestId: 'str'
+    url: NotRequired['str']
 
 
 class launchFilesInAppParameters(TypedDict, total=True):
-    manifestId: str
-    files: List[str]
+    manifestId: 'str'
+    files: 'List[str]'
 
 
 class openCurrentPageInAppParameters(TypedDict, total=True):
-    manifestId: str
+    manifestId: 'str'
 
 
 class changeAppUserSettingsParameters(TypedDict, total=True):
-    manifestId: str
-    linkCapturing: NotRequired[bool]
+    manifestId: 'str'
+    linkCapturing: NotRequired['bool']
     """If user allows the links clicked on by the user in the app's scope, or extended scope if the manifest has scope extensions and the flags DesktopPWAsLinkCapturingWithScopeExtensions and WebAppEnableScopeExtensions are enabled.  Note, the API does not support resetting the linkCapturing to the initial value, uninstalling and installing the web app again will reset it.  TODO(crbug.com/339453269): Setting this value on ChromeOS is not supported yet."""
-    displayMode: NotRequired[DisplayMode]
+    displayMode: NotRequired['DisplayMode']
 
 
 class getOsAppStateReturns(TypedDict):
-    badgeCount: int
-    fileHandlers: List[FileHandler]
+    badgeCount: 'int'
+    fileHandlers: 'List[FileHandler]'
 
 
 
 
 class launchReturns(TypedDict):
-    targetId: TargetID
+    targetId: 'TargetID'
     """ID of the tab target created as a result."""
 
 
 class launchFilesInAppReturns(TypedDict):
-    targetIds: List[TargetID]
+    targetIds: 'List[TargetID]'
     """IDs of the tab targets created as the result."""
 
 

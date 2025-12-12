@@ -15,19 +15,19 @@ if TYPE_CHECKING:
 
 
 class setPressureNotificationsSuppressedParameters(TypedDict, total=True):
-    suppressed: bool
+    suppressed: 'bool'
     """If true, memory pressure notifications will be suppressed."""
 
 
 class simulatePressureNotificationParameters(TypedDict, total=True):
-    level: PressureLevel
+    level: 'PressureLevel'
     """Memory pressure level of the notification."""
 
 
 class startSamplingParameters(TypedDict, total=False):
-    samplingInterval: NotRequired[int]
+    samplingInterval: NotRequired['int']
     """Average number of bytes between samples."""
-    suppressRandomness: NotRequired[bool]
+    suppressRandomness: NotRequired['bool']
     """Do not randomize intervals between samples."""
 
 
@@ -36,13 +36,13 @@ class startSamplingParameters(TypedDict, total=False):
 
 
 class getDOMCountersReturns(TypedDict):
-    documents: int
-    nodes: int
-    jsEventListeners: int
+    documents: 'int'
+    nodes: 'int'
+    jsEventListeners: 'int'
 
 
 class getDOMCountersForLeakDetectionReturns(TypedDict):
-    counters: List[DOMCounter]
+    counters: 'List[DOMCounter]'
     """DOM object counters."""
 
 
@@ -53,13 +53,13 @@ class getDOMCountersForLeakDetectionReturns(TypedDict):
 
 
 class getAllTimeSamplingProfileReturns(TypedDict):
-    profile: SamplingProfile
+    profile: 'SamplingProfile'
 
 
 class getBrowserSamplingProfileReturns(TypedDict):
-    profile: SamplingProfile
+    profile: 'SamplingProfile'
 
 
 class getSamplingProfileReturns(TypedDict):
-    profile: SamplingProfile
+    profile: 'SamplingProfile'
 

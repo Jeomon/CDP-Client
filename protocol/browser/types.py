@@ -16,15 +16,15 @@ WindowState = Literal['normal','minimized','maximized','fullscreen']
 
 class Bounds(TypedDict, total=False):
     """Browser window bounds information"""
-    left: NotRequired[int]
+    left: NotRequired['int']
     """The offset from the left edge of the screen to the window in pixels."""
-    top: NotRequired[int]
+    top: NotRequired['int']
     """The offset from the top edge of the screen to the window in pixels."""
-    width: NotRequired[int]
+    width: NotRequired['int']
     """The window width in pixels."""
-    height: NotRequired[int]
+    height: NotRequired['int']
     """The window height in pixels."""
-    windowState: NotRequired[WindowState]
+    windowState: NotRequired['WindowState']
     """The window state. Default to normal."""
 
 
@@ -36,17 +36,17 @@ PermissionSetting = Literal['granted','denied','prompt']
 
 class PermissionDescriptor(TypedDict, total=True):
     """Definition of PermissionDescriptor defined in the Permissions API: https://w3c.github.io/permissions/#dom-permissiondescriptor."""
-    name: str
+    name: 'str'
     """Name of permission. See https://cs.chromium.org/chromium/src/third_party/blink/renderer/modules/permissions/permission_descriptor.idl for valid permission names."""
-    sysex: NotRequired[bool]
+    sysex: NotRequired['bool']
     """For "midi" permission, may also specify sysex control."""
-    userVisibleOnly: NotRequired[bool]
+    userVisibleOnly: NotRequired['bool']
     """For "push" permission, may specify userVisibleOnly. Note that userVisibleOnly = true is the only currently supported type."""
-    allowWithoutSanitization: NotRequired[bool]
+    allowWithoutSanitization: NotRequired['bool']
     """For "clipboard" permission, may specify allowWithoutSanitization."""
-    allowWithoutGesture: NotRequired[bool]
+    allowWithoutGesture: NotRequired['bool']
     """For "fullscreen" permission, must specify allowWithoutGesture:true."""
-    panTiltZoom: NotRequired[bool]
+    panTiltZoom: NotRequired['bool']
     """For "camera" permission, may specify panTiltZoom."""
 
 
@@ -56,23 +56,23 @@ BrowserCommandId = Literal['openTabSearch','closeTabSearch','openGlic']
 
 class Bucket(TypedDict, total=True):
     """Chrome histogram bucket."""
-    low: int
+    low: 'int'
     """Minimum value (inclusive)."""
-    high: int
+    high: 'int'
     """Maximum value (exclusive)."""
-    count: int
+    count: 'int'
     """Number of samples."""
 
 
 class Histogram(TypedDict, total=True):
     """Chrome histogram."""
-    name: str
+    name: 'str'
     """Name."""
-    sum: int
+    sum: 'int'
     """Sum of sample values."""
-    count: int
+    count: 'int'
     """Total number of samples."""
-    buckets: List[Bucket]
+    buckets: 'List[Bucket]'
     """Buckets."""
 
 

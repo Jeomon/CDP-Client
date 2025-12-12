@@ -10,36 +10,36 @@ PressureLevel = Literal['moderate','critical']
 
 class SamplingProfileNode(TypedDict, total=True):
     """Heap profile sample."""
-    size: float
+    size: 'float'
     """Size of the sampled allocation."""
-    total: float
+    total: 'float'
     """Total bytes attributed to this sample."""
-    stack: List[str]
+    stack: 'List[str]'
     """Execution stack at the point of allocation."""
 
 
 class SamplingProfile(TypedDict, total=True):
     """Array of heap profile samples."""
-    samples: List[SamplingProfileNode]
-    modules: List[Module]
+    samples: 'List[SamplingProfileNode]'
+    modules: 'List[Module]'
 
 
 class Module(TypedDict, total=True):
     """Executable module information"""
-    name: str
+    name: 'str'
     """Name of the module."""
-    uuid: str
+    uuid: 'str'
     """UUID of the module."""
-    baseAddress: str
+    baseAddress: 'str'
     """Base address where the module is loaded into memory. Encoded as a decimal or hexadecimal (0x prefixed) string."""
-    size: float
+    size: 'float'
     """Size of the module in bytes."""
 
 
 class DOMCounter(TypedDict, total=True):
     """DOM object counter data."""
-    name: str
+    name: 'str'
     """Object name. Note: object names should be presumed volatile and clients should not expect the returned names to be consistent across runs."""
-    count: int
+    count: 'int'
     """Object count."""
 

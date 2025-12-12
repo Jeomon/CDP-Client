@@ -148,7 +148,7 @@ class MethodGenerator:
             {% else %}
             {% if required_parameters %}
             {% for parameter in required_parameters %}
-            {{ parameter['name'] }}: {{ parameter['type'] }}
+            {{ parameter['name'] }}: '{{ parameter['type'] }}'
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -156,7 +156,7 @@ class MethodGenerator:
             {% endif %}
             {% if optional_parameters %}
             {% for parameter in optional_parameters %}
-            {{ parameter['name'] }}: NotRequired[{{ parameter['type'] }}]
+            {{ parameter['name'] }}: NotRequired['{{ parameter['type'] }}']
             {% if parameter['description'] %}
             """{{ parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}
@@ -190,7 +190,7 @@ class MethodGenerator:
             pass
             {% else %}
             {% for return_parameter in return_parameters %}
-            {{ return_parameter['name'] }}: {{ return_parameter['type'] }}
+            {{ return_parameter['name'] }}: '{{ return_parameter['type'] }}'
             {% if return_parameter['description'] %}
             """{{ return_parameter['description'] | replace('\n', ' ') | replace('`', '') }}"""
             {% endif %}

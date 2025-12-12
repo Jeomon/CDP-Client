@@ -10,80 +10,80 @@ if TYPE_CHECKING:
 
 class DatabaseWithObjectStores(TypedDict, total=True):
     """Database with an array of object stores."""
-    name: str
+    name: 'str'
     """Database name."""
-    version: float
+    version: 'float'
     """Database version (type is not 'integer', as the standard requires the version number to be 'unsigned long long')"""
-    objectStores: List[ObjectStore]
+    objectStores: 'List[ObjectStore]'
     """Object stores in this database."""
 
 
 class ObjectStore(TypedDict, total=True):
     """Object store."""
-    name: str
+    name: 'str'
     """Object store name."""
-    keyPath: KeyPath
+    keyPath: 'KeyPath'
     """Object store key path."""
-    autoIncrement: bool
+    autoIncrement: 'bool'
     """If true, object store has auto increment flag set."""
-    indexes: List[ObjectStoreIndex]
+    indexes: 'List[ObjectStoreIndex]'
     """Indexes in this object store."""
 
 
 class ObjectStoreIndex(TypedDict, total=True):
     """Object store index."""
-    name: str
+    name: 'str'
     """Index name."""
-    keyPath: KeyPath
+    keyPath: 'KeyPath'
     """Index key path."""
-    unique: bool
+    unique: 'bool'
     """If true, index is unique."""
-    multiEntry: bool
+    multiEntry: 'bool'
     """If true, index allows multiple entries for a key."""
 
 
 class Key(TypedDict, total=True):
     """Key."""
-    type: Literal["number", "string", "date", "array"]
+    type: 'Literal["number", "string", "date", "array"]'
     """Key type."""
-    number: NotRequired[float]
+    number: NotRequired['float']
     """Number value."""
-    string: NotRequired[str]
+    string: NotRequired['str']
     """String value."""
-    date: NotRequired[float]
+    date: NotRequired['float']
     """Date value."""
-    array: NotRequired[List[Key]]
+    array: NotRequired['List[Key]']
     """Array value."""
 
 
 class KeyRange(TypedDict, total=True):
     """Key range."""
-    lowerOpen: bool
+    lowerOpen: 'bool'
     """If true lower bound is open."""
-    upperOpen: bool
+    upperOpen: 'bool'
     """If true upper bound is open."""
-    lower: NotRequired[Key]
+    lower: NotRequired['Key']
     """Lower bound."""
-    upper: NotRequired[Key]
+    upper: NotRequired['Key']
     """Upper bound."""
 
 
 class DataEntry(TypedDict, total=True):
     """Data entry."""
-    key: RemoteObject
+    key: 'RemoteObject'
     """Key object."""
-    primaryKey: RemoteObject
+    primaryKey: 'RemoteObject'
     """Primary key object."""
-    value: RemoteObject
+    value: 'RemoteObject'
     """Value object."""
 
 
 class KeyPath(TypedDict, total=True):
     """Key path."""
-    type: Literal["null", "string", "array"]
+    type: 'Literal["null", "string", "array"]'
     """Key path type."""
-    string: NotRequired[str]
+    string: NotRequired['str']
     """String value."""
-    array: NotRequired[List[str]]
+    array: NotRequired['List[str]']
     """Array value."""
 

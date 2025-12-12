@@ -11,64 +11,64 @@ if TYPE_CHECKING:
 
 
 class getCurrentTimeParameters(TypedDict, total=True):
-    id: str
+    id: 'str'
     """Id of animation."""
 
 
 
 class releaseAnimationsParameters(TypedDict, total=True):
-    animations: List[str]
+    animations: 'List[str]'
     """List of animation ids to seek."""
 
 
 class resolveAnimationParameters(TypedDict, total=True):
-    animationId: str
+    animationId: 'str'
     """Animation id."""
 
 
 class seekAnimationsParameters(TypedDict, total=True):
-    animations: List[str]
+    animations: 'List[str]'
     """List of animation ids to seek."""
-    currentTime: float
+    currentTime: 'float'
     """Set the current time of each animation."""
 
 
 class setPausedParameters(TypedDict, total=True):
-    animations: List[str]
+    animations: 'List[str]'
     """Animations to set the pause state of."""
-    paused: bool
+    paused: 'bool'
     """Paused state to set to."""
 
 
 class setPlaybackRateParameters(TypedDict, total=True):
-    playbackRate: float
+    playbackRate: 'float'
     """Playback rate for animations on page"""
 
 
 class setTimingParameters(TypedDict, total=True):
-    animationId: str
+    animationId: 'str'
     """Animation id."""
-    duration: float
+    duration: 'float'
     """Duration of the animation."""
-    delay: float
+    delay: 'float'
     """Delay of the animation."""
 
 
 
 
 class getCurrentTimeReturns(TypedDict):
-    currentTime: float
+    currentTime: 'float'
     """Current time of the page."""
 
 
 class getPlaybackRateReturns(TypedDict):
-    playbackRate: float
+    playbackRate: 'float'
     """Playback rate for animations on page."""
 
 
 
 class resolveAnimationReturns(TypedDict):
-    remoteObject: RemoteObject
+    remoteObject: 'RemoteObject'
     """Corresponding remote object."""
 
 

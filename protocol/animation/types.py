@@ -11,80 +11,80 @@ if TYPE_CHECKING:
 
 class Animation(TypedDict, total=True):
     """Animation instance."""
-    id: str
+    id: 'str'
     """Animation's id."""
-    name: str
+    name: 'str'
     """Animation's name."""
-    pausedState: bool
+    pausedState: 'bool'
     """Animation's internal paused state."""
-    playState: str
+    playState: 'str'
     """Animation's play state."""
-    playbackRate: float
+    playbackRate: 'float'
     """Animation's playback rate."""
-    startTime: float
+    startTime: 'float'
     """Animation's start time. Milliseconds for time based animations and percentage [0 - 100] for scroll driven animations (i.e. when viewOrScrollTimeline exists)."""
-    currentTime: float
+    currentTime: 'float'
     """Animation's current time."""
-    type: Literal["CSSTransition", "CSSAnimation", "WebAnimation"]
+    type: 'Literal["CSSTransition", "CSSAnimation", "WebAnimation"]'
     """Animation type of Animation."""
-    source: NotRequired[AnimationEffect]
+    source: NotRequired['AnimationEffect']
     """Animation's source animation node."""
-    cssId: NotRequired[str]
+    cssId: NotRequired['str']
     """A unique ID for Animation representing the sources that triggered this CSS animation/transition."""
-    viewOrScrollTimeline: NotRequired[ViewOrScrollTimeline]
+    viewOrScrollTimeline: NotRequired['ViewOrScrollTimeline']
     """View or scroll timeline"""
 
 
 class ViewOrScrollTimeline(TypedDict, total=True):
     """Timeline instance"""
-    axis: ScrollOrientation
+    axis: 'ScrollOrientation'
     """Orientation of the scroll"""
-    sourceNodeId: NotRequired[BackendNodeId]
+    sourceNodeId: NotRequired['BackendNodeId']
     """Scroll container node"""
-    startOffset: NotRequired[float]
+    startOffset: NotRequired['float']
     """Represents the starting scroll position of the timeline as a length offset in pixels from scroll origin."""
-    endOffset: NotRequired[float]
+    endOffset: NotRequired['float']
     """Represents the ending scroll position of the timeline as a length offset in pixels from scroll origin."""
-    subjectNodeId: NotRequired[BackendNodeId]
+    subjectNodeId: NotRequired['BackendNodeId']
     """The element whose principal box's visibility in the scrollport defined the progress of the timeline. Does not exist for animations with ScrollTimeline"""
 
 
 class AnimationEffect(TypedDict, total=True):
     """AnimationEffect instance"""
-    delay: float
+    delay: 'float'
     """AnimationEffect's delay."""
-    endDelay: float
+    endDelay: 'float'
     """AnimationEffect's end delay."""
-    iterationStart: float
+    iterationStart: 'float'
     """AnimationEffect's iteration start."""
-    duration: float
+    duration: 'float'
     """AnimationEffect's iteration duration. Milliseconds for time based animations and percentage [0 - 100] for scroll driven animations (i.e. when viewOrScrollTimeline exists)."""
-    direction: str
+    direction: 'str'
     """AnimationEffect's playback direction."""
-    fill: str
+    fill: 'str'
     """AnimationEffect's fill mode."""
-    easing: str
+    easing: 'str'
     """AnimationEffect's timing function."""
-    iterations: NotRequired[float]
+    iterations: NotRequired['float']
     """AnimationEffect's iterations. Omitted if the value is infinite."""
-    backendNodeId: NotRequired[BackendNodeId]
+    backendNodeId: NotRequired['BackendNodeId']
     """AnimationEffect's target node."""
-    keyframesRule: NotRequired[KeyframesRule]
+    keyframesRule: NotRequired['KeyframesRule']
     """AnimationEffect's keyframes."""
 
 
 class KeyframesRule(TypedDict, total=True):
     """Keyframes Rule"""
-    keyframes: List[KeyframeStyle]
+    keyframes: 'List[KeyframeStyle]'
     """List of animation keyframes."""
-    name: NotRequired[str]
+    name: NotRequired['str']
     """CSS keyframed animation's name."""
 
 
 class KeyframeStyle(TypedDict, total=True):
     """Keyframe Style"""
-    offset: str
+    offset: 'str'
     """Keyframe's time offset."""
-    easing: str
+    easing: 'str'
     """AnimationEffect's timing function."""
 
